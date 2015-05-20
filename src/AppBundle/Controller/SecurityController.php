@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Validator\Validator;
 
@@ -19,7 +21,7 @@ class SecurityController extends Controller
     /**
      * @Route("/app/register", name="register")
      */
-    public function registerAction()
+    public function registerAction(Request $request)
     {
     	$person = new User();
         $json = $request->request->get('');

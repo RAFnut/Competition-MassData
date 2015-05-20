@@ -3,6 +3,11 @@ var rafatonApp = angular.module('rafatonApp', ['ngRoute']);
 
 rafatonApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
+    .when('/',  {
+        controller: 'HomeController', 
+        templateUrl: 'templates/home.html'
+    })
+
     .when('/register',  {
         controller: 'RegisterController', 
         templateUrl: 'templates/register.html'
@@ -16,12 +21,15 @@ rafatonApp.config(['$routeProvider', function ($routeProvider) {
 
 }]);
 
-
-stocksApp.controller('RegisterController', ["$scope", function ($scope) {
+rafatonApp.controller('HomeController', ["$scope", function ($scope) {
 
 }]);
 
-stocksApp.controller('LoginController', ["$scope", function ($scope) {
+rafatonApp.controller('RegisterController', ["$scope", function ($scope) {
+
+}]);
+
+rafatonApp.controller('LoginController', ["$scope", function ($scope) {
 
 }]);
 
