@@ -37,7 +37,7 @@ class SecurityController extends Controller
     	$errors = $validator->validate($person);
 
     	if (count($errors) > 0) {
-        	return new JsonResponse(print_r($errors, true));
+        	return new JsonResponse($serializer->serialize($errors, 'json'));
     	} else {
     		$em = $this->getDoctrine()->getManager();
 			$em->persist($person);
