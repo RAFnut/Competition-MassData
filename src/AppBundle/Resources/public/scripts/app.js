@@ -29,7 +29,7 @@ rafatonApp.controller('HomeController', ["$scope", function ($scope) {
 
 }]);
 
-rafatonApp.controller('RegisterController', ["$scope", function ($scope) {
+rafatonApp.controller('RegisterController', ["$scope",'$http', function ($scope, $http) {
 
         $scope.newUser = {};
         $( "#RegisterForm" ).submit(function( event ) {
@@ -38,6 +38,15 @@ rafatonApp.controller('RegisterController', ["$scope", function ($scope) {
                 password: $( "#InputPassword" ).val()
             };
             console.log($scope.newUser);
+            $http.post(Routing.generate('register'), $scope.newUser).
+                success(function(data, status, headers, config) {
+                    console.log(data);
+                }).
+                error(function(data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                });
+            
             event.preventDefault();
         });   
 
@@ -46,4 +55,5 @@ rafatonApp.controller('RegisterController', ["$scope", function ($scope) {
 rafatonApp.controller('LoginController', ["$scope", function ($scope) {
 
 }]);
+
 

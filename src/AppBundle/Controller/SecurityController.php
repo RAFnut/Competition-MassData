@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class SecurityController extends Controller
 {
     /**
-     * @Route("/app/register", name="register")
+     * @Route("/app/register", name="register", options={"expose"=true} )
      */
     public function registerAction()
     {

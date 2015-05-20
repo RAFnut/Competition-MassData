@@ -2,7 +2,12 @@
 <html>
 	<head>
         <link href="{{ asset('bundles/app/styles/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('bundles/app/styles/main.css') }}" rel="stylesheet">		
+        <link href="{{ asset('bundles/app/styles/main.css') }}" rel="stylesheet">	
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+		<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+
+	
 	</head>
 
 	<body ng-app="rafatonApp">
@@ -11,6 +16,7 @@
 
         <script type="text/javascript">
         	var dirTemplatesPath = "../bundles/app/scripts/";
+
         </script>
         <script src="{{ asset('bundles/app/scripts/jquery.min.js') }}"></script>
         <script src="{{ asset('bundles/app/scripts/bootstrap.min.js') }}"></script>
