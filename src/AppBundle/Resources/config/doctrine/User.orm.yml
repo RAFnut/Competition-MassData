@@ -1,4 +1,4 @@
-Polls\MainBundle\Entity\Admin:
+AppBundle\Entity\User:
   type: entity
   id:
     id:
