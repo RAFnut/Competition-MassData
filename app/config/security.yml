@@ -16,6 +16,11 @@ security:
             memory:
                 users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+        admins:
+            entity: { class: AppBundle\Entity\User, property: username }
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: plaintext
 
     firewalls:
         dev:
