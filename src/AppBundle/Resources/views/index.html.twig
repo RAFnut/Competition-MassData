@@ -1,1 +1,18 @@
 <!doctype>
+<html>
+	<head>
+        <link href="{{ asset('appbundle/styles/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('appbundle/style/main.css') }}" rel="stylesheet">		
+	</head>
+
+	<body ng-app="rafatonApp">
+        
+        <ng-view></ng-view>
+
+        <script src="{{ asset('appbundle/scripts/jquery.min.js') }}"></script>
+        <script src="{{ asset('appbundle/scripts/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('appbundle/scripts/angular.min.js') }}"></script>
+        <script src="{{ asset('appbundle/scripts/angular-route.min.js') }}"></script>
+        <script src="{{ asset('appbundle/scripts/app.js') }}"></script>
+	</body>
+</html>
