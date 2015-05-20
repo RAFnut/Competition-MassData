@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  */
 class User implements UserInterface, \Serializable
 {
-    
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
@@ -53,11 +53,15 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
      */
     private $username;
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
      */
     private $password;
 
@@ -135,5 +139,5 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-    
+
 }
