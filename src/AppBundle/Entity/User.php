@@ -135,14 +135,5 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
-    /**
-     * Get salt
-     *
-     * @return string 
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
+    
 }
