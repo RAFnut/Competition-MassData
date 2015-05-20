@@ -1,4 +1,1 @@
 services:
-#    polls_main.example:
-#        class: Polls\MainBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
