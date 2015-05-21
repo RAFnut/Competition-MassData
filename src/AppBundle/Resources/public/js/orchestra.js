@@ -23,7 +23,7 @@ O.tester1 = function (data){
 	console.log(data);
 }
 O.tester2 = function(data){
-	console.log("Error:" + data);
+	console.log(data);
 }
 
 var RegisterUser = function(email, username, password){

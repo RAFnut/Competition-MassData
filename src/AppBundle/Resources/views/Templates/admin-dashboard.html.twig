@@ -1,0 +1,70 @@
+<!doctype>
+<html>
+    <head>
+        {% include 'AppBundle:Templates:required-css.html.twig' %}
+        <link href="{{ asset('bundles/app/css/admin-dashboard.css') }}" rel="stylesheet">
+    </head>
+    <body>
+
+   <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Polls Admin</a>
+            </div>
+
+            {% block top_menu_items %}
+            <!-- Top Menu Items -->
+            {% endblock %}
+
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+            {% block menu %}
+                <ul class="nav navbar-nav side-nav">
+                    <li {% if active_home is defined %} class="active" {% endif %}>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout
+                        </a>
+                    </li>
+                </ul>
+            {% endblock %}
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+               {% block content %}
+
+               {% endblock %}
+
+       
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    {% block end_of_body %}
+    {% endblock %}
+
+    </body>
+</html>
