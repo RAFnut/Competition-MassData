@@ -2,47 +2,59 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Symfony\Component\Validator\Validator;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\User;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 class SecurityController extends Controller
 {
-    /**
-     * @Route("/app/register", name="register", options={"expose"=true} )
-     */
-    public function registerAction()
+	/*
+	* @Route("/app/register", name="register")
+	*/
+	public function registerAction(Request $request)
     {
-    	$person = new User();
-        $json = $this->get("request")->getContent();
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new GetSetMethodNormalizer());
+		$user = new User();      
 
-        $serializer = new Serializer($normalizers, $encoders);
+        $form = $this->createCreateForm($poll);
+        $form->handleRequest($request); 
 
-		$person = $serializer->deserialize($json, 'AppBundle\Entity\User', 'json');
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
 
-		$validator = $this->get('validator');
-    	$errors = $validator->validate($person);
+            return $this->redirect($this->generateUrl('success', array('id' => $poll->getId())));
+        }
 
-    	if (count($errors) > 0) {
-        	return new JsonResponse(print_r($errors, true));
-    	} else {
-    		$em = $this->getDoctrine()->getManager();
-			$em->persist($person);
-			$em->flush();
-        	return new JsonResponse('OK');
-    	}
+        return $this->render('AppBundle::register.html.twig', array(
+            'form'   => $form->createView(),
+        ));
+    }
+
+    private function createCreateForm(User $user)
+    {
+        $form = $this->createForm(new UserType(), $user, array(
+            'action' => $this->generateUrl(''),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Register!'));
+
+        return $form;
+    }
+    /*
+    * @Route("app/success", name="success" )
+    */
+    public function successAction($id)
+    {
+    	$user = $em->getRepository('AppBundle:User')->find($id);
+    	return $this->render('AppBundle::success.html.twig', array(
+            'user'   => $user,
+        ));
     }
 }
