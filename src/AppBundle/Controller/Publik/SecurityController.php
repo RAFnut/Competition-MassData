@@ -1,10 +1,11 @@
 <?php
 
-namespace AppBundle\Controller\Public;
+namespace AppBundle\Controller\Publik;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,12 +14,12 @@ use AppBundle\Entity\User;
 
 class SecurityController extends Controller
 {
-	/*
-	* @Route("/register", name="register")
-	*/
-	public function registerAction(Request $request)
+    /*
+    * @Route("/register", name="register")
+    */
+    public function registerAction(Request $request)
     {
-		$user = new User();      
+        $user = new User();      
 
         $form = $this->createCreateForm($poll);
         $form->handleRequest($request); 
@@ -52,14 +53,14 @@ class SecurityController extends Controller
     */
     public function successAction($id)
     {
-    	$user = $em->getRepository('AppBundle:User')->find($id);
-    	return $this->render('AppBundle:Public:success.html.twig', array(
+        $user = $em->getRepository('AppBundle:User')->find($id);
+        return $this->render('AppBundle:Public:success.html.twig', array(
             'user'   => $user,
         ));
     }
 
     /*
-    * @Route("/login", name="userLogin" )
+    * @Route("/", name="home" )
     */
     public function loginAction()
     {

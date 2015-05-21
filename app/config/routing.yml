@@ -8,8 +8,8 @@ app2:
     type:     annotation
     prefix: /admin
 
-app:
-    resource: "@AppBundle/Controller/Public/"
+app3:
+    resource: "@AppBundle/Controller/Publik/"
     type:     annotation
 
 fos_js_routing:
