@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class DefaultController extends Controller
+class UserUpdateController extends Controller
 {
     /**
      * @Route("/api/changePhoto", name="user_photo_change", options={"expose": true})
