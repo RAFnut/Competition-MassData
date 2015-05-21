@@ -1,0 +1,16 @@
+<!doctype>
+<html>
+<head>
+{% include 'AppBundle:Templates:required-css.html.twig' %}
+</head>
+
+<body>
+    {% block content %}
+
+    {% endblock %}
+
+    {% block scripts %}
+        {% include 'AppBundle:Templates:required-js.html.twig' %}
+    {% endblock %}
+</body>
+</html>

@@ -12,9 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\User;
 
-/**
- * @Route("/")
- */
 class SecurityController extends Controller
 {
     /**
