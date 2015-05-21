@@ -1,39 +1,52 @@
 <?php
 // src/Acme/PaymentBundle/Controller/PaymentController.php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Payment;
 
 use Payum\Core\Request\GetHumanStatus;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PaymentController extends Controller 
 {
-    public function prepareAction() 
+    /**
+    * @Route("/preparePayment", name="payment_prepare" )
+    */
+    public function prepareAction(Request $request)
     {
-        $gatewayName = 'offline';
+        $paymentName = 'paypal2';
 
-        $storage = $this->get('payum')->getStorage('Acme\PaymentBundle\Entity\Payment');
+        $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
 
-        $payment = $storage->create();
-        $payment->setNumber(uniqid());
-        $payment->setCurrencyCode('EUR');
-        $payment->setTotalAmount(123); // 1.23 EUR
-        $payment->setDescription('A description');
-        $payment->setClientId('anId');
-        $payment->setClientEmail('foo@example.com');
+        $order = $storage->create();
+        $order->setNumber(uniqid());
+        $order->setCurrencyCode('EUR');
+        $order->setTotalAmount(123); // 1.23 EUR
+        $order->setDescription('A description');
+        $order->setClientId('100');
+        $order->setClientEmail('foo@example.com');
 
-        $storage->update($payment);
+        $storage->update($order);
 
         $captureToken = $this->get('payum.security.token_factory')->createCaptureToken(
-            $gatewayName, 
-            $payment, 
-            'done' // the route to redirect after capture
+            $paymentName, 
+            $order, 
+            'payment_done' // the route to redirect after capture
         );
 
         return $this->redirect($captureToken->getTargetUrl());    
     }
-
+    /**
+    * @Route("/donePayment", name="payment_done" )
+    */
     public function doneAction(Request $request)
     {
         $token = $this->get('payum.security.http_request_verifier')->verify($request);
@@ -54,13 +67,6 @@ class PaymentController extends Controller
         // you have order and payment status 
         // so you can do whatever you want for example you can just print status and payment details.
 
-        return new JsonResponse(array(
-            'status' => $status->getValue(),
-            'payment' => array(
-                'total_amount' => $payment->getTotalAmount(),
-                'currency_code' => $payment->getCurrencyCode(),
-                'details' => $payment->getDetails(),
-            ),
-        ));
+        return new Response($status->getValue());
     }
 }

@@ -4,8 +4,41 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "253b25c8bfba4842fd0e4ed8f7b67909",
+    "hash": "22c33e78dc44de32ff68dd7e34e9793d",
     "packages": [
+        {
+            "name": "ajbdev/authorizenet-php-api",
+            "version": "v1.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ajbdev/authorizenet-php-api.git",
+                "reference": "ba4a652f9dee1141009be4fe5815ebee066b85eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ajbdev/authorizenet-php-api/zipball/ba4a652f9dee1141009be4fe5815ebee066b85eb",
+                "reference": "ba4a652f9dee1141009be4fe5815ebee066b85eb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/",
+                    "AuthorizeNet.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Authorize.NET PHP library with composer support",
+            "keywords": [
+                "authorize.net",
+                "ecommerce",
+                "payment"
+            ],
+            "time": "2013-02-11 21:09:06"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.4",
@@ -780,6 +813,38 @@
             "time": "2015-04-13 17:26:27"
         },
         {
+            "name": "fp/klarna-invoice",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/formapro/KlarnaInvoice.git",
+                "reference": "0bfa6c7db932b98dbcadb0665c5ed587c302d302"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/formapro/KlarnaInvoice/zipball/0bfa6c7db932b98dbcadb0665c5ed587c302d302",
+                "reference": "0bfa6c7db932b98dbcadb0665c5ed587c302d302",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.16",
+                "phpxmlrpc/phpxmlrpc": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Klarna.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Wrapper for the Klarna Invoice API",
+            "homepage": "http://developers.klarna.com",
+            "time": "2014-08-22 08:04:40"
+        },
+        {
             "name": "friendsofsymfony/jsrouting-bundle",
             "version": "1.5.4",
             "source": {
@@ -983,6 +1048,43 @@
                 "sql"
             ],
             "time": "2014-01-12 16:20:24"
+        },
+        {
+            "name": "klarna/checkout",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/klarna/kco_php.git",
+                "reference": "00d5ab4cb4a84252ba506c5e60c87e8ee71f7798"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/klarna/kco_php/zipball/00d5ab4cb4a84252ba506c5e60c87e8ee71f7798",
+                "reference": "00d5ab4cb4a84252ba506c5e60c87e8ee71f7798",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.16"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "~1.5",
+                "phpunit/phpunit": "~3.7",
+                "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Klarna": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Wrapper for the Klarna Checkout API",
+            "homepage": "http://developers.klarna.com",
+            "time": "2015-03-18 16:04:58"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1234,111 +1336,96 @@
             "time": "2015-03-09 09:58:04"
         },
         {
-            "name": "payum/core",
-            "version": "0.15.1",
-            "target-dir": "Payum/Core",
+            "name": "paypal/rest-api-sdk-php",
+            "version": "V0.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Payum/Core.git",
-                "reference": "8cfce6cfe6b42ae0d115a1ef96415f3d0a94192f"
+                "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
+                "reference": "9e09f7bff507e81cbb03d233c15c080fefd1d512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Payum/Core/zipball/8cfce6cfe6b42ae0d115a1ef96415f3d0a94192f",
-                "reference": "8cfce6cfe6b42ae0d115a1ef96415f3d0a94192f",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/9e09f7bff507e81cbb03d233c15c080fefd1d512",
+                "reference": "9e09f7bff507e81cbb03d233c15c080fefd1d512",
                 "shasum": ""
             },
             "require": {
-                "kriswallsmith/buzz": "~0.13",
-                "league/url": "~3.0",
-                "payum/iso4217": "~1.0",
-                "php": ">=5.3.2",
-                "twig/twig": "~1.0"
+                "ext-curl": "*",
+                "ext-json": "*",
+                "paypal/sdk-core-php": "1.2.*",
+                "php": ">=5.3.0"
             },
             "require-dev": {
-                "doctrine/mongodb": "1.0.*@dev",
-                "doctrine/mongodb-odm": "1.0.*@dev",
-                "doctrine/orm": "2.*",
-                "ext-curl": "*",
-                "ext-pdo_sqlite": "*",
-                "phpunit/phpunit": "~4.0",
-                "propel/propel1": "~1.7",
-                "psr/log": "~1.0",
-                "symfony/form": "~2.3",
-                "symfony/http-foundation": "~2.3",
-                "symfony/http-kernel": "~2.3",
-                "symfony/routing": "~2.3",
-                "symfony/validator": "~2.6",
-                "zendframework/zend-db": "~2"
-            },
-            "suggest": {
-                "doctrine/mongodb-odm": "If you want to store models to mongo doctrin2 ODM",
-                "doctrine/orm": "If you want to store models to database using doctrin2 ORM",
-                "monolog/monolog": "In case you want to use logger",
-                "payum/authorize-net-aim": "If you want to use Authorize.Net AIM payment gateway",
-                "payum/be2bill": "If you want to use be2bill payment gateway",
-                "payum/omnipay-bridge": "If you want to use omnipay's gateways",
-                "payum/payex": "If you want to use payex payment gateway",
-                "payum/paypal-express-checkout-nvp": "If you want to use paypal express checkout, digital goods or recurring payments",
-                "payum/paypal-ipn": "If you want to use paypal instant payment notifications(Paypal IPN)",
-                "payum/paypal-pro-checkout-nvp": "If you want to use paypal pro checkout",
-                "payum/paypal-rest": "If you want to use paypal rest gateway",
-                "propel/propel": "If you want to store models to Propel2 ORM",
-                "propel/propel1": "If you want to store models to Propel1 ORM",
-                "symfony/form": "If you want to use forms",
-                "symfony/http-foundation": "If you want to use HttpRequestVerifier or HttpResponse reply from symfony's bridge",
-                "symfony/http-kernel": "If you want to use HttpRequestVerifier from symfony's bridge",
-                "symfony/routing": "If you want to use TokenFactory from symfony's bridge",
-                "zendframework/zend-db": "If you want to store models to Zend Db ORM"
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.15-dev"
-                }
-            },
             "autoload": {
                 "psr-0": {
-                    "Payum\\Core\\": ""
+                    "PayPal": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "Apache2"
             ],
             "authors": [
                 {
-                    "name": "Community contributions",
-                    "homepage": "https://github.com/Payum/Payum/contributors"
-                },
-                {
-                    "name": "Kotlyar Maksim",
-                    "email": "kotlyar.maksim@gmail.com"
-                },
-                {
-                    "name": "Payum project",
-                    "homepage": "http://payum.org/"
+                    "name": "PayPal",
+                    "homepage": "https://github.com/paypal/rest-api-sdk-php/contributors"
                 }
             ],
-            "description": "Payum  offers everything you need to work with payments. From simplest use cases to very advanced ones.",
-            "homepage": "http://payum.org",
+            "description": "PayPal's PHP SDK for REST APIs",
+            "homepage": "https://github.com/paypal/rest-api-sdk-php",
             "keywords": [
-                "authorize.net",
-                "be2bill",
-                "instant payment notification",
-                "ipn",
-                "jms payment",
-                "omnipay",
-                "payex",
-                "payment",
+                "payments",
                 "paypal",
-                "paypal digital goods",
-                "paypal express",
-                "paypal pro",
-                "paypal rest",
-                "recurring payment"
+                "rest",
+                "sdk"
             ],
-            "time": "2015-04-28 06:14:45"
+            "time": "2013-03-08 02:11:59"
+        },
+        {
+            "name": "paypal/sdk-core-php",
+            "version": "V1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paypal/sdk-core-php.git",
+                "reference": "06588e5017a6c983168a3bd8e7093d7068974cd0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paypal/sdk-core-php/zipball/06588e5017a6c983168a3bd8e7093d7068974cd0",
+                "reference": "06588e5017a6c983168a3bd8e7093d7068974cd0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "PayPal",
+                    "homepage": "https://github.com/paypal/sdk-core-php/contributors"
+                }
+            ],
+            "description": "PayPal Core SDK for PHP",
+            "homepage": "https://github.com/paypal/sdk-core-php",
+            "keywords": [
+                "paypal",
+                "php",
+                "sdk"
+            ],
+            "time": "2013-03-06 13:21:44"
         },
         {
             "name": "payum/iso4217",
@@ -1405,26 +1492,73 @@
             "time": "2015-04-14 17:23:40"
         },
         {
-            "name": "payum/offline",
+            "name": "payum/payum",
             "version": "0.15.1",
-            "target-dir": "Payum/Offline",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Payum/Offline.git",
-                "reference": "dd5ca938ee53d293458816f8edcbf5159eb28faf"
+                "url": "https://github.com/Payum/Payum.git",
+                "reference": "ff3c668ef7e46de55998a71f0737de28cb71fe0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Payum/Offline/zipball/dd5ca938ee53d293458816f8edcbf5159eb28faf",
-                "reference": "dd5ca938ee53d293458816f8edcbf5159eb28faf",
+                "url": "https://api.github.com/repos/Payum/Payum/zipball/ff3c668ef7e46de55998a71f0737de28cb71fe0c",
+                "reference": "ff3c668ef7e46de55998a71f0737de28cb71fe0c",
                 "shasum": ""
             },
             "require": {
-                "payum/core": "0.15.*",
-                "php": ">=5.3.2"
+                "ajbdev/authorizenet-php-api": "1.1.*",
+                "ext-soap": "*",
+                "fp/klarna-invoice": "0.1.*",
+                "klarna/checkout": "~1|~2.0",
+                "kriswallsmith/buzz": "~0.13",
+                "league/url": "~3.0",
+                "paypal/rest-api-sdk-php": "0.5.*",
+                "payum/iso4217": "~1.0",
+                "php": ">=5.3.2",
+                "stripe/stripe-php": "~1.0",
+                "twig/twig": "~1.0"
+            },
+            "replace": {
+                "payum/authorize-net-aim": "self.version",
+                "payum/be2bill": "self.version",
+                "payum/core": "self.version",
+                "payum/klarna-checkout": "self.version",
+                "payum/klarna-invoice": "self.version",
+                "payum/offline": "self.version",
+                "payum/payex": "self.version",
+                "payum/paypal-express-checkout-nvp": "self.version",
+                "payum/paypal-ipn": "self.version",
+                "payum/paypal-pro-checkout-nvp": "self.version",
+                "payum/paypal-rest": "self.version",
+                "payum/stripe": "self.version"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "doctrine/mongodb": "1.0.*@dev",
+                "doctrine/mongodb-odm": "1.0.*@dev",
+                "doctrine/orm": "2.3.*",
+                "ext-curl": "*",
+                "ext-pdo_sqlite": "*",
+                "phpunit/phpunit": "~4.0",
+                "propel/propel1": "~1.7",
+                "psr/log": "~1.0",
+                "symfony/form": "~2.3",
+                "symfony/http-foundation": "~2.3",
+                "symfony/http-kernel": "~2.3",
+                "symfony/routing": "~2.3",
+                "symfony/validator": "~2.6",
+                "zendframework/zend-db": "~2"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm": "If you want to store models to mongo doctrin2 ODM",
+                "doctrine/orm": "If you want to store models to database using doctrin2 ORM",
+                "monolog/monolog": "In case you want to use PSR-3 logger",
+                "propel/propel": "If you want to store models to Propel2 ORM",
+                "propel/propel1": "If you want to store models to Propel1 ORM",
+                "symfony/form": "If you want to use forms",
+                "symfony/http-foundation": "If you want to use HttpRequestVerifier or HttpResponse reply from symfony's bridge",
+                "symfony/http-kernel": "If you want to use HttpRequestVerifier from symfony's bridge",
+                "symfony/routing": "If you want to use TokenFactory from symfony's bridge",
+                "zendframework/zend-db": "If you want to store models to Zend Db ORM"
             },
             "type": "library",
             "extra": {
@@ -1434,7 +1568,7 @@
             },
             "autoload": {
                 "psr-0": {
-                    "Payum\\Offline": ""
+                    "Payum": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1444,7 +1578,7 @@
             "authors": [
                 {
                     "name": "Community contributions",
-                    "homepage": "https://github.com/Payum/Offline/contributors"
+                    "homepage": "https://github.com/Payum/Payum/contributors"
                 },
                 {
                     "name": "Kotlyar Maksim",
@@ -1455,14 +1589,27 @@
                     "homepage": "http://payum.org/"
                 }
             ],
-            "description": "The Payum extension. It provides Offline payment integration.",
+            "description": "Payum offers everything you need to work with payments. From simplest use cases to very advanced ones.",
             "homepage": "http://payum.org",
             "keywords": [
-                "invoice",
-                "offlile",
-                "payment"
+                "authorize.net",
+                "be2bill",
+                "instant payment notification",
+                "ipn",
+                "jms payment",
+                "payex",
+                "payment",
+                "paypal",
+                "paypal digital goods",
+                "paypal express",
+                "paypal pro",
+                "paypal rest",
+                "recurring payment",
+                "stripe",
+                "stripe checkout",
+                "stripe.js"
             ],
-            "time": "2015-04-28 06:14:45"
+            "time": "2015-04-28 06:16:08"
         },
         {
             "name": "payum/payum-bundle",
@@ -1606,6 +1753,42 @@
                 "http"
             ],
             "time": "2015-04-13 16:50:21"
+        },
+        {
+            "name": "phpxmlrpc/phpxmlrpc",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gggeek/phpxmlrpc.git",
+                "reference": "490862c33009397151ac39c811b6ee8e24689692"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gggeek/phpxmlrpc/zipball/490862c33009397151ac39c811b6ee8e24689692",
+                "reference": "490862c33009397151ac39c811b6ee8e24689692",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/xmlrpc.inc",
+                    "lib/xmlrpcs.inc"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A php library for building xmlrpc clients and servers",
+            "homepage": "http://gggeek.github.io/phpxmlrpc/",
+            "keywords": [
+                "webservices",
+                "xmlrpc"
+            ],
+            "time": "2015-04-19 00:17:47"
         },
         {
             "name": "psr/http-message",
@@ -1850,6 +2033,54 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2015-04-21 07:52:05"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v1.18.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "022c3f21ec1e4141b46738bd5e7ab730d04f78cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/022c3f21ec1e4141b46738bd5e7ab730d04f78cc",
+                "reference": "022c3f21ec1e4141b46738bd5e7ab730d04f78cc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/Stripe/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "time": "2015-01-22 05:01:46"
         },
         {
             "name": "swiftmailer/swiftmailer",

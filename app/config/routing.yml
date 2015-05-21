@@ -12,6 +12,10 @@ app:
     type:     annotation
     prefix:   /app
 
+pay:
+    resource: "@AppBundle/Controller/Payment"
+    type:     annotation
+
 payum_capture:
     resource: "@PayumBundle/Resources/config/routing/capture.xml"
 

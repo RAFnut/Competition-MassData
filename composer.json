@@ -24,7 +24,9 @@
         "friendsofsymfony/jsrouting-bundle": "^1.5",
         "willdurand/geocoder": "^3.0",
         "payum/payum-bundle": "^0.15.0",
-        "payum/offline": "^0.15.1"
+        "payum/offline": "^0.15.1",
+        "payum/payum": "^0.15.1",
+        "payum/paypal-express-checkout-nvp": "^0.15.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
