@@ -7,3 +7,9 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    payum.buzz.client:
+        class: Buzz\Client\ClientInterface
+        factory_class: Payum\Core\Bridge\Buzz\ClientFactory
+        factory_method: createCurl
+        calls:
+            - [setVerifyPeer, [false]]

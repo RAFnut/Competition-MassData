@@ -12,15 +12,18 @@ app:
     type:     annotation
     prefix:   /app
 
-user_login_check:
-    pattern:  app/login-check
-user_logout:
-    pattern:  app/logout
+pay:
+    resource: "@AppBundle/Controller/Payment"
+    type:     annotation
 
-admin_login_check:
-    pattern:  admin/login-check
-admin_logout:
-    pattern:  admin/logout
+payum_capture:
+    resource: "@PayumBundle/Resources/config/routing/capture.xml"
+
+payum_authorize:
+    resource: "@PayumBundle/Resources/config/routing/authorize.xml"
+
+payum_notify:
+    resource: "@PayumBundle/Resources/config/routing/notify.xml"
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
