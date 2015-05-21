@@ -1,0 +1,7 @@
+AppBundle\Entity\PaymentToken:
+  type: entity
+  Id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY

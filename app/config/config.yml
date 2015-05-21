@@ -71,3 +71,27 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Payment
+payum:
+    security:
+        token_storage:
+            AppBundle\Entity\PaymentToken: { doctrine: orm }
+
+    storages:
+        AppBundle\Entity\Payment: { doctrine: orm }
+
+    gateways:
+        offline:
+            offline: ~
+        paypal:
+            payex:
+                sandbox: true
+                encryption_key: EODqOBuq3FjIFYRgkhyUktzzNz-6LqXqwTgHpfOfLhajdzmshHcmheZUs72LtsfVY23DZfdZo1D6OM8R
+                account_number: AS-gwCY6Bv1dDYK8TpBEZMtePrQ0NObh3jVqOqhoxxWwf0F8sx8s3zSiZc3cZOnk2_oeoO7kJ-N02mc2
+        paypal2:
+            paypal_express_checkout_nvp:
+                username:  filipdanic-facilitator_api1.yahoo.com
+                password:  P2447RSZCPGCJA6E
+                signature: ArkvFY20PUyaF73j14btIDomwNtFAw9CEnABfW7M3FiMzm36g38jWZeW
+                sandbox: true
