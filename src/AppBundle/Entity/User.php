@@ -14,7 +14,7 @@ class User implements UserInterface, \Serializable
 {
     public function __construct()
     {
-        $this->salt = md5(uniqid(null, true));
+        $this->salt = null;
     }
 
     /****************/
@@ -28,7 +28,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return array('ROLE_ADMIN');
+        return array('ROLE_USER');
     }
 
     public function eraseCredentials(){
@@ -162,5 +162,33 @@ class User implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
+    }
+    /**
+     * @var string
+     */
+    private $photo;
+
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     * @return User
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }

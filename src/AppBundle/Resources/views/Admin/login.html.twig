@@ -1,0 +1,11 @@
+<form action="{{ path('admin_login_check') }}" method="post">
+	{% if error %}
+		<div><strong>{{ error.message }}</strong></div>
+	{% endif %}
+	<input type="text" id="username" name="_username" placeholder="Your username...">
+	<label for="password">Password</label>
+	<input type="password" id="password" name="_password" placeholder="Your password...">
+	<input type="hidden" name="_target_path" value="{{ path('admin_home') }}" />
+
+	<button type="submit">Login</button>
+</form>

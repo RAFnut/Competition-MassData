@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\UserType;
 
 class SecurityController extends Controller
 {
@@ -21,7 +22,7 @@ class SecurityController extends Controller
     {
         $user = new User();      
 
-        $form = $this->createCreateForm($poll);
+        $form = $this->createCreateForm($user);
         $form->handleRequest($request); 
 
         if ($form->isValid()) {
@@ -29,7 +30,7 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('success', array('id' => $poll->getId())));
+            return $this->redirect($this->generateUrl('user_login'));
         }
 
         return $this->render('AppBundle:Publik:register.html.twig', array(
@@ -40,7 +41,7 @@ class SecurityController extends Controller
     private function createCreateForm(User $user)
     {
         $form = $this->createForm(new UserType(), $user, array(
-            'action' => $this->generateUrl(''),
+            'action' => $this->generateUrl('register'),
             'method' => 'POST',
         ));
 
@@ -50,20 +51,9 @@ class SecurityController extends Controller
     }
 
     /**
-    * @Route("/success", name="success" )
+    * @Route("/app/login", name="user_login" )
     */
-    public function successAction($id)
-    {
-        $user = $em->getRepository('AppBundle:User')->find($id);
-        return $this->render('AppBundle:Publik:success.html.twig', array(
-            'user'   => $user,
-        ));
-    }
-
-    /**
-    * @Route("/", name="home" )
-    */
-    public function indexAction()
+    public function loginAction()
     {
         $request = $this->getRequest();
         $session = $request->getSession();
@@ -79,12 +69,23 @@ class SecurityController extends Controller
         }
 
         return $this->render(
-            'AppBundle:Publik:index.html.twig',
+            'AppBundle:Publik:login.html.twig',
             array(
                 // last username entered by the user
                 'last_username' => $session->get(SecurityContext::LAST_USERNAME),
                 'error'         => $error,
             )
+        );
+    }
+    /**
+    * @Route("/", name="home" )
+    */
+    public function indexAction()
+    {
+
+
+        return $this->render(
+            'AppBundle:Publik:index.html.twig'
         );
     }
 }

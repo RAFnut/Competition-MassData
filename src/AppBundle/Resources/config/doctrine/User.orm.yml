@@ -21,4 +21,7 @@ AppBundle\Entity\User:
     salt:
       type: string
       length: 32
-      nullable: false
+      nullable: true
+    photo:
+      type: text
+      nullable: true
