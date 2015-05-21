@@ -18,11 +18,16 @@ class UserUpdateController extends Controller
      */
     public function changePhotoAction()
     {
-        $photo = $this->get('request')->request->get('data');
-        $usr = $this->get('security.context')->getToken()->getUser();
-        $usr->setPhoto($photo);
+        $jsonData = $this->get("request")->getContent();
 
-        return JsonResponse('Ok');
+        $usr = $this->get('security.context')->getToken()->getUser();
+        $usr->setPhoto($jsonData);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($usr);
+        $em->flush();
+
+        return new JsonResponse('Ok');
     }
 
 }

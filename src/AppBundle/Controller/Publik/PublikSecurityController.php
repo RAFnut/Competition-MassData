@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 
-class SecurityController extends Controller
+class PublikSecurityController extends Controller
 {
     /**
     * @Route("/register", name="register")

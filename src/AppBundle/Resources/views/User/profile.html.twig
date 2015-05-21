@@ -7,7 +7,10 @@
         {{ user.username }}
         <br>
         <br>
-        <input type="file" id="PhotoInput">
+            <input type="file" id="PhotoInput">
+        <br>
+        <br>
+            <img id="UserPhoto" src="{{ user.photo }}" />
         <br>
         <br>
 
@@ -31,14 +34,14 @@
         }
 
         O.changePhotoSuccess = function(data){
-            $("body").append("<img src='"+O.slika+"'>");
+            $("#UserPhoto").attr('src', O.slika);
         }
         O.changePhotoError = function(data){
             console.log(data);
         }
         function saveImage(input, imgData){
             var homePath = Routing.generate('user_photo_change');
-            O.sendAjaxRequest(homePath,imgData,O.changePhotoSuccess,O.changePhotoError);
+            O.sendAjaxRequest(homePath, imgData, O.changePhotoSuccess, O.changePhotoError);
         }
         </script>
     <body>
