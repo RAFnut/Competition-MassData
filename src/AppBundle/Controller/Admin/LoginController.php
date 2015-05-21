@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class LoginController extends Controller
 {
     /*
-    * @Route("/login", name="userLogin" )
+    * @Route("/login", name="admin_home" )
     */
     public function loginAction()
     {
