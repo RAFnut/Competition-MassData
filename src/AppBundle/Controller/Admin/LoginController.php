@@ -5,13 +5,17 @@ namespace AppBundle\Controller\Admin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * @Route("/admin")
+ */
 class LoginController extends Controller
 {
-    /*
+    /**
     * @Route("/login", name="admin_home" )
     */
     public function loginAction()
