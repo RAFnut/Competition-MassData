@@ -20,6 +20,24 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/profile", defaults={"id" = -1})
+     * @Route("/profile/{id}", name="user_profile", options={"expose": true})
+     */
+    public function profileAction($id)
+    {
+        if($id == -1){
+            $usr = $this->get('security.context')->getToken()->getUser();
+        }else{
+            $usr = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->getOneById($id);
+        }
+
+        return $this->render('AppBundle:User:profile.html.twig', 
+            array(
+                'user' => $usr,
+            ));
+    }
+
+    /**
      * @Route("/help", name="fica_help", options={"expose": true})
      * @Method({"GET", "POST"})
      */  
