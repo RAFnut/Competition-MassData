@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -53,15 +52,11 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(min=3)
      */
     private $username;
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(min=3)
      */
     private $password;
 
@@ -85,7 +80,7 @@ class User implements UserInterface, \Serializable
      * Set username
      *
      * @param string $username
-     * @return User
+     * @return Admin
      */
     public function setUsername($username)
     {
@@ -108,7 +103,7 @@ class User implements UserInterface, \Serializable
      * Set password
      *
      * @param string $password
-     * @return User
+     * @return Admin
      */
     public function setPassword($password)
     {
@@ -131,7 +126,7 @@ class User implements UserInterface, \Serializable
      * Set salt
      *
      * @param string $salt
-     * @return User
+     * @return Admin
      */
     public function setSalt($salt)
     {
