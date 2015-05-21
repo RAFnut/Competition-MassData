@@ -1,5 +1,15 @@
+app1:
+    resource: "@AppBundle/Controller/User/"
+    type:     annotation
+    prefix: /app
+
+app2:
+    resource: "@AppBundle/Controller/Admin/"
+    type:     annotation
+    prefix: /admin
+
 app:
-    resource: "@AppBundle/Controller/"
+    resource: "@AppBundle/Controller/Public/"
     type:     annotation
 
 fos_js_routing:
