@@ -12,5 +12,15 @@ app:
     type:     annotation
     prefix:   /app
 
+user_login_check:
+    pattern:  app/login-check
+user_logout:
+    pattern:  app/logout
+
+admin_login_check:
+    pattern:  admin/login-check
+admin_logout:
+    pattern:  admin/logout
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

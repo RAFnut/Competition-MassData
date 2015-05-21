@@ -14,7 +14,7 @@ class User implements UserInterface, \Serializable
 {
     public function __construct()
     {
-        $this->salt = md5(uniqid(null, true));
+        $this->salt = null;
     }
 
     /****************/

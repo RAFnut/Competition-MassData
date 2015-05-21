@@ -1,43 +1,36 @@
-# you can read more about security in the related section of the documentation
-# http://symfony.com/doc/current/book/security.html
 security:
-    # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
-    encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
 
-    # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
             memory:
                 users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-        admins:
+        users:
             entity: { class: AppBundle\Entity\User, property: username }
     encoders:
         AppBundle\Entity\User:
             algorithm: plaintext
+        Symfony\Component\Security\Core\User\User: 
+            algorithm: plaintext
 
     firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
-        secured_area:
-            pattern:    ^/demo/secured/
+        secured_area_users:
+            pattern:    ^/app
+            anonymous: ~
             form_login:
-                check_path: security_check
-                login_path: login
+                check_path: user_login_check
+                login_path: user_login
+                default_target_path: user_home
+                always_use_default_target_path: true
+                provider: users
             logout:
-                path:   logout
-                target: home
+                path:   user_logout
+                target: user_login
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/app/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app, roles: ROLE_USER }
