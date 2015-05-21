@@ -1,16 +1,16 @@
-app1:
-    resource: "@AppBundle/Controller/User/"
+admin:
+    resource: "@AppBundle/Controller/Admin"
     type:     annotation
-    prefix: /app
+    prefix:   /admin
 
-app2:
-    resource: "@AppBundle/Controller/Admin/"
+pub:
+    resource: "@AppBundle/Controller/Publik"
     type:     annotation
-    prefix: /admin
 
-app3:
-    resource: "@AppBundle/Controller/Publik/"
+app:
+    resource: "@AppBundle/Controller/User"
     type:     annotation
+    prefix:   /app
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
