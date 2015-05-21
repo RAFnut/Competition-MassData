@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class DefaultController extends Controller
+class UserDefaultController extends Controller
 {
     /**
      * @Route("/", name="user_home", options={"expose": true})
@@ -38,12 +38,4 @@ class DefaultController extends Controller
             ));
     }
 
-    /**
-     * @Route("/help", name="fica_help", options={"expose": true})
-     * @Method({"GET", "POST"})
-     */  
-    public function helpAction(Request $request)
-    {
-    	return new JsonResponse('OK');
-    }  
 }

@@ -1,36 +1,48 @@
+<!doctype>
+<html>
+    <head>
+    </head>
 
-{% include 'AppBundle:Templates:required-js.html.twig' %}
+    <body>
+        {{ user.username }}
+        <br>
+        <br>
+            <input type="file" id="PhotoInput">
+        <br>
+        <br>
+            <img id="UserPhoto" src="{{ user.photo }}" />
+        <br>
+        <br>
 
-{{ user.username }}
-
-<br>
-<br>
-
-<input type="file" id="photo">
-
-<br>
-<br>
-
-
-<script type="text/javascript">
-    
-$("#photo").change(function(){
-    readURL(this);
-});
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        
-        reader.onload = function (e) {
-            var slika = e.target.result;
-            saveImage(input, slika);
+        {% include 'AppBundle:Templates:required-js.html.twig' %}
+        <script type="text/javascript">
+            
+        $("#PhotoInput").change(function(){
+            readURL(this);
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    O.slika = e.target.result;
+                    saveImage(input, O.slika);
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
         }
-        
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
-function saveImage(input, imgData){
-      $("#polls_mainbundle_slider_photo").val(slika); 
-}
-</script>
+        O.changePhotoSuccess = function(data){
+            $("#UserPhoto").attr('src', O.slika);
+        }
+        O.changePhotoError = function(data){
+            console.log(data);
+        }
+        function saveImage(input, imgData){
+            var homePath = Routing.generate('user_photo_change');
+            O.sendAjaxRequest(homePath, imgData, O.changePhotoSuccess, O.changePhotoError);
+        }
+        </script>
+    <body>
+</html>

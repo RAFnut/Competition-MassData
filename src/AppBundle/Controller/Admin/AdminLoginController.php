@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class LoginController extends Controller
+class AdminLoginController extends Controller
 {
 
     /**
