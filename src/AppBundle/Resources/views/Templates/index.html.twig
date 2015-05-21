@@ -5,23 +5,16 @@
     <link href="{{ asset('bundles/app/styles/main.css') }}" rel="stylesheet">	
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-
-
-
 </head>
 
 <body>
-    
+    {% block content %}
+
+    {% endblock %}
     {% block scripts %}
-    <script type="text/javascript">
-    	var homePath = Router.generate('home');
-        console.log(homePath);
-    </script>
-    <script src="{{ asset('bundles/app/scripts/jquery.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/scripts/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/scripts/angular.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/scripts/angular-route.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/scripts/app.js') }}"></script>
+        <script src="{{ asset('bundles/app/scripts/jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/scripts/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/scripts/app.js') }}"></script>
     {% endblock %}
 </body>
 </html>

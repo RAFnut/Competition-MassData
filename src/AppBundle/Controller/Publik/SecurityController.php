@@ -6,15 +6,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
+use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\User;
 
+/**
+ * @Route("/")
+ */
 class SecurityController extends Controller
 {
-    /*
+    /**
     * @Route("/register", name="register")
     */
     public function registerAction(Request $request)
@@ -32,7 +35,7 @@ class SecurityController extends Controller
             return $this->redirect($this->generateUrl('success', array('id' => $poll->getId())));
         }
 
-        return $this->render('AppBundle:Public:register.html.twig', array(
+        return $this->render('AppBundle:Publik:register.html.twig', array(
             'form'   => $form->createView(),
         ));
     }
@@ -48,21 +51,22 @@ class SecurityController extends Controller
 
         return $form;
     }
-    /*
+
+    /**
     * @Route("/success", name="success" )
     */
     public function successAction($id)
     {
         $user = $em->getRepository('AppBundle:User')->find($id);
-        return $this->render('AppBundle:Public:success.html.twig', array(
+        return $this->render('AppBundle:Publik:success.html.twig', array(
             'user'   => $user,
         ));
     }
 
-    /*
+    /**
     * @Route("/", name="home" )
     */
-    public function loginAction()
+    public function indexAction()
     {
         $request = $this->getRequest();
         $session = $request->getSession();
@@ -78,7 +82,7 @@ class SecurityController extends Controller
         }
 
         return $this->render(
-            'AppBundle:Public:login.html.twig',
+            'AppBundle:Publik:index.html.twig',
             array(
                 // last username entered by the user
                 'last_username' => $session->get(SecurityContext::LAST_USERNAME),
