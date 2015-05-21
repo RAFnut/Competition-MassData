@@ -1,27 +1,27 @@
 <!doctype>
 <html>
-	<head>
-        <link href="{{ asset('bundles/app/styles/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('bundles/app/styles/main.css') }}" rel="stylesheet">	
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-		<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+<head>
+    <link href="{{ asset('bundles/app/styles/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/app/styles/main.css') }}" rel="stylesheet">	
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
 
-	
-	</head>
 
-	<body ng-app="rafatonApp">
-        
-        <ng-view></ng-view>
+</head>
 
-        <script type="text/javascript">
-        	var dirTemplatesPath = "../bundles/app/scripts/";
+<body ng-app="rafatonApp">
+    
+    <ng-view></ng-view>
 
-        </script>
-        <script src="{{ asset('bundles/app/scripts/jquery.min.js') }}"></script>
-        <script src="{{ asset('bundles/app/scripts/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bundles/app/scripts/angular.min.js') }}"></script>
-        <script src="{{ asset('bundles/app/scripts/angular-route.min.js') }}"></script>
-        <script src="{{ asset('bundles/app/scripts/app.js') }}"></script>
-	</body>
+    <script type="text/javascript">
+    	var dirTemplatesPath = "../bundles/app/scripts/";
+
+    </script>
+    <script src="{{ asset('bundles/app/scripts/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/scripts/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/scripts/angular.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/scripts/angular-route.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/scripts/app.js') }}"></script>
+</body>
 </html>
