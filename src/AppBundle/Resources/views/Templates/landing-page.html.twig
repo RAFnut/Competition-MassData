@@ -32,5 +32,9 @@
     {% block scripts %}
         {% include 'AppBundle:Templates:required-js.html.twig' %}
     {% endblock %}
+    <script type="text/javascript">
+        var homePath = Routing.generate('fica_help');
+        O.sendAjaxRequest(homePath,"ok",O.tester1,O.tester2);
+    </script>
 </body>
 </html>
