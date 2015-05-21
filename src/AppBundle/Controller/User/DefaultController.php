@@ -38,12 +38,4 @@ class DefaultController extends Controller
             ));
     }
 
-    /**
-     * @Route("/help", name="fica_help", options={"expose": true})
-     * @Method({"GET", "POST"})
-     */  
-    public function helpAction(Request $request)
-    {
-    	return new JsonResponse('OK');
-    }  
 }
