@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Public;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +14,7 @@ use AppBundle\Entity\User;
 class SecurityController extends Controller
 {
 	/*
-	* @Route("/app/register", name="register")
+	* @Route("/register", name="register")
 	*/
 	public function registerAction(Request $request)
     {
@@ -31,7 +31,7 @@ class SecurityController extends Controller
             return $this->redirect($this->generateUrl('success', array('id' => $poll->getId())));
         }
 
-        return $this->render('AppBundle::register.html.twig', array(
+        return $this->render('AppBundle:Public:register.html.twig', array(
             'form'   => $form->createView(),
         ));
     }
@@ -48,13 +48,41 @@ class SecurityController extends Controller
         return $form;
     }
     /*
-    * @Route("app/success", name="success" )
+    * @Route("/success", name="success" )
     */
     public function successAction($id)
     {
     	$user = $em->getRepository('AppBundle:User')->find($id);
-    	return $this->render('AppBundle::success.html.twig', array(
+    	return $this->render('AppBundle:Public:success.html.twig', array(
             'user'   => $user,
         ));
+    }
+
+    /*
+    * @Route("/login", name="userLogin" )
+    */
+    public function loginAction()
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(
+                SecurityContext::AUTHENTICATION_ERROR
+            );
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        return $this->render(
+            'AppBundle:Public:login.html.twig',
+            array(
+                // last username entered by the user
+                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'error'         => $error,
+            )
+        );
     }
 }
