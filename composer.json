@@ -26,7 +26,8 @@
         "payum/payum-bundle": "^0.15.0",
         "payum/offline": "^0.15.1",
         "payum/payum": "^0.15.1",
-        "payum/paypal-express-checkout-nvp": "^0.15.1"
+        "payum/paypal-express-checkout-nvp": "^0.15.1",
+        "spraed/pdf-generator-bundle": "v1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
