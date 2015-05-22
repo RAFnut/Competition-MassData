@@ -7,15 +7,23 @@
         {{ user.username }}
         <br>
         <br>
-            <input type="file" id="PhotoInput">
+            <input type="file" id="PhotoInput" accept="image/*">
         <br>
         <br>
             <img id="UserPhoto" src="{{ user.photo }}" />
         <br>
         <br>
 
+        <div id="GlavnaMapa" style="height: 500px; width: 500px;"></div>
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
+
         <script type="text/javascript">
+
+        var mapsApi = Routing.generate('map_get');
+        O.sendAjaxRequest(mapsApi,"ok", O.addToMap);
+
             
         $("#PhotoInput").change(function(){
             readURL(this);
