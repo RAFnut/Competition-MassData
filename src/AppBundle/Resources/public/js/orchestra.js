@@ -63,6 +63,41 @@ var O = {
 		if (newclass != undefined) headingElement = headingElement + " class='" + headingElement + "' ";
 		headingElement = headingElement + ">" + text + "</h"+type+">";
 		return headingElement;
+	},
+	/*Map functions*/
+	addToMap: function(data){
+			var map;
+            var bounds = new google.maps.LatLngBounds();
+            var mapOptions = {
+                mapTypeId: 'roadmap'
+            };
+
+            map = new google.maps.Map(document.getElementById("GlavnaMapa"), mapOptions);
+            map.setTilt(45);
+
+            var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+            for( i = 0; i < data.length; i++ ) {
+            var position = new google.maps.LatLng(data[i].lat,data[i].lng);
+            bounds.extend(position);
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: "Marker"
+            });
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    var content;
+                    var slika;
+                    content = "Content "+i;
+                    infoWindow.setContent(content);
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
+            map.fitBounds(bounds);    
+        }
+            
 	}
 }
 
@@ -93,3 +128,5 @@ var CurrentUser = function(username, mail, photo){
 	this.mail = mail;
 	this.photo = photo;
 }
+
+
