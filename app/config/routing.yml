@@ -17,6 +17,11 @@ goo:
     type:     annotation
     prefix:   /
 
+exp:
+    resource: "@AppBundle/Controller/Export"
+    type:     annotation
+    prefix:   /
+
 user_login_check:
     pattern:  app/login-check
 user_logout:
