@@ -13,3 +13,7 @@ services:
         factory_method: createCurl
         calls:
             - [setVerifyPeer, [false]]
+    my.listener:
+        class: AppBundle\EventListener\EntityListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
