@@ -191,4 +191,11 @@ class User implements UserInterface, \Serializable
     {
         return $this->photo;
     }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onCreate()
+    {       
+    }
 }
