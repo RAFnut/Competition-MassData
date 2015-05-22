@@ -25,3 +25,5 @@ AppBundle\Entity\User:
     photo:
       type: text
       nullable: true
+  lifecycleCallbacks:
+      postPersist: [onCreate]
