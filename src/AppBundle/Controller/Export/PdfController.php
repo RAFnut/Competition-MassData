@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Publik;
+namespace AppBundle\Controller\Export;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,12 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 
-class ExportPdfController extends Controller
+class PdfController extends Controller
 {
 	/**
     * @Route("/export/pdf", name="pdf_export")
     */
-	public function pdfExportAction()
+	public function pdfAction()
 	{
 		$html = $this->renderView('AppBundle:Publik:pdf.html.twig');
 		$pdfGenerator = $this->get('spraed.pdf.generator', 'UTF-8');	
