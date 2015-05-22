@@ -1,0 +1,24 @@
+AppBundle\Entity\GoogleMaps:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    lng:
+      type: string
+      length: 150
+      nullable: false
+    lat:
+      type: string
+      length: 150
+      nullable: false
+    title:
+      type: string
+      length: 255
+      nullable: false
+    description:
+      type: string
+      length: 255
+      nullable: true
