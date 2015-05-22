@@ -17,7 +17,7 @@ use AppBundle\Form\UserType;
 class PdfController extends Controller
 {
 	/**
-    * @Route("/export/pdf", name="pdf_export")
+    * @Route("/export/pdf", name="export_pdf")
     */
 	public function pdfAction()
 	{
