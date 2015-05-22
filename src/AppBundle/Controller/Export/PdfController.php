@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Publik;
+namespace AppBundle\Controller\Export;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
