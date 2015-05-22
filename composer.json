@@ -22,7 +22,6 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "^1.5",
-        "willdurand/geocoder": "^3.0",
         "payum/payum-bundle": "^0.15.0",
         "payum/offline": "^0.15.1",
         "payum/payum": "^0.15.1",
