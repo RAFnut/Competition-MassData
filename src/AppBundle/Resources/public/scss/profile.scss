@@ -152,7 +152,12 @@ body {
     border: 1px solid #c6c6c6;
 }
 
+.form-main > form > div{
+    display: inline-block;    
+}
+
 #appbundle_query_submit {
+
     width: 141px;
     height: 35px;
     margin-top: -2px;
