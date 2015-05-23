@@ -24,6 +24,16 @@ class UserDefaultController extends Controller
             ));
     }
 
+    /**
+     * @Route("/logout", name="logout", options={"expose": true})
+     */
+    public function logoutAction(Request $request)
+    {
+        $this->container->get('security.context')->setToken(NULL);
+        $this->container->get('session')->remove('user');
+
+        return $this->redirectToRoute('home');
+    }
 
 
 }
