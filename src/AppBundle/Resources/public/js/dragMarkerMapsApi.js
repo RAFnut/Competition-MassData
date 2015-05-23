@@ -40,8 +40,8 @@ map.setMapTypeId('map_style');
 map.setCenter(myMarker.position);
 myMarker.setMap(map);
 
-$("#Radius").change(function(){
-    var radiusnew = $("#Radius").val();
+$("#appbundle_query_radius").change(function(){
+    var radiusnew = $("#appbundle_query_radius").val();
     circle.setRadius( radiusnew * 1000);
 
 });
