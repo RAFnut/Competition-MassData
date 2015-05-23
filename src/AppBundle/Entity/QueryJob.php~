@@ -5,9 +5,9 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * QueryJob
  */
-class User
+class QueryJob
 {
     /**
      * @var integer
@@ -15,14 +15,14 @@ class User
     private $id;
 
     /**
-     * @var boolean
+     * @var \DateTime
      */
-    private $premium;
+    private $start_date;
 
     /**
-     * @var string
+     * @var \DateTime
      */
-    private $twitter;
+    private $end_date;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -30,9 +30,9 @@ class User
     private $query;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \AppBundle\SampleEntity
      */
-    private $queryJob;
+    private $user;
 
     /**
      * Constructor
@@ -40,7 +40,6 @@ class User
     public function __construct()
     {
         $this->query = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->queryJob = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -54,56 +53,56 @@ class User
     }
 
     /**
-     * Set premium
+     * Set start_date
      *
-     * @param boolean $premium
-     * @return User
+     * @param \DateTime $startDate
+     * @return QueryJob
      */
-    public function setPremium($premium)
+    public function setStartDate($startDate)
     {
-        $this->premium = $premium;
+        $this->start_date = $startDate;
 
         return $this;
     }
 
     /**
-     * Get premium
+     * Get start_date
      *
-     * @return boolean 
+     * @return \DateTime 
      */
-    public function getPremium()
+    public function getStartDate()
     {
-        return $this->premium;
+        return $this->start_date;
     }
 
     /**
-     * Set twitter
+     * Set end_date
      *
-     * @param string $twitter
-     * @return User
+     * @param \DateTime $endDate
+     * @return QueryJob
      */
-    public function setTwitter($twitter)
+    public function setEndDate($endDate)
     {
-        $this->twitter = $twitter;
+        $this->end_date = $endDate;
 
         return $this;
     }
 
     /**
-     * Get twitter
+     * Get end_date
      *
-     * @return string 
+     * @return \DateTime 
      */
-    public function getTwitter()
+    public function getEndDate()
     {
-        return $this->twitter;
+        return $this->end_date;
     }
 
     /**
      * Add query
      *
      * @param \AppBundle\Query $query
-     * @return User
+     * @return QueryJob
      */
     public function addQuery(\AppBundle\Query $query)
     {
@@ -133,35 +132,25 @@ class User
     }
 
     /**
-     * Add queryJob
+     * Set user
      *
-     * @param \AppBundle\QueryJob $queryJob
-     * @return User
+     * @param \AppBundle\SampleEntity $user
+     * @return QueryJob
      */
-    public function addQueryJob(\AppBundle\QueryJob $queryJob)
+    public function setUser(\AppBundle\SampleEntity $user = null)
     {
-        $this->queryJob[] = $queryJob;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Remove queryJob
+     * Get user
      *
-     * @param \AppBundle\QueryJob $queryJob
+     * @return \AppBundle\SampleEntity 
      */
-    public function removeQueryJob(\AppBundle\QueryJob $queryJob)
+    public function getUser()
     {
-        $this->queryJob->removeElement($queryJob);
-    }
-
-    /**
-     * Get queryJob
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getQueryJob()
-    {
-        return $this->queryJob;
+        return $this->user;
     }
 }
