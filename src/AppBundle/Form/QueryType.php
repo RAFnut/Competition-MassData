@@ -15,10 +15,10 @@ class QueryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lat')
-            ->add('lng')
+            ->add('lat', 'hidden')
+            ->add('lng', 'hidden')
             ->add('radius')
-            ->add('text')
+            ->add('text', 'text')
         ;
     }
     

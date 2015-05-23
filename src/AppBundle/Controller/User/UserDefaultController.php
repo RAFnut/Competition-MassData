@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class UserDefaultController extends Controller
 {
     /**
-     * @Route("/", name="profile", options={"expose": true})
+     * @Route("/marsupickumaterinuakoprobasovo", name="profile", options={"expose": true})
      */
     public function profileAction()
     {

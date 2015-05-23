@@ -25,9 +25,9 @@ var circle = new google.maps.Circle({
 circle.bindTo('center', myMarker , 'position');
 
 google.maps.event.addListener(myMarker, 'dragend', function(evt){
-    //console.log(evt.latLng.lat() + ' ----------- ' + evt.latLng.lng());
-    $("#LocationLong").val(evt.latLng.lng());
-    $("#LocationLati").val(evt.latLng.lat());
+  
+    $("#appbundle_query_lng").val(evt.latLng.lng());
+    $("#appbundle_query_lat").val(evt.latLng.lat());
 
 });
 
