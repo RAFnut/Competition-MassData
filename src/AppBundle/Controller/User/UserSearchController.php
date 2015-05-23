@@ -16,15 +16,13 @@ use AppBundle\Form\QueryType;
 use AppBundle\Entity\QueryJob;
 use AppBundle\Entity\User;
 
-use AppBundle\Controller\TwitterAPIExchange;
-
-
-class UserSearchontroller extends Controller
+class UserSearchController extends Controller
 {
     /**
      * @Route("/query/search/{qj}", name="search_query", options={"expose": true})
+     * @Route("/query/search/", name="search_query", options={"expose": true})
      */
-    public function searchQueryAction(Request $request, QueryJob $queryJob = NULL)
+    public function searchQueryAction(Request $request, QueryJob $queryJob=null)
     {
     	$query = new Query();
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
@@ -43,7 +41,7 @@ class UserSearchontroller extends Controller
             $em->flush();
         }
 
-        return $this->render('search-query.html.twig',);
+        return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView()));
     }
 
     private function createSearchForm(Query $query)
@@ -58,9 +56,10 @@ class UserSearchontroller extends Controller
         return $form;
     }
 
+
     private function callRequest(Query $query)
     {
-    	$settings = array(
+        $settings = array(
             $usr = $this->get('security.context')->getToken()->getUser()->getUser();
             'oauth_access_token' => $usr->getToken(),
             'oauth_access_token_secret' => $usr->getSecret(),
