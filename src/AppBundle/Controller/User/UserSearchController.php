@@ -28,18 +28,18 @@ class UserSearchController extends Controller
      */
     public function searchQueryAction(Request $request, QueryJob $queryJob=null)
     {
-    	$query = new Query();
+        $query = new Query();
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $form = $this->createSearchForm($query);
         $form->handleRequest($request);
 
         if ($form->isValid()){
-        	$em = $this->getDoctrine()->getManager();
-        	$query->setQueryJob($queryJob);
-        	$query->setUser($user);
-        	$query->setDate(new \DateTime('now'));
+            $em = $this->getDoctrine()->getManager();
+            $query->setQueryJob($queryJob);
+            $query->setUser($user);
+            $query->setDate(new \DateTime('now'));
 
-        	$this->callRequest($query);
+            $this->callRequest($query);
 
             $em->persist($query);
             $em->flush();
@@ -51,6 +51,38 @@ class UserSearchController extends Controller
     private function createSearchForm(Query $query)
     {
         $form = $this->createForm(new QueryType(), $query, array(
+            'action' => $this->generateUrl('search_query'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Search'));
+
+        return $form;
+    }
+
+    /**
+     * @Route("/job/new", name="job_new", options={"expose": true})
+     */
+    public function searchJobAction(Request $request)
+    {
+        $query = new QueryJob();
+        $user = $this->get('security.context')->getToken()->getUser()->getUser();
+        $form = $this->createJobForm($query);
+        $form->handleRequest($request);
+
+        if ($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($query);
+            $em->flush();
+        }
+
+        return $this->render('AppBundle:User:search-jobs.html.twig', array('form' => $form->createView()));
+    }
+
+    private function createJobForm(QueryJob $query)
+    {
+        $form = $this->createForm(new QueryJobType(), $query, array(
             'action' => $this->generateUrl('search_query'),
             'method' => 'POST',
         ));
