@@ -108,37 +108,38 @@ body {
   width: 900px;
   margin: 0 auto; }
 
-#keywordField {
+#appbundle_query_text {
   width: 525px;
   height: 35px;
   padding-left: 10px;
   border-radius: 5px;
   border: 1px solid #c6c6c6; }
 
-#Radius {
+#appbundle_query_radius {
   width: 225px;
   height: 35px;
   padding-left: 10px;
   border-radius: 5px;
   border: 1px solid #c6c6c6; }
 
-.btn-search {
-  width: 141px;
+.form-main > form > div {
+  display: inline-block; }
+
+#appbundle_query_submit {
+  width: 142px;
   height: 35px;
-  margin-top: -2px;
-  padding-top: 4px;
   padding-left: 10px;
   border-radius: 5px;
   background: #E22028;
   border: 1px solid #E22028;
   color: white; }
 
-.btn-search:hover {
+#appbundle_query_submit:hover {
   color: white;
   background: #c70008;
   transition: 0.5s all; }
 
-.btn-search:focus {
+#appbundle_query_submit:focus {
   color: white; }
 
 /*# sourceMappingURL=profile.css.map */
