@@ -21,7 +21,7 @@ class UserPremiumController extends Controller
     }
 
      /**
-     * @Route("/premium/listJobs", name="jobs_list", options={"expose": true})
+     * @Route("/premium/listJobs", name="premium_jobs_list", options={"expose": true})
      */
      public function listJobsAction()
      {
@@ -34,7 +34,7 @@ class UserPremiumController extends Controller
      }   
 
      /**
-     * @Route("/premium/history", name="queries_list", options={"expose": true})
+     * @Route("/premium/history", name="premium_queries_list", options={"expose": true})
      */
      public function listJobsAction()
      {
