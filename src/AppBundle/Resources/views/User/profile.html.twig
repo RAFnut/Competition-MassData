@@ -2,19 +2,42 @@
 <!doctype>
 <html>
     <head>
+        {% include 'AppBundle:Templates:required-css.html.twig' %}
+        <link href="{{ asset('bundles/app/css/profile.css') }}" rel="stylesheet">
     </head>
 
     <body>
-        {{ user.tid }}
-        <br>
-        <br>
-            <input type="file" id="PhotoInput" accept="image/*">
-        <br>
-        <br>
-        <br>
-        <br>
+        
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+            <div class="logo-holder">
+                <a href="#"><img src="{{ asset('bundles/app/img/logo.png') }}"></a>
+            </div>
+            </div>
 
-        <div id="GlavnaMapa" style="height: 500px; width: 500px;"></div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+              <ul class="nav navbar-nav navbar-right">
+
+                <li><button type="submit" id="active" class="btn btn-navigation">Home</button></li>
+                <li><a href="#"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
+                <li><a href="#"><button type="submit" class="btn btn-navigation">History</button></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        
+        <div id="SelectMap"></div>
+        <div class="form-main">
+            <input type="text" id="keywordField" placeholder="Keyword" name="Radius" >
+            <input type="number" id="Radius" name="Radius" placeholder="Radius in kilometers" possitve min=1>
+            <button type="submit" class="btn btn-search">Search</button>
+            <input type="text" id="LocationLong" name="LocationLong1" hidden>
+            <input type="text" id="LocationLati" name="LocationLati1" hidden>
+        </div>
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
