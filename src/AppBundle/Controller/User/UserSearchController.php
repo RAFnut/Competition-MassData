@@ -16,6 +16,9 @@ use AppBundle\Form\QueryType;
 use AppBundle\Entity\QueryJob;
 use AppBundle\Entity\User;
 
+use AppBundle\Controller\TwitterAPIExchange;
+
+
 class UserSearchontroller extends Controller
 {
     /**
@@ -34,7 +37,7 @@ class UserSearchontroller extends Controller
         	$query->setUser($user);
         	$query->setDate(new \DateTime('now'));
 
-        	callRequest($query);
+        	$this->callRequest($query);
 
             $em->persist($query);
             $em->flush();
@@ -57,6 +60,27 @@ class UserSearchontroller extends Controller
 
     private function callRequest(Query $query)
     {
-    	
+    	$settings = array(
+            $usr = $this->get('security.context')->getToken()->getUser()->getUser();
+            'oauth_access_token' => $usr->getToken(),
+            'oauth_access_token_secret' => $usr->getSecret(),
+            'consumer_key' => "O9lrX7A0iVOifwFhrtrfY40PF",
+            'consumer_secret' => "LTnannEhUBCpKd84aZjRtsCmXBIZN6JnYUscp9FCYNU3n6m8Zc"
+        );
+        $url = 'https://api.twitter.com/1.1/search/tweets.json';
+        $requestMethod = 'GET';
+        $postfields = array(
+            'q' => $query->getText(),
+            'geocode' => $query->getLat().",".
+             $query->getLng().",".
+             $query->getRadius(), 
+            'count' => '100', 
+            'include_entities' => 'true'
+        );
+        $twitter = new TwitterAPIExchange($settings);
+        echo $twitter->buildOauth($url, $requestMethod)
+            ->setPostfields($postfields)
+            ->performRequest();
+        return;
     }
 }
