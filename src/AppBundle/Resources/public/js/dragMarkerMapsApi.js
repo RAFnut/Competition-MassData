@@ -18,8 +18,8 @@ var myMarker = new google.maps.Marker({
 var circle = new google.maps.Circle({
   map: map,
   radius: 16093,    // 10 miles in metres
-  fillColor: '#e4e4e4',
-  strokeColor: '#000',
+  fillColor: '#005791',
+  strokeColor: '#005791',
   strokeWeight: 1
 });
 circle.bindTo('center', myMarker , 'position');
