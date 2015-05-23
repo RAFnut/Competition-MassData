@@ -16,12 +16,13 @@ use AppBundle\Form\QueryType;
 use AppBundle\Entity\QueryJob;
 use AppBundle\Entity\User;
 
-class UserSearchontroller extends Controller
+class UserSearchController extends Controller
 {
     /**
      * @Route("/query/search/{qj}", name="search_query", options={"expose": true})
+     * @Route("/query/search/", name="search_query", options={"expose": true})
      */
-    public function searchQueryAction(Request $request, QueryJob $queryJob = NULL)
+    public function searchQueryAction(Request $request, QueryJob $queryJob=null)
     {
     	$query = new Query();
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
@@ -34,13 +35,13 @@ class UserSearchontroller extends Controller
         	$query->setUser($user);
         	$query->setDate(new \DateTime('now'));
 
-        	callRequest($query);
+        	$this->callRequest($query);
 
             $em->persist($query);
             $em->flush();
         }
 
-        return $this->render('search-query.html.twig',);
+        return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView()));
     }
 
     private function createSearchForm(Query $query)
