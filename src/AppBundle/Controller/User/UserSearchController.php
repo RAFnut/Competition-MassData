@@ -79,6 +79,7 @@ class UserSearchController extends Controller
              $query->getLng().",".
              $query->getRadius()."km"."&".
             'count' ."=".'100'."&".
+            'result_type' ."=".'recent'."&".
             'include_entities'."=".'true'
         ;
         
