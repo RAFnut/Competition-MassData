@@ -289,6 +289,10 @@ class TwitterAPIExchange
 
         $feed = curl_init();
         curl_setopt_array($feed, $options);
+        curl_setopt ($feed, CURLOPT_CAINFO, "c:/Users/Andrej/cacert.pem");
+        //curl_setopt($feed, CURLOPT_SSL_VERIFYHOST, 0);
+        //curl_setopt($feed, CURLOPT_SSL_VERIFYPEER, 0);
+
         $json = curl_exec($feed);
 
         if (($error = curl_error($feed)) !== '')

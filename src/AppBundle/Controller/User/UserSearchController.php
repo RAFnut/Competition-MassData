@@ -16,6 +16,8 @@ use AppBundle\Form\QueryType;
 use AppBundle\Entity\QueryJob;
 use AppBundle\Entity\User;
 
+use AppBundle\Controller\TwitterAPIExchange;
+
 class UserSearchController extends Controller
 {
     /**
@@ -59,8 +61,8 @@ class UserSearchController extends Controller
 
     private function callRequest(Query $query)
     {
+        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
         $settings = array(
-            $usr = $this->get('security.context')->getToken()->getUser()->getUser();
             'oauth_access_token' => $usr->getToken(),
             'oauth_access_token_secret' => $usr->getSecret(),
             'consumer_key' => "O9lrX7A0iVOifwFhrtrfY40PF",
@@ -72,7 +74,7 @@ class UserSearchController extends Controller
             'q' => $query->getText(),
             'geocode' => $query->getLat().",".
              $query->getLng().",".
-             $query->getRadius(), 
+             $query->getRadius()."km", 
             'count' => '100', 
             'include_entities' => 'true'
         );
