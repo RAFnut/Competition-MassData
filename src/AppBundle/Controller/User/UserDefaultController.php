@@ -13,29 +13,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class UserDefaultController extends Controller
 {
     /**
-     * @Route("/", name="user_home", options={"expose": true})
+     * @Route("/", name="profile", options={"expose": true})
      */
-    public function indexAction()
+    public function profileAction()
     {
-        return $this->render('AppBundle:User:index.html.twig');
-    }
-
-    /**
-     * @Route("/profile", defaults={"id" = -1})
-     * @Route("/profile/{id}", name="user_profile", options={"expose": true})
-     */
-    public function profileAction($id)
-    {
-        if($id == -1){
-            $usr = $this->get('security.context')->getToken()->getUser();
-        }else{
-            $usr = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->getOneById($id);
-        }
-
-        return $this->render('AppBundle:User:profile.html.twig', 
-            array(
-                'user' => $usr,
+        $usr = $this->get('security.context')->getToken()->getUser();
+        return $this->render('AppBundle:User:profile.html.twig', array(
+            'user' => $usr,
+            'premium' => $usr->getPremium()
             ));
     }
+
+
 
 }
