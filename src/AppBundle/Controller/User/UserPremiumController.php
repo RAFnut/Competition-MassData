@@ -36,7 +36,7 @@ class UserPremiumController extends Controller
      /**
      * @Route("/premium/history", name="premium_queries_list", options={"expose": true})
      */
-     public function listJobsAction()
+     public function listQueriesAction()
      {
         $usr = $this->get('security.context')->getToken()->getUser();
         $lista = $usr->getQuery();
