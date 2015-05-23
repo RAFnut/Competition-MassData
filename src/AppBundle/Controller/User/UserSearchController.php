@@ -21,6 +21,8 @@ class UserSearchController extends Controller
     /**
      * @Route("/query/search/{qj}", name="search_query", options={"expose": true})
      * @Route("/query/search/", name="search_query", options={"expose": true})
+     * @Route("/profile", name="search_query", options={"expose": true})
+     * @Route("/", name="profile", options={"expose": true})
      */
     public function searchQueryAction(Request $request, QueryJob $queryJob=null)
     {
@@ -51,7 +53,7 @@ class UserSearchController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Register!'));
+        $form->add('submit', 'submit', array('label' => 'Search'));
 
         return $form;
     }
