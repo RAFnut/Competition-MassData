@@ -95,3 +95,12 @@ payum:
                 password:  P2447RSZCPGCJA6E
                 signature: ArkvFY20PUyaF73j14btIDomwNtFAw9CEnABfW7M3FiMzm36g38jWZeW
                 sandbox: true
+hwi_oauth:
+    firewall_name: secured_area
+    resource_owners:
+        twitter:
+            type:                twitter
+            client_id:           O9lrX7A0iVOifwFhrtrfY40PF
+            client_secret:       LTnannEhUBCpKd84aZjRtsCmXBIZN6JnYUscp9FCYNU3n6m8Zc
+    http_client:
+        verify_peer: false
