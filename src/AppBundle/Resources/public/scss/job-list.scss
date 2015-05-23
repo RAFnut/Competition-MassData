@@ -7,7 +7,8 @@ $sing-up-button-active: #3f8bbe;
 $sing-up-button-hover: #3f8bbe;
 $search-button-color: #E22028;
 $search-button-color-hover: #c70008;
-$table-heading-color: #4582ac;
+$table-heading-color: #016FB9;
+$border-table-color:  #005791;
 
 body {
     font-family: $font-family;
@@ -81,9 +82,10 @@ body {
 
 .table {
     width: 1100px;
-    height: 500px;
+    height: auto;
     background: white;
     margin: 0 auto;
+    margin-top: 60px;
 }
 
 table {
@@ -94,15 +96,15 @@ th {
     width: 25%;
     background: $table-heading-color;
      padding: 15px 15px 15px 15px;
-    border: 1px solid $header-color;
+    border: 1px solid $border-table-color;
     color: white;
     font-weight: 400;
 }
 
 td {
-    border: 1px solid $header-color;
-     padding: 10px 10px 10px 10px;
-    font-size: 14px;
+    border: 1px solid $border-table-color;
+     padding: 10px 10px 10px 15px;
+    font-size: 12px;
 }
 
 .btn-create-new {
@@ -111,6 +113,19 @@ td {
 }
 
 .btn-create-new:hover {
+    background: $search-button-color-hover;
+    color: white;
+    transition: 0.5s all;
+}
+
+.btn-view-track {
+     width: 80%;
+     margin-left: 10%;
+    font-size: 12px;
+     background: $search-button-color;
+}
+
+.btn-view-track:hover {
     background: $search-button-color-hover;
     color: white;
     transition: 0.5s all;
