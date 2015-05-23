@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Entity\Query;
 use AppBundle\Form\QueryType;
+use AppBundle\Form\QueryJobType;
 
 use AppBundle\Entity\QueryJob;
 use AppBundle\Entity\User;
