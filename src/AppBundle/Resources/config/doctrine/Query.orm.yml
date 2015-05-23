@@ -23,17 +23,17 @@ AppBundle\Entity\Query:
       nullable: true
   oneToMany:
     tweet:
-      targetEntity: AppBundle\Entity\Tweet
+      targetEntity: Tweet
       mappedBy: query
   manyToOne:
     queryJob:
-      targetEntity: AppBundle\Entity\QueryJob
+      targetEntity: QueryJob
       inversedBy: query
       joinColumns:
         query_job_id:
           referencedColumnName: id
     user:
-      targetEntity: AppBundle\Entity\User
+      targetEntity: User
       inversedBy: query
       joinColumns:
         user_id:

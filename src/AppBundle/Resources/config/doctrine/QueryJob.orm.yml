@@ -14,11 +14,11 @@ AppBundle\Entity\QueryJob:
       nullable: true
   oneToMany:
     query:
-      targetEntity: AppBundle\Entity\Query
+      targetEntity: Query
       mappedBy: queryJob
   manyToOne:
     user:
-      targetEntity: AppBundle\Entity\User
+      targetEntity: User
       inversedBy: queryJob
       joinColumns:
         user_id:

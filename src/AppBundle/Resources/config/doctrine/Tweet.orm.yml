@@ -20,7 +20,7 @@ AppBundle\Entity\Tweet:
       nullable: true
   manyToOne:
     query:
-      targetEntity: AppBundle\Entity\Query
+      targetEntity: Query
       inversedBy: tweet
       joinColumns:
         query_id:
