@@ -146,6 +146,8 @@ class Provider extends OAuthUserProvider
         if ($user == null) {
             $user = new User();
 
+            $user->setSecret($response->getTokenSecret());
+            $user->setToken($response->getAccessToken());        
             //change these only the user hasn't been registered before.
 
         }

@@ -15,10 +15,18 @@ AppBundle\Entity\User:
       type: string
       length: 255
       nullable: true
+    secret:
+      type: string
+      length: 255
+      nullable: true
+    token:
+      type: string
+      length: 255
+      nullable: true
   oneToMany:
     query:
-      targetEntity: AppBundle\Entity\Query
+      targetEntity: Query
       mappedBy: user
     queryJob:
-      targetEntity: AppBundle\Entity\QueryJob
+      targetEntity: QueryJob
       mappedBy: user
