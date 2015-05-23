@@ -17,7 +17,7 @@ class QueryType extends AbstractType
         $builder
             ->add('lat', 'hidden')
             ->add('lng', 'hidden')
-            ->add('radius')
+            ->add('radius', 'integer')
             ->add('text', 'text')
         ;
     }
