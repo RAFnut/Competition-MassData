@@ -152,11 +152,13 @@ body {
     border: 1px solid #c6c6c6;
 }
 
+.form-main > form > div{
+    display: inline-block;    
+}
+
 #appbundle_query_submit {
-    width: 141px;
+    width: 142px;
     height: 35px;
-    margin-top: -2px;
-    padding-top: 4px;
     padding-left: 10px;
     border-radius: 5px;
     background: $search-button-color;
