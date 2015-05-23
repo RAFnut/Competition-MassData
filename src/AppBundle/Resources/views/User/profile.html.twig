@@ -35,19 +35,19 @@
             <input type="text" id="keywordField" placeholder="Keyword" name="Radius" >
             <input type="number" id="Radius" name="Radius" placeholder="Radius in kilometers" possitve min=1>
             <button type="submit" class="btn btn-search">Search</button>
-            <input type="text" id="LocationLong" name="LocationLong1" hidden>
-            <input type="text" id="LocationLati" name="LocationLati1" hidden>
+            <input type="text" id="LocationLong" name="LocationLong1" hidden value="42.930719">
+            <input type="text" id="LocationLati" name="LocationLati1" hidden value="-75.254394">
         </div>
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
-
+        <script type="text/javascript" src="{{ asset('bundles/app/js/dragMarkerMapsApi.js') }}"></script>
         <script type="text/javascript">
-
+        /* ajax primer   
         var mapsApi = Routing.generate('map_get');
         O.sendAjaxRequest(mapsApi,"ok", O.addToMap);
 
-            
+          
         $("#PhotoInput").change(function(){
             readURL(this);
         });
@@ -74,6 +74,7 @@
             var homePath = Routing.generate('user_photo_change');
             O.sendAjaxRequest(homePath, imgData, O.changePhotoSuccess, O.changePhotoError);
         }
+        */
         </script>
     <body>
 </html>
