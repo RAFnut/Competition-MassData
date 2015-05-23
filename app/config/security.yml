@@ -5,7 +5,8 @@ security:
 
     providers:
         my_custom_hwi_provider:
-            id: hwi_oauth.user.provider.entity
+            id: hwi_oauth.user.provider.service
+
     firewalls:
         secured_area:
             pattern:    ^/
@@ -17,7 +18,7 @@ security:
                 failure_path:      home
 
                 oauth_user_provider:
-                    service: hwi_oauth.user.provider.entity
+                    service: hwi_oauth.user.provider.service
 
     access_control:
         - { path: ^/home, roles: IS_AUTHENTICATED_ANONYMOUSLY }

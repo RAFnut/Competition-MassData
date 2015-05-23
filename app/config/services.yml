@@ -19,7 +19,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postPersist }
 
-    hwi_oauth.user.provider.entity:
+    hwi_oauth.user.provider.service:
         class: AppBundle\Provider\Provider
         arguments: [@session, @doctrine, @admin.checker, @request_stack]
     admin.checker:

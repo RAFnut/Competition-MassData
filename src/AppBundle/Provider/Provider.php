@@ -84,7 +84,7 @@ class Provider extends OAuthUserProvider
             $isFacebook = true;
         if(strpos($uri, '/login_live') !== false)
             $isLive = true;
-        if(strpos($uri, '/login/twitter') !== false)
+        if(strpos($uri, '/login/check-twitter') !== false)
             $isTwitter = true;
 
         if($isGoogle === false && $isFacebook === false && $isLive === false && $isTwitter === false)
@@ -147,9 +147,7 @@ class Provider extends OAuthUserProvider
             $user = new User();
 
             //change these only the user hasn't been registered before.
-            $user->setNickname($nickname);
-            $user->setRealname($realName);
-            $user->setAvatar($avatar);
+
         }
 
 
@@ -163,30 +161,12 @@ class Provider extends OAuthUserProvider
             $user->setTid($social_id);
 
 
-        $user->setLastLogin(new \DateTime('now'));
-        $user->setSocial($social);
+        //$user->setLastLogin(new \DateTime('now'));
+        //$user->setSocial($social);
 
         // SET E-MAIL
         //if all emails are empty, set the first one to this one.
-        if ($user->getEmail() == "") {
-            $user->setEmail($email);
-        } else {
-            //if it really is an e-mail, try putting it in email2 or email3
-            if($email != "") {
-                //is the e-mail different than the previous one?
-                if($email != $user->getEmail()) {
-                    //if there an e-mail in email2? no:
-                    if ($user->getEmail2() == "") {
-                        $user->setEmail2($email);
-                    } else {
-                        //there is an e-mail in email2 and it's different. fall back to setting the user3 to w/e.
-                        if ($user->getEmail2() != $email) {
-                            $user->setEmail3($email);
-                        }
-                    }
-                }
-            }
-        }
+        
 
         //save all changes
         $em = $this->doctrine->getManager();
@@ -209,6 +189,6 @@ class Provider extends OAuthUserProvider
      */
     public function supportsClass($class)
     {
-        return $class === 'CodeMe\\TheBundle\\Provider\\OAuthUser';
+        return $class === 'AppBundle\\Provider\\OAuthUser';
     }
 }
