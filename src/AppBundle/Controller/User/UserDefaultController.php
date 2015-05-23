@@ -23,7 +23,5 @@ class UserDefaultController extends Controller
             'premium' => $usr->getPremium()
             ));
     }
-
-
-
+    
 }

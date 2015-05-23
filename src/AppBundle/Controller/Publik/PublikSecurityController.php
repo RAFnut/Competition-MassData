@@ -82,10 +82,18 @@ class PublikSecurityController extends Controller
     */
     public function indexAction()
     {
-
-
         return $this->render(
             'AppBundle:Publik:index.html.twig'
         );
+    }
+    /**
+     * @Route("/logout", name="logout", options={"expose": true})
+     */
+    public function logoutAction(Request $request)
+    {
+        $this->container->get('security.context')->setToken(NULL);
+        $this->container->get('session')->remove('user');
+
+        return $this->redirectToRoute('home');
     }
 }
