@@ -4,67 +4,44 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Symfony\Component\Security\Core\Role\Role;
-use Symfony\Component\Security\Core\User\UserInterface;
-
 /**
  * User
  */
-class User implements UserInterface, \Serializable
+class User
 {
-    public function __construct()
-    {
-        $this->salt = null;
-    }
-
-    /****************/
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * @return Role[] The user roles
-     */
-    public function getRoles()
-    {
-        return array('ROLE_USER');
-    }
-
-    public function eraseCredentials(){
-
-    }
-
-    public function serialize()
-    {
-        return serialize(array($this->id));
-    }
-
-    public function unserialize($serialized)
-    {
-        list($this->id) = unserialize($serialized);
-    }
-
     /**
      * @var integer
      */
     private $id;
 
     /**
-     * @var string
+     * @var boolean
      */
-    private $username;
+    private $premium;
 
     /**
      * @var string
      */
-    private $password;
+    private $twitter;
 
     /**
-     * @var string
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $salt;
+    private $query;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $queryJob;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->query = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->queryJob = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -77,118 +54,114 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set username
+     * Set premium
      *
-     * @param string $username
-     * @return Admin
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string 
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Admin
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     * @return Admin
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * @var string
-     */
-    private $email;
-
-
-    /**
-     * Set email
-     *
-     * @param string $email
+     * @param boolean $premium
      * @return User
      */
-    public function setEmail($email)
+    public function setPremium($premium)
     {
-        $this->email = $email;
+        $this->premium = $premium;
 
         return $this;
     }
 
     /**
-     * Get email
+     * Get premium
      *
-     * @return string 
+     * @return boolean 
      */
-    public function getEmail()
+    public function getPremium()
     {
-        return $this->email;
+        return $this->premium;
     }
-    /**
-     * @var string
-     */
-    private $photo;
-
 
     /**
-     * Set photo
+     * Set twitter
      *
-     * @param string $photo
+     * @param string $twitter
      * @return User
      */
-    public function setPhoto($photo)
+    public function setTwitter($twitter)
     {
-        $this->photo = $photo;
+        $this->twitter = $twitter;
 
         return $this;
     }
 
     /**
-     * Get photo
+     * Get twitter
      *
      * @return string 
      */
-    public function getPhoto()
+    public function getTwitter()
     {
-        return $this->photo;
+        return $this->twitter;
+    }
+
+    /**
+     * Add query
+     *
+     * @param \AppBundle\Query $query
+     * @return User
+     */
+    public function addQuery(\AppBundle\Query $query)
+    {
+        $this->query[] = $query;
+
+        return $this;
+    }
+
+    /**
+     * Remove query
+     *
+     * @param \AppBundle\Query $query
+     */
+    public function removeQuery(\AppBundle\Query $query)
+    {
+        $this->query->removeElement($query);
+    }
+
+    /**
+     * Get query
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuery()
+    {
+        return $this->query;
+    }
+
+    /**
+     * Add queryJob
+     *
+     * @param \AppBundle\QueryJob $queryJob
+     * @return User
+     */
+    public function addQueryJob(\AppBundle\QueryJob $queryJob)
+    {
+        $this->queryJob[] = $queryJob;
+
+        return $this;
+    }
+
+    /**
+     * Remove queryJob
+     *
+     * @param \AppBundle\QueryJob $queryJob
+     */
+    public function removeQueryJob(\AppBundle\QueryJob $queryJob)
+    {
+        $this->queryJob->removeElement($queryJob);
+    }
+
+    /**
+     * Get queryJob
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQueryJob()
+    {
+        return $this->queryJob;
     }
 }

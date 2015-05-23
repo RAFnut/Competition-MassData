@@ -1,0 +1,27 @@
+AppBundle\Entity\Tweet:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    text:
+      type: text
+      nullable: true
+    lng:
+      type: float
+      nullable: true
+    lat:
+      type: float
+      nullable: true
+    impression:
+      type: float
+      nullable: true
+  manyToOne:
+    query:
+      targetEntity: AppBundle\Entity\Query
+      inversedBy: tweet
+      joinColumns:
+        query_id:
+          referencedColumnName: id

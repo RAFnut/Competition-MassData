@@ -15,6 +15,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use AppBundle\Entity\User;
+
 class PaymentController extends Controller 
 {
     /**
@@ -23,15 +25,18 @@ class PaymentController extends Controller
     public function prepareAction(Request $request)
     {
         $paymentName = 'paypal2';
+        $money = 500 * 100;
 
         $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
+
+        $usr = $this->get('security.context')->getToken()->getUser();
 
         $order = $storage->create();
         $order->setNumber(uniqid());
         $order->setCurrencyCode('EUR');
-        $order->setTotalAmount(123); // 1.23 EUR
-        $order->setDescription('A description');
-        $order->setClientId('100');
+        $order->setTotalAmount($money); // 1.23 EUR
+        $order->setDescription('You are going to buy premium account.');
+        $order->setClientId($user->getId());
         $order->setClientEmail('foo@example.com');
 
         $storage->update($order);
@@ -66,7 +71,12 @@ class PaymentController extends Controller
 
         // you have order and payment status 
         // so you can do whatever you want for example you can just print status and payment details.
-
-        return new Response($status->getValue());
+        if ($status->getValue() === "pending"){
+            return $this->redirect($this->generateUrl('profile'));
+            $usr = $this->get('security.context')->getToken()->getUser();
+            $usr->setPremium(true);
+        }else{
+            return $this->redirect($this->generateUrl('get_premium'));
+        }
     }
 }
