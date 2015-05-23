@@ -22,7 +22,17 @@ class User
     /**
      * @var string
      */
-    private $twitter;
+    private $tid;
+
+    /**
+     * @var string
+     */
+    private $secret;
+
+    /**
+     * @var string
+     */
+    private $token;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -77,100 +87,6 @@ class User
     }
 
     /**
-     * Set twitter
-     *
-     * @param string $twitter
-     * @return User
-     */
-    public function setTwitter($twitter)
-    {
-        $this->twitter = $twitter;
-
-        return $this;
-    }
-
-    /**
-     * Get twitter
-     *
-     * @return string 
-     */
-    public function getTwitter()
-    {
-        return $this->twitter;
-    }
-
-    /**
-     * Add query
-     *
-     * @param \AppBundle\Query $query
-     * @return User
-     */
-    public function addQuery(\AppBundle\Query $query)
-    {
-        $this->query[] = $query;
-
-        return $this;
-    }
-
-    /**
-     * Remove query
-     *
-     * @param \AppBundle\Query $query
-     */
-    public function removeQuery(\AppBundle\Query $query)
-    {
-        $this->query->removeElement($query);
-    }
-
-    /**
-     * Get query
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getQuery()
-    {
-        return $this->query;
-    }
-
-    /**
-     * Add queryJob
-     *
-     * @param \AppBundle\QueryJob $queryJob
-     * @return User
-     */
-    public function addQueryJob(\AppBundle\QueryJob $queryJob)
-    {
-        $this->queryJob[] = $queryJob;
-
-        return $this;
-    }
-
-    /**
-     * Remove queryJob
-     *
-     * @param \AppBundle\QueryJob $queryJob
-     */
-    public function removeQueryJob(\AppBundle\QueryJob $queryJob)
-    {
-        $this->queryJob->removeElement($queryJob);
-    }
-
-    /**
-     * Get queryJob
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getQueryJob()
-    {
-        return $this->queryJob;
-    }
-    /**
-     * @var string
-     */
-    private $tid;
-
-
-    /**
      * Set tid
      *
      * @param string $tid
@@ -191,5 +107,117 @@ class User
     public function getTid()
     {
         return $this->tid;
+    }
+
+    /**
+     * Set secret
+     *
+     * @param string $secret
+     * @return User
+     */
+    public function setSecret($secret)
+    {
+        $this->secret = $secret;
+
+        return $this;
+    }
+
+    /**
+     * Get secret
+     *
+     * @return string 
+     */
+    public function getSecret()
+    {
+        return $this->secret;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string 
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Add query
+     *
+     * @param \AppBundle\Entity\Query $query
+     * @return User
+     */
+    public function addQuery(\AppBundle\Entity\Query $query)
+    {
+        $this->query[] = $query;
+
+        return $this;
+    }
+
+    /**
+     * Remove query
+     *
+     * @param \AppBundle\Entity\Query $query
+     */
+    public function removeQuery(\AppBundle\Entity\Query $query)
+    {
+        $this->query->removeElement($query);
+    }
+
+    /**
+     * Get query
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuery()
+    {
+        return $this->query;
+    }
+
+    /**
+     * Add queryJob
+     *
+     * @param \AppBundle\Entity\QueryJob $queryJob
+     * @return User
+     */
+    public function addQueryJob(\AppBundle\Entity\QueryJob $queryJob)
+    {
+        $this->queryJob[] = $queryJob;
+
+        return $this;
+    }
+
+    /**
+     * Remove queryJob
+     *
+     * @param \AppBundle\Entity\QueryJob $queryJob
+     */
+    public function removeQueryJob(\AppBundle\Entity\QueryJob $queryJob)
+    {
+        $this->queryJob->removeElement($queryJob);
+    }
+
+    /**
+     * Get queryJob
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQueryJob()
+    {
+        return $this->queryJob;
     }
 }
