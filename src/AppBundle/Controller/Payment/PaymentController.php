@@ -75,6 +75,7 @@ class PaymentController extends Controller
             return $this->redirect($this->generateUrl('profile'));
             $usr = $this->get('security.context')->getToken()->getUser()->getUser();
             $usr->setPremium(true);
+            return $this->redirect($this->generateUrl('profile'));
         }else{
             return $this->redirect($this->generateUrl('get_premium'));
         }
