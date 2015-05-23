@@ -40,7 +40,7 @@ class UserSearchontroller extends Controller
             $em->flush();
         }
 
-        return $this->render('search-query.html.twig',);
+        return $this->render('search-query.html.twig', array('form' => $form->createView()));
     }
 
     private function createSearchForm(Query $query)
