@@ -1,0 +1,25 @@
+AppBundle\Entity\QueryJob:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    start_date:
+      type: datetime
+      nullable: true
+    end_date:
+      type: datetime
+      nullable: true
+  oneToMany:
+    query:
+      targetEntity: AppBundle\Entity\Query
+      mappedBy: queryJob
+  manyToOne:
+    user:
+      targetEntity: AppBundle\Entity\User
+      inversedBy: queryJob
+      joinColumns:
+        user_id:
+          referencedColumnName: id

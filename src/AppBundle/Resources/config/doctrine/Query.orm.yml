@@ -1,0 +1,40 @@
+AppBundle\Entity\Query:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    text:
+      type: text
+      nullable: true
+    date:
+      type: datetime
+      nullable: true
+    lng:
+      type: string
+      nullable: true
+    lat:
+      type: string
+      nullable: true
+    radius:
+      type: string
+      nullable: true
+  oneToMany:
+    tweet:
+      targetEntity: AppBundle\Entity\Tweet
+      mappedBy: query
+  manyToOne:
+    queryJob:
+      targetEntity: AppBundle\Entity\QueryJob
+      inversedBy: query
+      joinColumns:
+        query_job_id:
+          referencedColumnName: id
+    user:
+      targetEntity: AppBundle\Entity\User
+      inversedBy: query
+      joinColumns:
+        user_id:
+          referencedColumnName: id

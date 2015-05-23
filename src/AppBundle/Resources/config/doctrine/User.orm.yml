@@ -6,24 +6,19 @@ AppBundle\Entity\User:
       generator:
         strategy: AUTO
   fields:
-    username:
-      type: string
-      length: 150
-      nullable: false
-    password:
+    premium:
+      type: boolean
+      nullable: true
+      options:
+        default: false
+    twitter:
       type: string
       length: 255
-      nullable: false
-    email:
-      type: string
-      length: 255
-      nullable: false
-    salt:
-      type: string
-      length: 32
       nullable: true
-    photo:
-      type: text
-      nullable: true
-  lifecycleCallbacks:
-      postPersist: [onCreate]
+  oneToMany:
+    query:
+      targetEntity: AppBundle\Entity\Query
+      mappedBy: user
+    queryJob:
+      targetEntity: AppBundle\Entity\QueryJob
+      mappedBy: user
