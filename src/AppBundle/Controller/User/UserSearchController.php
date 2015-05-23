@@ -16,6 +16,8 @@ use AppBundle\Form\QueryType;
 use AppBundle\Entity\QueryJob;
 use AppBundle\Entity\User;
 
+use AppBundle\Controller\TwitterAPIExchange;
+
 class UserSearchController extends Controller
 {
     /**
@@ -58,8 +60,33 @@ class UserSearchController extends Controller
         return $form;
     }
 
+
     private function callRequest(Query $query)
     {
-    	
+        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
+        $settings = array(
+            'oauth_access_token' => $usr->getToken(),
+            'oauth_access_token_secret' => $usr->getSecret(),
+            'consumer_key' => "O9lrX7A0iVOifwFhrtrfY40PF",
+            'consumer_secret' => "LTnannEhUBCpKd84aZjRtsCmXBIZN6JnYUscp9FCYNU3n6m8Zc"
+        );
+
+        $url = 'https://api.twitter.com/1.1/search/tweets.json';
+        $requestMethod = 'GET';
+        $postfields = 
+            'q' ."=". $query->getText()."&".
+            'geocode' ."=". $query->getLat().",".
+             $query->getLng().",".
+             $query->getRadius()."km"."&".
+            'count' ."=".'100'."&".
+            'include_entities'."=".'true'
+        ;
+        
+        $twitter = new TwitterAPIExchange($settings);
+        echo $twitter
+            ->setGetfield($postfields)
+            ->buildOauth($url, $requestMethod)
+            ->performRequest();
+        return;
     }
 }
