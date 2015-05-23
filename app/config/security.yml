@@ -16,6 +16,9 @@ security:
                     twitter:       twitter_login
                 login_path:        home
                 failure_path:      home
+                use_forward:         false
+                default_target_path: profile
+                check_path:          /login/connect
 
                 oauth_user_provider:
                     service: hwi_oauth.user.provider.service
@@ -24,4 +27,5 @@ security:
         - { path: ^/home, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/connect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app, roles: ROLE_USER }
         - { path: ^/, roles: ROLE_USER }

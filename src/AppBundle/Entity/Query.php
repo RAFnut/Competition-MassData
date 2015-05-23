@@ -45,12 +45,12 @@ class Query
     private $tweet;
 
     /**
-     * @var \AppBundle\QueryJob
+     * @var \AppBundle\Entity\QueryJob
      */
     private $queryJob;
 
     /**
-     * @var \AppBundle\SampleEntity
+     * @var \AppBundle\Entity\User
      */
     private $user;
 
@@ -190,10 +190,10 @@ class Query
     /**
      * Add tweet
      *
-     * @param \AppBundle\Tweet $tweet
+     * @param \AppBundle\Entity\Tweet $tweet
      * @return Query
      */
-    public function addTweet(\AppBundle\Tweet $tweet)
+    public function addTweet(\AppBundle\Entity\Tweet $tweet)
     {
         $this->tweet[] = $tweet;
 
@@ -203,9 +203,9 @@ class Query
     /**
      * Remove tweet
      *
-     * @param \AppBundle\Tweet $tweet
+     * @param \AppBundle\Entity\Tweet $tweet
      */
-    public function removeTweet(\AppBundle\Tweet $tweet)
+    public function removeTweet(\AppBundle\Entity\Tweet $tweet)
     {
         $this->tweet->removeElement($tweet);
     }
@@ -223,10 +223,10 @@ class Query
     /**
      * Set queryJob
      *
-     * @param \AppBundle\QueryJob $queryJob
+     * @param \AppBundle\Entity\QueryJob $queryJob
      * @return Query
      */
-    public function setQueryJob(\AppBundle\QueryJob $queryJob = null)
+    public function setQueryJob(\AppBundle\Entity\QueryJob $queryJob = null)
     {
         $this->queryJob = $queryJob;
 
@@ -236,7 +236,7 @@ class Query
     /**
      * Get queryJob
      *
-     * @return \AppBundle\QueryJob 
+     * @return \AppBundle\Entity\QueryJob 
      */
     public function getQueryJob()
     {
@@ -246,10 +246,10 @@ class Query
     /**
      * Set user
      *
-     * @param \AppBundle\SampleEntity $user
+     * @param \AppBundle\Entity\User $user
      * @return Query
      */
-    public function setUser(\AppBundle\SampleEntity $user = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -259,7 +259,7 @@ class Query
     /**
      * Get user
      *
-     * @return \AppBundle\SampleEntity 
+     * @return \AppBundle\Entity\User 
      */
     public function getUser()
     {

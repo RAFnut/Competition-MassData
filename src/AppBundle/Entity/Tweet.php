@@ -35,7 +35,7 @@ class Tweet
     private $impression;
 
     /**
-     * @var \AppBundle\Query
+     * @var \AppBundle\Entity\Query
      */
     private $query;
 
@@ -145,10 +145,10 @@ class Tweet
     /**
      * Set query
      *
-     * @param \AppBundle\Query $query
+     * @param \AppBundle\Entity\Query $query
      * @return Tweet
      */
-    public function setQuery(\AppBundle\Query $query = null)
+    public function setQuery(\AppBundle\Entity\Query $query = null)
     {
         $this->query = $query;
 
@@ -158,7 +158,7 @@ class Tweet
     /**
      * Get query
      *
-     * @return \AppBundle\Query 
+     * @return \AppBundle\Entity\Query 
      */
     public function getQuery()
     {

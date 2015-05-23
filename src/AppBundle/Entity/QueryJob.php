@@ -30,7 +30,7 @@ class QueryJob
     private $query;
 
     /**
-     * @var \AppBundle\SampleEntity
+     * @var \AppBundle\Entity\User
      */
     private $user;
 
@@ -101,10 +101,10 @@ class QueryJob
     /**
      * Add query
      *
-     * @param \AppBundle\Query $query
+     * @param \AppBundle\Entity\Query $query
      * @return QueryJob
      */
-    public function addQuery(\AppBundle\Query $query)
+    public function addQuery(\AppBundle\Entity\Query $query)
     {
         $this->query[] = $query;
 
@@ -114,9 +114,9 @@ class QueryJob
     /**
      * Remove query
      *
-     * @param \AppBundle\Query $query
+     * @param \AppBundle\Entity\Query $query
      */
-    public function removeQuery(\AppBundle\Query $query)
+    public function removeQuery(\AppBundle\Entity\Query $query)
     {
         $this->query->removeElement($query);
     }
@@ -134,10 +134,10 @@ class QueryJob
     /**
      * Set user
      *
-     * @param \AppBundle\SampleEntity $user
+     * @param \AppBundle\Entity\User $user
      * @return QueryJob
      */
-    public function setUser(\AppBundle\SampleEntity $user = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -147,7 +147,7 @@ class QueryJob
     /**
      * Get user
      *
-     * @return \AppBundle\SampleEntity 
+     * @return \AppBundle\Entity\User 
      */
     public function getUser()
     {
