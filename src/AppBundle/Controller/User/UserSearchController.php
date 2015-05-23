@@ -68,19 +68,22 @@ class UserSearchController extends Controller
             'consumer_key' => "O9lrX7A0iVOifwFhrtrfY40PF",
             'consumer_secret' => "LTnannEhUBCpKd84aZjRtsCmXBIZN6JnYUscp9FCYNU3n6m8Zc"
         );
+
         $url = 'https://api.twitter.com/1.1/search/tweets.json';
         $requestMethod = 'GET';
-        $postfields = array(
-            'q' => $query->getText(),
-            'geocode' => $query->getLat().",".
+        $postfields = 
+            'q' ."=". $query->getText()."&".
+            'geocode' ."=". $query->getLat().",".
              $query->getLng().",".
-             $query->getRadius()."km", 
-            'count' => '100', 
-            'include_entities' => 'true'
-        );
+             $query->getRadius()."km"."&".
+            'count' ."=".'100'."&".
+            'include_entities'."=".'true'
+        ;
+        
         $twitter = new TwitterAPIExchange($settings);
-        echo $twitter->buildOauth($url, $requestMethod)
-            ->setPostfields($postfields)
+        echo $twitter
+            ->setGetfield($postfields)
+            ->buildOauth($url, $requestMethod)
             ->performRequest();
         return;
     }
