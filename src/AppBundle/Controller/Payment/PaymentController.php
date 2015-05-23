@@ -29,7 +29,7 @@ class PaymentController extends Controller
 
         $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
 
-        $usr = $this->get('security.context')->getToken()->getUser();
+        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
 
         $order = $storage->create();
         $order->setNumber(uniqid());
@@ -73,7 +73,7 @@ class PaymentController extends Controller
         // so you can do whatever you want for example you can just print status and payment details.
         if ($status->getValue() === "pending"){
             return $this->redirect($this->generateUrl('profile'));
-            $usr = $this->get('security.context')->getToken()->getUser();
+            $usr = $this->get('security.context')->getToken()->getUser()->getUser();
             $usr->setPremium(true);
         }else{
             return $this->redirect($this->generateUrl('get_premium'));

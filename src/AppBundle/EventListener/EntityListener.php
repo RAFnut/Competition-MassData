@@ -23,7 +23,7 @@ class EntityListener
 
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
-
+/*
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof User) {
 
@@ -38,18 +38,21 @@ class EntityListener
                 ),
                 'text/html'
             )
-            /*
-             * If you also want to include a plaintext version of the message
-            ->addPart(
-                $this->renderView(
-                    'Emails/registration.txt.twig',
-                    array('name' => $name)
-                ),
-                'text/plain'
-            )
-            */
+            
+            //  If you also want to include a plaintext version of the message
+            // ->addPart(
+            //     $this->renderView(
+            //         'Emails/registration.txt.twig',
+            //         array('name' => $name)
+            //     ),
+            //     'text/plain'
+            // )
+            
             ;
             $mailer->send($message); 
+
         }
+        */
+            
     }
 }

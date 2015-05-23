@@ -164,4 +164,32 @@ class User
     {
         return $this->queryJob;
     }
+    /**
+     * @var string
+     */
+    private $tid;
+
+
+    /**
+     * Set tid
+     *
+     * @param string $tid
+     * @return User
+     */
+    public function setTid($tid)
+    {
+        $this->tid = $tid;
+
+        return $this;
+    }
+
+    /**
+     * Get tid
+     *
+     * @return string 
+     */
+    public function getTid()
+    {
+        return $this->tid;
+    }
 }

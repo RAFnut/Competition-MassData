@@ -25,7 +25,7 @@ class UserPremiumController extends Controller
      */
      public function listJobsAction()
      {
-        $usr = $this->get('security.context')->getToken()->getUser();
+        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
         $lista = $usr->getQueryJob();
         return $this->render('AppBundle:User:jobs-list.html.twig', 
             array(
@@ -36,9 +36,9 @@ class UserPremiumController extends Controller
      /**
      * @Route("/premium/history", name="premium_queries_list", options={"expose": true})
      */
-     public function listJobsAction()
+     public function listQueriesAction()
      {
-        $usr = $this->get('security.context')->getToken()->getUser();
+        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
         $lista = $usr->getQuery();
 
         foreach($lista as $query){

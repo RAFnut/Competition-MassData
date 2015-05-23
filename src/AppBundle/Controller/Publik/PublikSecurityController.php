@@ -78,7 +78,7 @@ class PublikSecurityController extends Controller
         );
     }
     /**
-    * @Route("/", name="home" )
+    * @Route("/home", name="home" )
     */
     public function indexAction()
     {

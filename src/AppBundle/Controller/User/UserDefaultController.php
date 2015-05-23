@@ -17,7 +17,7 @@ class UserDefaultController extends Controller
      */
     public function profileAction()
     {
-        $usr = $this->get('security.context')->getToken()->getUser();
+        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
         return $this->render('AppBundle:User:profile.html.twig', array(
             'user' => $usr,
             'premium' => $usr->getPremium()

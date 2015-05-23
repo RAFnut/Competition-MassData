@@ -20,7 +20,7 @@ class UserUpdateController extends Controller
     {
         $jsonData = $this->get("request")->getContent();
 
-        $usr = $this->get('security.context')->getToken()->getUser();
+        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
         $usr->setPhoto($jsonData);
 
         $em = $this->getDoctrine()->getManager();

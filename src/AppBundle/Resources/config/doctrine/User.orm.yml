@@ -11,7 +11,7 @@ AppBundle\Entity\User:
       nullable: true
       options:
         default: false
-    twitter:
+    tid:
       type: string
       length: 255
       nullable: true
