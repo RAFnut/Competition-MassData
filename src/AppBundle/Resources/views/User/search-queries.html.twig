@@ -12,7 +12,7 @@
           <div class="container-fluid">
             <div class="navbar-header">
             <div class="logo-holder">
-                <a href="#"><img src="{{ asset('bundles/app/img/logo.png') }}"></a>
+                <a href="{{path('profile')}}"><img src="{{ asset('bundles/app/img/logo.png') }}"></a>
             </div>
             </div>
 
@@ -24,9 +24,12 @@
 
                 <li><button type="submit" id="active" class="btn btn-navigation">Home</button></li>
                 {% if premium == true %}
-                    <li><a href="#"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
+                    <li><a href="{{ path('premium_jobs_list') }}"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
                 {% endif %}
                 <li><a href="{{path('premium_queries_list')}}"><button type="submit" class="btn btn-navigation">History</button></a></li>
+                {% if premium == false %}
+                    <li><a href="{{path('get_premium')}}"><button type="submit" class="btn btn-navigation btn-navigation-pay">Payment</button></a></li>
+                {% endif %}
                 <li><a href="{{path('logout')}}"><button type="submit" class="btn btn-navigation">Log out</button></a></li>
               </ul>
             </div>
