@@ -36,9 +36,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div style="height: 500px;" id="GoodMap"></div> 
+                <div id="GoodTweets"></div>
+
             </div>
             <div class="col-md-6">
                 <div style="height: 500px;" id="BadMap"></div> 
+                <div id="BadTweets"></div>
             </div>            
         </div>
         
@@ -52,7 +55,7 @@
             var dataGood = [];
             var dataBad = [];
             {% for tweet in query.tweet %}
-                {% if tweet.impression >= 0 %}
+                {% if tweet.impression >= 0.0 %}
                 dataGood.push({
                     text: "{{tweet.text|replace({"\n":' ', "\r":' '})}}",
                     lat: "{{tweet.lat}}",
@@ -116,48 +119,92 @@
             generateGood();
             function generateBad(){
                 var styledMap = new google.maps.StyledMapType(styleArray,{name: "Styled Map"});
-                var allGoodMarkers = [];
-                var mapGood;
-                var boundsGood = new google.maps.LatLngBounds();
-                var mapOptionsGood = {
+                var allBadMarkers = [];
+                var mapBad;
+                var boundsBad = new google.maps.LatLngBounds();
+                var mapOptionsBad = {
                     zoom: 8,
                     mapTypeControlOptions: {
                       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
                     }
                 };
 
-                mapGood = new google.maps.Map(document.getElementById("BadMap"), mapOptionsGood);
-                mapGood.setTilt(45);
+                mapBad = new google.maps.Map(document.getElementById("BadMap"), mapOptionsBad);
+                mapBad.setTilt(45);
                 
-                mapGood.mapTypes.set('map_style', styledMap);
-                mapGood.setMapTypeId('map_style');
+                mapBad.mapTypes.set('map_style', styledMap);
+                mapBad.setMapTypeId('map_style');
 
                 for( i = 0; i < dataBad.length; i++ ) {
                 var position = new google.maps.LatLng(dataBad[i].lat,dataBad[i].lng);
-                boundsGood.extend(position);
+                boundsBad.extend(position);
 
-                markerGood = new google.maps.Marker({
+                markerBad = new google.maps.Marker({
                     position: position
                 });
 
-                allGoodMarkers.push(markerGood);
-                var infoWindow = new google.maps.InfoWindow(), markerGood, i;
+                allBadMarkers.push(markerBad);
+                var infoWindow = new google.maps.InfoWindow(), markerBad, i;
 
-                google.maps.event.addListener(markerGood, 'click', (function(marker, i) {
+                google.maps.event.addListener(markerBad, 'click', (function(marker, i) {
                     return function() {
                         var content;
 
                         content = "<p>"+dataBad[i].text+"</p> <p> Sentiment score: "+dataBad[i].score+"</p>";
                         infoWindow.setContent(content);
-                        infoWindow.open(mapGood, marker);
+                        infoWindow.open(mapBad, marker);
                     }
-                })(markerGood, i));
-                mapGood.fitBounds(boundsGood);                    
+                })(markerBad, i));
+                mapBad.fitBounds(boundsBad);                    
                 }
-                var markerCluster = new MarkerClusterer(mapGood, allGoodMarkers);
+                var markerCluster2 = new MarkerClusterer(mapBad, allBadMarkers);
 
             }           
             generateBad();
+
+            function sortGoodSentiments(){
+                var goodStuff = dataGood;
+                for(i=0; i < goodStuff .length-1; i++){
+                    for(j=i+1; j<goodStuff .length; j++){
+                        if (goodStuff [i].score < goodStuff [j].score){
+                            temp = goodStuff [i];
+                            goodStuff [i] = goodStuff [j];
+                            goodStuff [j] = temp;
+
+                        }
+                    }
+                } 
+                var content = "";
+                for(i=0; i<4; i++){
+                    content = content + "<p> Comment: " + goodStuff[i].text + " with sentiment <strong>" + goodStuff[i].score + "</strong></p>"; 
+                }
+                content = content + "<a href='{{ path('filter', {'id' : query.id}) }}}'> See more tweets </a>";
+                $("#GoodTweets").append(content);
+            }
+
+            sortGoodSentiments();
+
+                function sortBadSentiments(){
+                var badStuff = dataBad;
+                for(i=0; i < badStuff.length-1; i++){
+                    for(j=i+1; j<badStuff.length; j++){
+                        if (badStuff[i].score < badStuff[j].score){
+                            temp = badStuff[i];
+                            badStuff[i] = badStuff[j];
+                            badStuff[j] = temp;
+
+                        }
+                    }
+                } 
+                var content = "";
+                for(i=0; i<4; i++){
+                    content = content + "<p> Comment: " + badStuff[i].text + " with sentiment <strong>" + badStuff[i].score + "</strong></p>"; 
+                }
+                content = content + "<a href='{{ path('filter', {'id' : query.id}) }}}'> See more tweets </a>";
+                $("#BadTweets").append(content);
+            }
+
+            sortBadSentiments();
 
         </script>
  
