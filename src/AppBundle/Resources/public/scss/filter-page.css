@@ -41,10 +41,24 @@ body {
   background-color: #3f8bbe; }
 
 .filter-holder {
-  width: 30%;
-  float: right;
-  height: 500px;
-  background: red; }
+  width: 20%;
+  float: left;
+  height: 100%;
+  margin-top: -85px;
+  background: #018BE7;
+  position: fixed;
+  z-index: -100; }
+
+h3 {
+  padding: 85px 15px 15px 15px;
+  color: white;
+  font-size: 18px;
+  font-weight: 300; }
+
+.test {
+  float: left;
+  width: 100px;
+  height: 1000px; }
 
 .navbar-default .navbar-nav > li > a {
   padding: 0;
