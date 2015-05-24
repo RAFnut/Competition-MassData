@@ -178,7 +178,7 @@
                 for(i=0; i<4; i++){
                     content = content + "<p> Comment: " + goodStuff[i].text + " with sentiment <strong>" + goodStuff[i].score + "</strong></p>"; 
                 }
-                content = content + "<a href='{{ path('filter', {'id' : query.id}) }}}'> See more tweets </a>";
+                content = content + "<a href='{{path('filter',{'id':query.id})}}'>See more tweets </a>";
                 $("#GoodTweets").append(content);
             }
 
@@ -200,7 +200,7 @@
                 for(i=0; i<4; i++){
                     content = content + "<p> Comment: " + badStuff[i].text + " with sentiment <strong>" + badStuff[i].score + "</strong></p>"; 
                 }
-                content = content + "<a href='{{ path('filter', {'id' : query.id}) }}}'> See more tweets </a>";
+                content = content + "<a href='{{path('filter',{'id':query.id})}}'>See more tweets</a>";
                 $("#BadTweets").append(content);
             }
 
