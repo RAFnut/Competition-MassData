@@ -23,7 +23,7 @@
 
                 <li><a href="{{path('profile')}}"><button type="submit" class="btn btn-navigation">Home</button></a></li>
                 {% if premium == true %}
-                                    <li><a href="{{ path('premium_jobs_list') }}"><button type="submit"id="active" class="btn btn-navigation">Tracking</button></a></li>
+                                    <li><a href="{{ path('premium_jobs_list') }}"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
                 {% endif %}
                 <li><a href="{{path('premium_queries_list')}}"><button type="submit" id="active" class="btn btn-navigation">History</button></a></li>
                 {% if premium == false %}
@@ -35,13 +35,15 @@
           </div>
         </nav>
 
+        <h1 style="text-align: center">One time searches</h1>
+
         <div class="table">
              <table>
               <tr>
                     <th>Keyword</th>
                     <th>Date and time</th> 
                     <th>Average sentiment</th>
-                    <th><a href=""><button type="submit" class="btn btn-create-new">Create new tracking keyword</button></a></th>
+                    <th></th>
               </tr>
               {% for query in queries%}
               <tr>

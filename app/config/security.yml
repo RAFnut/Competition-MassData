@@ -14,10 +14,10 @@ security:
             oauth:
                 resource_owners:
                     twitter:       twitter_login
-                login_path:        home
+                login_path:        /app
                 failure_path:      home
-                use_forward:         false
-                default_target_path: profile
+                use_forward:         true
+                default_target_path: /home
                 check_path:          /login/connect
 
                 oauth_user_provider:

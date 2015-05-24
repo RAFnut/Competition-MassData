@@ -25,7 +25,7 @@
 
                 <li><a href="{{path('profile')}}"><button type="submit" class="btn btn-navigation">Home</button></a></li>
                 {% if premium == true %}
-                    <li><a href="#"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
+                    <li><a href="{{path('premium_jobs_list')}}"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
                 {% endif %}
                 
                 <li><a href="{{path('premium_queries_list')}}"><button type="submit" class="btn btn-navigation">History</button></a></li>
@@ -40,6 +40,7 @@
 
         <div class="row">
             <div class="mapholder-info-kveri">
+                <h1>Keyword: {{ query.text }}</h1>
             <div id="SentimentScore" style="height: 30px; width:970px; margin:0 auto;margin-bottom:30px;">
                 <div id="GreenScore" style="background: #00a82d; padding-top:5px; font-weight:bold; height:30px; display: inline; float: left; width: 50%; text-align: center; color: white;">
 
@@ -49,14 +50,14 @@
                 </div>
             </div>
             <div class="col-md-6">
-               <h3>Good Tweets:</h3>
+               <h3>Positive Tweets:</h3>
                 <div style="height: 500px;" id="GoodMap"></div> 
                 <div id="GoodTweets">
                 </div>
 
             </div>
             <div class="col-md-6">
-               <h3>Bad Tweets:</h3>
+               <h3>Negative Tweets:</h3>
                 <div style="height: 500px;" id="BadMap"></div> 
                 <div id="BadTweets">
                 </div>
