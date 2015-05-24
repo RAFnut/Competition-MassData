@@ -202,73 +202,25 @@ class UserSearchController extends Controller
         $em->persist($query);
         $em->flush();
         $em->refresh($query);
-        $url = "https://api.repustate.com/v3/54e249b7df42a567705ea1e9ee732b9cac5f486b/bulk-score.json?lang=en";
-        $data = array();
+        $url = "https://apiv2.indico.io/sentiment?key=359c5aa6ad9f97ae4e6458eeddd1a675";
         $twts = array();
-        $i = 0;
         $n = 0;
         $scTotal = 0;
 
         foreach ($query->getTweet() as $t) {
             $n++;
-            
-            $data[$t->getId()] = $t->getText();
-            $twts[$t->getId()] = $t;
-            $i++;
-
-            if($i % 500 == 0){
-                $i = 0;
-                $str = "";
-                foreach ($data as $key => $value) {
-                    if($i == 0){
-                        $str = "text" . $key . "=" . urlencode($value);
-                        $i++;
-                    }else{
-                        $str .= "&text" . $key . "=" . urlencode($value);
-                    }
-                }
-                $response = $this->do_post($url, $str);
-                $tilter = json_decode($response, true);
-                $results = $tilter["results"];
-                foreach ($results as $t ) {
-                    $tid = substr($t['id'], 4);
-                    $sc = $t['score'];
-                    $scTotal += $sc;
-                    $twts[$tid]->setImpression($sc);
-                }
-                $data = array();
-            }
-
-        }
-
-        if($i > 0){
-            $i = 0;
-            $str = "";
-            foreach ($data as $key => $value) {
-                if($i == 0){
-                    $str = "text" . $key . "=" . urlencode($value);
-                    $i++;
-                }else{
-                    $str .= "&text" . $key . "=" . urlencode($value);
-                }
-            }
-        var_dump($str);
+            $str = "data" . "=" . urlencode($t->getText());
             $response = $this->do_post($url, $str);
             $tilter = json_decode($response, true);
-            $results = $tilter["results"];
-            foreach ($results as $t ) {
-                $tid = substr($t['id'], 4);
-                $sc = $t['score'];
-                $scTotal += $sc;
-                $twts[$tid]->setImpression($sc);
-            }
-            $data = array();
+            $sc = ($tilter["results"]-0.5)*2;
+            $scTotal += $sc;
+            $t->setImpression($sc);
         }
 
         if($n == 0)
             $query->setImpression( 0 );
         else
             $query->setImpression( $scTotal/$n );
-
+        
     }
 }
