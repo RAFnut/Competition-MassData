@@ -17,6 +17,8 @@ use AppBundle\Form\QueryJobType;
 use AppBundle\Entity\QueryJob;
 use AppBundle\Entity\User;
 
+use AppBundle\Entity\Tweet;
+
 use AppBundle\Controller\TwitterAPIExchange;
 
 class UserSearchController extends Controller
@@ -54,7 +56,7 @@ class UserSearchController extends Controller
         $form = $this->createForm(new QueryType(), $query, array(
             'action' => $this->generateUrl('search_query'),
             'method' => 'POST',
-        ));
+            ));
 
         $form->add('submit', 'submit', array('label' => 'Search'));
 
@@ -102,25 +104,55 @@ class UserSearchController extends Controller
             'oauth_access_token_secret' => $usr->getSecret(),
             'consumer_key' => "O9lrX7A0iVOifwFhrtrfY40PF",
             'consumer_secret' => "LTnannEhUBCpKd84aZjRtsCmXBIZN6JnYUscp9FCYNU3n6m8Zc"
-        );
+            );
 
         $url = 'https://api.twitter.com/1.1/search/tweets.json';
         $requestMethod = 'GET';
-        $postfields = 
-            'q' ."=". $query->getText()."&".
-            'geocode' ."=". $query->getLat().",".
-             $query->getLng().",".
-             $query->getRadius()."km"."&".
-            'count' ."=".'100'."&".
-            'result_type' ."=".'recent'."&".
-            'include_entities'."=".'true'
+        $firstPostfield = 
+        'q' ."=". $query->getText()."&".
+        'geocode' ."=". $query->getLat().",".
+        $query->getLng().",".
+        $query->getRadius()."km"."&".
+        'count' ."=".'100'."&".
+        'result_type' ."=".'recent'."&".
+        'include_entities'."=".'true'
         ;
-        
+        $postfields = $firstPostfield;
+
         $twitter = new TwitterAPIExchange($settings);
-        echo $twitter
-            ->setGetfield($postfields)
-            ->buildOauth($url, $requestMethod)
-            ->performRequest();
+        
+        for ($i=0; $i<5; $i++){      
+            var_dump($postfields);  
+            $titer = $twitter->setGetfield($postfields)->buildOauth($url, $requestMethod)->performRequest();
+
+            $tilter = json_decode($titer, true);
+            $metaData = $tilter["search_metadata"];
+            //var_dump($metaData);
+            $postfields = $metaData["next_results"];
+            $postfields = substr($postfields, 1);
+            $maxId = $metaData["max_id_str"];
+            $statusi = $tilter["statuses"];
+           // echo count($statusi)."<br>";
+            //echo $maxId."<br>";
+            foreach ($statusi as $status) {
+                $tweet = new Tweet();
+                $tweet->setText($status["text"]);
+                $tweet->setLng($status["coordinates"]["coordinates"][0]);
+                $tweet->setLat($status["coordinates"]["coordinates"][1]);
+                $tweet->setQuery($query);
+                $query->addTweet($tweet);
+            } 
+        }
+        echo count($query->getTweet());
+        $this->semantic($query);
+        return;
+    }
+
+    private function semantic(Query $query){
         return;
     }
 }
+
+
+//'q=obama&geocode=42.930719,-75.254394,100000km&count=100&result_type=recent&include_entities=1'
+//'q=obama&geocode=42.930719,-75.254394,100000km&count=100&include_entities=1&result_type=recent'
