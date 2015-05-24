@@ -53,7 +53,7 @@ class UserSearchController extends Controller
     private function createSearchForm(Query $query)
     {
         $form = $this->createForm(new QueryType(), $query, array(
-            'action' => $this->generateUrl('query_new'),
+            'action' => $this->generateUrl('profile'),
             'method' => 'POST',
             ));
 
