@@ -28,4 +28,17 @@ class UserDefaultController extends Controller
             'premium' => $user->getPremium(),
             ));
      }   
+
+     /**
+     * @Route("/info/query/{id}", name="info_query", options={"expose": true})
+     */
+     public function infoQueryAction($id)
+     {
+        $user = $this->get('security.context')->getToken()->getUser()->getUser();
+        $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:Query')->findOneBy(array('id'=>$id));
+        return $this->render('AppBundle:User:info-query.html.twig', array(
+            'query' => $query,
+            'premium' => $user->getPremium(),
+            ));
+     }
 }
