@@ -132,12 +132,12 @@ body {
   border-radius: 5px;
   background: #E22028;
   border: 1px solid #E22028;
-  color: white; }
+  color: white;
+  transition: 0.5s all; }
 
 #appbundle_query_submit:hover {
   color: white;
-  background: #c70008;
-  transition: 0.5s all; }
+  background: #c70008; }
 
 #appbundle_query_submit:focus {
   color: white; }
