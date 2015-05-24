@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use AppBundle\Entity\Query;
+use AppBundle\Entity\Tweet;
+
 class UserDefaultController extends Controller
 {
     /**
@@ -23,5 +26,15 @@ class UserDefaultController extends Controller
             'premium' => $usr->getPremium()
             ));
     }
-    
+     /**
+     * @Route("/info/query/{id}", name="info_query", options={"expose": true})
+     */
+     public function infoQueryAction($id)
+     {
+        $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:Query')->findOneBy($id);
+        return $this->render('AppBundle:User:info-query.html.twig', array(
+            'tweets' => $query->getTweet(),
+            'premium' => $usr->getPremium(),
+            ));
+     }   
 }

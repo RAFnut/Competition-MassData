@@ -17,7 +17,7 @@ class UserPremiumController extends Controller
      */
     public function getPremiumAction()
     {
-        return $this->redirect($this->generateUrl('payment_prepare'));
+        return $this->render('AppBundle:User:payment.html.twig');
     }
 
      /**
@@ -30,12 +30,12 @@ class UserPremiumController extends Controller
         return $this->render('AppBundle:User:jobs-list.html.twig', 
             array(
                 'queries' => $lista,
-                'premium' => $usr->getPremium(),
             ));
      }   
 
      /**
      * @Route("/premium/history", name="premium_queries_list", options={"expose": true})
+     * @Route("/history", name="premium_queries_list", options={"expose": true})
      */
      public function listQueriesAction()
      {
@@ -50,6 +50,7 @@ class UserPremiumController extends Controller
         return $this->render('AppBundle:User:queries-list.html.twig', 
             array(
                 'queries' => $niz,
+                'premium' => $usr->getPremium(),
             ));
      }        
 

@@ -25,6 +25,7 @@ AppBundle\Entity\Query:
     tweet:
       targetEntity: Tweet
       mappedBy: query
+      cascade: ["persist"]
   manyToOne:
     queryJob:
       targetEntity: QueryJob
