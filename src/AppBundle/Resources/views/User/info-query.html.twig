@@ -33,22 +33,54 @@
           </div>
         </nav>
 
-        
+        <div style="height: 500px;" id="GoodMap"></div>        
 
         <script type="text/javascript">
-            
+
+            var dataGood = [];
             {% for tweet in query.tweet %}
-                {{ tweet.text }}
-            {% endfor %}      
+                dataGood[{{loop.index0}}].tweet = "{{tweet.text|replace({"\n":' ', "\r":' '})}}";
+                dataGood[{{loop.index0}}].lat = "{{tweet.lat}}";
+                dataGood[{{loop.index0}}].lng = "{{tweet.lng}}";
+            {% endfor %}    
+
+            var mapGood;
+            var boundsGood = new google.maps.LatLngBounds();
+            var mapOptionsGood = {
+                mapTypeId: 'roadmap'
+            };
+
+            mapGood = new google.maps.Map(document.getElementById("GoodMap"), mapOptionsGood);
+            map.setTilt(45);
+
+            var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+            for( i = 0; i < data.length; i++ ) {
+            var position = new google.maps.LatLng(data[i].lat,data[i].lng);
+            bounds.extend(position);
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: "Marker"
+            });
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    var content;
+                    var slika;
+                    content = "Content "+i;
+                    infoWindow.setContent(content);
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
+            map.fitBounds(bounds);    
 
         </script>
  
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
-		<script type="text/javascript" src="{{asset('bundles/app/js/orchestra.js')}}"></script>
+
         {% include 'AppBundle:Templates:required-js.html.twig' %}
-        }
-        }
 
 
 
