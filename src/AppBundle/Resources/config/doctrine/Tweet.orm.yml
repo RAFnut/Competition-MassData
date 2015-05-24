@@ -18,6 +18,15 @@ AppBundle\Entity\Tweet:
     impression:
       type: float
       nullable: true
+    twitterId:
+      type: string
+      nullable: true
+    favoriteCount:
+      type: integer
+      nullable: true
+    retweetCount:
+      type: integer
+      nullable: true
   manyToOne:
     query:
       targetEntity: Query
