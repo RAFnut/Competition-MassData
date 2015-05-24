@@ -25,11 +25,11 @@ class PaymentController extends Controller
     public function prepareAction(Request $request)
     {
         $paymentName = 'paypal2';
-        $money = 500 * 100;
+        $money = 129 * 100;
 
         $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
 
-        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
+        $user = $this->get('security.context')->getToken()->getUser()->getUser();
 
         $order = $storage->create();
         $order->setNumber(uniqid());
