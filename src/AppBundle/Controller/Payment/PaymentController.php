@@ -79,7 +79,7 @@ class PaymentController extends Controller
             $em->flush();
             return $this->redirect($this->generateUrl('profile'));
         }else{
-            var_dump($status->getValue());
+            //var_dump($status->getValue());
             return $this->redirect($this->generateUrl('get_premium'));
         }
     }
