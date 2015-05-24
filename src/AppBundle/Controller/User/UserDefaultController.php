@@ -32,7 +32,7 @@ class UserDefaultController extends Controller
      /**
      * @Route("/info/queryJob/{id}", name="info_queryJob", options={"expose": true})
      */
-     public function infoQueryAction($id)
+     public function infoQueryJobAction($id)
      {
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:QueryJob')->findOneBy(array('id'=>$id));

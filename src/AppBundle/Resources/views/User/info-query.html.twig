@@ -35,53 +35,63 @@
 
         <div style="height: 500px;" id="GoodMap"></div>        
 
+
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+        {% include 'AppBundle:Templates:required-js.html.twig' %}
         <script type="text/javascript">
 
             var dataGood = [];
             {% for tweet in query.tweet %}
-                dataGood[{{loop.index0}}].tweet = "{{tweet.text|replace({"\n":' ', "\r":' '})}}";
-                dataGood[{{loop.index0}}].lat = "{{tweet.lat}}";
-                dataGood[{{loop.index0}}].lng = "{{tweet.lng}}";
+
+
+                dataGood.push({
+                    text: "{{tweet.text|replace({"\n":' ', "\r":' '})}}",
+                    lat: "{{tweet.lat}}",
+                    lng: "{{tweet.lng}}",
+                    score: "{{tweet.impression}}"
+                    }
+                    );
             {% endfor %}    
+            function generateGood(){
+                var mapGood;
+                var boundsGood = new google.maps.LatLngBounds();
+                var mapOptionsGood = {
+                    mapTypeId: 'roadmap'
+                };
 
-            var mapGood;
-            var boundsGood = new google.maps.LatLngBounds();
-            var mapOptionsGood = {
-                mapTypeId: 'roadmap'
-            };
+                mapGood = new google.maps.Map(document.getElementById("GoodMap"), mapOptionsGood);
+                mapGood.setTilt(45);
 
-            mapGood = new google.maps.Map(document.getElementById("GoodMap"), mapOptionsGood);
-            map.setTilt(45);
+                var infoWindow = new google.maps.InfoWindow(), marker, i;
 
-            var infoWindow = new google.maps.InfoWindow(), marker, i;
+                for( i = 0; i < dataGood.length; i++ ) {
+                var position = new google.maps.LatLng(dataGood[i].lat,dataGood[i].lng);
+                boundsGood.extend(position);
+                markerGood = new google.maps.Marker({
+                    position: position,
+                    map: mapGood,
+                    title: "Marker"
+                });
 
-            for( i = 0; i < data.length; i++ ) {
-            var position = new google.maps.LatLng(data[i].lat,data[i].lng);
-            bounds.extend(position);
-            marker = new google.maps.Marker({
-                position: position,
-                map: map,
-                title: "Marker"
-            });
-
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    var content;
-                    var slika;
-                    content = "Content "+i;
-                    infoWindow.setContent(content);
-                    infoWindow.open(map, marker);
+                google.maps.event.addListener(markerGood, 'click', (function(marker, i) {
+                    return function() {
+                        var content;
+                        var slika;
+                        content = "Content "+i;
+                        infoWindow.setContent(content);
+                        infoWindow.open(mapGood, markerGood);
+                    }
+                })(markerGood, i));
+                mapGood.fitBounds(boundsGood);                    
                 }
-            })(marker, i));
-            map.fitBounds(bounds);    
+                console.log(m)
+            }
+            
+            generateGood();
 
         </script>
  
-
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
-
-        {% include 'AppBundle:Templates:required-js.html.twig' %}
-
 
 
     <body>
