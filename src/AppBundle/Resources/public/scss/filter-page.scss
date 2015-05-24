@@ -55,22 +55,16 @@ body{
     background-color: $sing-up-button-active;
 }
 
-.log-in-header > a,.log-in-header > a:visited, .log-in-header > a:hover {
-    color: white;
-    margin-top: 12px;
+.filter-holder {
+    width: 30%;
+    float: right;
+    height: 500px;
+        background:red;
 }
 
 .navbar-default .navbar-nav>li>a {
     padding: 0;
     margin: 0;
-}
-
-.mapholder-info-kveri {
-    width: 1000px;
-    height: 400px;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 50px;
 }
 
 .btn-navigation-pay {
@@ -81,61 +75,4 @@ body{
 .btn-navigation-pay:hover {
     font-weight: bold;
     color: #ffe200;
-}
-
-.title-map {
-    font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-.row {
-    margin: 0;
-}
-.tweets-holder {
-     width: 470px;
-    padding: 20px 15px 0px 15px;
-    text-align: justify;
-}
-
-#GoodTweets {
-    background: white;
-    margin-bottom: 50px;
-    box-shadow:1px 4px 6px #dbdbdb;
-}
-
-.see-more-tweets {
-    width: 100%;
-    padding: 20px;
-    background: #016FB9;
-}
-
-.see-more-tweets a {
-    color: white;
-    text-decoration: none;
-}
-
-.sentiment-score {
-    background: #00a82d;
-     width: 470px;
-    margin-left: -15px;
-    margin-top: 10px;
-    padding-left: 15px;
-    height: 20px;
-    color: white;
-}
-
-.sentiment-score-bad {
-    background: #a80000;
-     width: 470px;
-    margin-left: -15px;
-    margin-top: 10px;
-    padding-left: 15px;
-    height: 20px;
-    color: white;
-}
-
-#BadTweets {
-    background: white;
-    margin-bottom: 50px;
-    box-shadow:1px 4px 6px #dbdbdb;
 }
