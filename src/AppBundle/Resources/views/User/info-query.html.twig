@@ -42,6 +42,7 @@
                 dataGood[{{loop.index0}}].tweet = "{{tweet.text|replace({"\n":' ', "\r":' '})}}";
                 dataGood[{{loop.index0}}].lat = "{{tweet.lat}}";
                 dataGood[{{loop.index0}}].lng = "{{tweet.lng}}";
+                dataGood[{{loop.index0}}].lng = "{{tweet.impression}}";
             {% endfor %}    
 
             var mapGood;
