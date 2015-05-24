@@ -133,16 +133,20 @@ class UserSearchController extends Controller
         $query->getLng().",".
         $query->getRadius()."km"."&".
         'count' ."=".'100'."&".
-        'result_type' ."=".'recent'."&".
+        'result_type' ."=".'mixed'."&".
         'include_entities'."=".'true'
         ;
         $postfields = $firstPostfield;
 
-        for ($i=0; $i<4; $i++){    
+        $num = $query->getRadius() * 2 / 100;
+        if ($num == 0) $num=1;
+
+        for ($i=0; $i<$num; $i++){    
             $twitter = new TwitterAPIExchange($settings);  
             $titer = $twitter->setGetfield($postfields)->buildOauth($url, $requestMethod)->performRequest();
 
             $tilter = json_decode($titer, true);
+
             $max_id = "99999999999999999999";
 
             $statusi = $tilter["statuses"];

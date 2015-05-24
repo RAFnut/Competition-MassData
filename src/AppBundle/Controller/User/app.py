@@ -12,6 +12,9 @@ except:
 
 for key in data:
 	testimonial = TextBlob(data[key])
-	modifier = random.randint(1,10)/100.0-0.05
-	data[key] = testimonial.sentiment.polarity - modifier
+	if testimonial.sentiment.polarity == 0:
+		modifier = random.randint(1,10)/100.0-0.05
+	else :
+		modifier = 0
+	data[key] = testimonial.sentiment.polarity + modifier
 print json.dumps(data)
