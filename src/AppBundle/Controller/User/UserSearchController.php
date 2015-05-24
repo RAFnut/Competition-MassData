@@ -137,6 +137,7 @@ class UserSearchController extends Controller
 
         $num = $query->getRadius() * 2 / 100;
         if ($num == 0) $num=1;
+        if ($num > 50) $num = 40;
 
         for ($i=0; $i<$num; $i++){    
             $twitter = new TwitterAPIExchange($settings);  
