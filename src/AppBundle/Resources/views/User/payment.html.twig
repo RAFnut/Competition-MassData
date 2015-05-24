@@ -1,1 +1,47 @@
-{# href = "{{ path('payment_prepare') }}"  #}
+<!doctype>
+<html>
+    <head>
+        {% include 'AppBundle:Templates:required-css.html.twig' %}
+        <link href="{{ asset('bundles/app/css/payment.css') }}" rel="stylesheet">
+    </head>
+
+    <body>
+        
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+            <div class="logo-holder">
+                <a href="#"><img src="{{ asset('bundles/app/img/logo.png') }}"></a>
+            </div>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+              <ul class="nav navbar-nav navbar-right">
+
+                <li><a href=""><button type="submit"  class="btn btn-navigation">Home</button></a></li>
+                <li><a href="#"><button type="submit" class="btn btn-navigation">History</button></a></li>
+                <li><a href="#"><button type="submit" id="active-payment" class="btn btn-navigation">Payment</button></a></li>
+                <li><a href="#"><button type="submit" class="btn btn-navigation">Log out</button></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        
+    <div class="pricing-plan">
+        <div class="pricing-plan-price">
+            <h1 class="pricing-head">$129</h1>
+            <h2 class="pricing-subhead">One time payment</h2>
+        </div>
+        <div class="feature"><h3 class="feature-text">Tracking system for keywords</h3></div>
+        <div class="feature"><h3 class="feature-text">Advanced Tweet highlighting</h3></div>
+        <div class="feature"><h3 class="feature-text">Advanced graph visualization</h3></div>
+        <div class="pricingplan-bottom"></div>
+        <div class="pricingbuttondiv">
+            <a href="{{ path('payment_prepare') }}"><button type="submit" class="btn btn-buy">Buy now!</button></a>
+        </div>
+    </div>   
+    </body>
+</html>
