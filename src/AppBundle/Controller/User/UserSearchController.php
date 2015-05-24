@@ -25,6 +25,7 @@ class UserSearchController extends Controller
 {
     /**
      * @Route("/query/new", name="query_new", options={"expose": true})
+     * @Route("/", name="profile", options={"expose": true})
      */
     public function searchQueryAction(Request $request)
     {
