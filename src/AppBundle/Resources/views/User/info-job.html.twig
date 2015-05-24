@@ -30,27 +30,106 @@
             </div>
           </div>
         </nav>
-        
-        <div class="table">
-             <table>
-              <tr>
-                    <th>Keaayword</th>
-                    <th>Start date</th> 
-                    <th>End date</th> 
-                    <th><a href="{{path('job_new')}}"><button type="submit" class="btn btn-create-new">Create new tracking keyword</button></a></th>
-              </tr>
-              {% for query in queries %}
-                <tr>
-                      <td>{{query.query[0].text}}</td>
-                      <td>{{query.startdate | date('Y-m-d')}}</td> 
-                      <td>{{query.enddate | date('Y-m-d')}}</td> 
-                    <td><a href="{{ path('info_queryJob',{'id':query.id}) }}"><button type="submit" class="btn btn-view-track">Show stats</button></a></td>
-                </tr>
+
+        <canvas id="myChart" width="800" height="400"></canvas>
+
+        {% include 'AppBundle:Templates:required-js.html.twig' %}
+        <script type="text/javascript" src="{{ asset('bundles/app/js/Chart.js') }}"></script>
+        <script type="text/javascript">
+          Chart.defaults.global = {
+              animation: true,
+              animationSteps: 60,
+              animationEasing: "easeOutQuart",
+              showScale: true,
+              scaleOverride: false,
+              scaleSteps: null,
+              scaleStepWidth: null,
+              scaleStartValue: 0,
+              scaleLineColor: "rgba(0,0,0,1)",
+              scaleLineWidth: 2,
+              scaleShowLabels: true,
+              scaleLabel: "<%=value%>",
+              scaleIntegersOnly: false,
+              scaleBeginAtZero: false,
+              scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+              scaleFontSize: 12,
+              scaleFontStyle: "normal",
+              scaleFontColor: "#666",
+              responsive: false,
+              maintainAspectRatio: true,
+              showTooltips: true,
+              customTooltips: false,
+              tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+              tooltipFillColor: "rgba(0,0,0,0.8)",
+              tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+              tooltipFontSize: 14,
+              tooltipFontStyle: "normal",
+              tooltipFontColor: "#fff",
+              tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+              tooltipTitleFontSize: 14,
+              tooltipTitleFontStyle: "bold",
+              tooltipTitleFontColor: "#fff",
+              tooltipYPadding: 6,
+
+              // Number - pixel width of padding around tooltip text
+              tooltipXPadding: 6,
+
+              // Number - Size of the caret on the tooltip
+              tooltipCaretSize: 8,
+
+              // Number - Pixel radius of the tooltip border
+              tooltipCornerRadius: 6,
+
+              // Number - Pixel offset from point x to tooltip edge
+              tooltipXOffset: 10,
+
+              // String - Template string for single tooltips
+              {% verbatim %}
+              tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+              {% endverbatim %}
+              // String - Template string for multiple tooltips
+              multiTooltipTemplate: "<%= value %>",
+
+              // Function - Will fire on animation progression.
+              onAnimationProgress: function(){},
+
+              // Function - Will fire on animation completion.
+              onAnimationComplete: function(){}
+          }
+
+          var data = {
+              labels: [
+
+              {% for job in queryJob.query %}
+                "{{job.date | date('Y-m-d, h:m:s') }}",
               {% endfor %}
 
-              
-            </table>
+              ],
 
-        </div>
+              datasets: [
+                  {
+                      label: "My First dataset",
+                      type: "line",
+                      fillColor: "rgba(220,220,220,0)",
+                      strokeColor: "rgba( 0, 132, 180, 1)",
+                      pointColor: "rgba( 0, 132, 180, 1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba( 0, 132, 180, 1)",
+                      data: [
+                      {% for job in queryJob.query %}
+                        "{{job.impression }}",
+                      {% endfor %}   
+                      ]
+              }
+              ]
+
+          };
+          var options = {
+              bezierCurve: false
+          }
+          var ctx = document.getElementById("myChart").getContext("2d");
+          var myLineChart = new Chart(ctx).Line(data,options);
+        </script>
     </body>
 </html>
