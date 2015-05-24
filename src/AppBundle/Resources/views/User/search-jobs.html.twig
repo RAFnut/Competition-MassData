@@ -46,10 +46,11 @@
                 <div>
                 {{ form_widget(form.radius, { 'attr': {'placeholder': 'Radius in kilometers', 'required' : ''}}) }}
                 </div>
-                <p class="date-text">Start date:</p>
+                <p class="date-text">Start date and time:</p>
                 {{ form_widget(form.start_date, { 'attr': { 'required' : ''}}) }}
-                <p class="date-text">End date:</p>
+                <p class="date-text">End date and time:</p>
                 {{ form_widget(form.end_date, { 'attr': {'required' : ''}}) }}
+                {{ form_widget(form.submit, { 'attr': {'required' : ''}}) }}
 		    {{ form_end(form) }}
 
 
