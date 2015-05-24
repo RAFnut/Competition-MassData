@@ -204,9 +204,9 @@
                 } 
                 var content = "";
                 for(i=0; i<4; i++){
-                    content = content + "<p> Comment: " + goodStuff[i].text.parseURL().parseUsername().parseHashtag() + " with sentiment <strong>" + goodStuff[i].score + "</strong></p>"; 
+                    content = content + "<div class='tweets-holder'><p style='margin-bottom:25px;'> " + goodStuff[i].text.parseURL().parseUsername().parseHashtag() + "</p> <div class='sentiment-score'><p> Sentiment <strong>" + goodStuff[i].score + "</strong></p></div></div>"; 
                 }
-                content = content + "<a href='{{path('filter',{'id':query.id, 'sent':'1', 'vreme': '3', 'popular' : '3' })}}'>See more tweets </a>";
+                content = content + "<div class='see-more-tweets'><a href='{{path('filter',{'id':query.id, 'sent':'1', 'vreme': '3', 'popular' : '3' })}}'>See more tweets </a></div>";
                 $("#GoodTweets").append(content);
             }
 
@@ -227,9 +227,9 @@
                 var content = "";
                 for(i=0; i<4; i++){
 
-                    content = content + "<p> Comment: " + badStuff[i].text.parseURL().parseUsername().parseHashtag() + " with sentiment <strong>" + badStuff[i].score + "</strong></p>"; 
+                    content = content + "<div class='tweets-holder'><p style='margin-bottom:25px;'> " + badStuff[i].text.parseURL().parseUsername().parseHashtag() + "</p> <div class='sentiment-score-bad'><p> Sentiment <strong>" + badStuff[i].score + "</strong></p></div></div>"; 
                 }
-                content = content + "<a href='{{path('filter',{'id':query.id, 'sent':'2', 'vreme': '3', 'popular' : '3' })}}'>See more tweets</a>";
+                content = content + "<div class='see-more-tweets'><a href='{{path('filter',{'id':query.id, 'sent':'2', 'vreme': '3', 'popular' : '3' })}}'>See more tweets</a></div>";
                 $("#BadTweets").append(content);
             }
 
