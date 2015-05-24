@@ -72,9 +72,11 @@ class PaymentController extends Controller
         // you have order and payment status 
         // so you can do whatever you want for example you can just print status and payment details.
         if ($status->getValue() === "pending"){
-            return $this->redirect($this->generateUrl('profile'));
+            $em = $this->getDoctrine()->getManager();
             $usr = $this->get('security.context')->getToken()->getUser()->getUser();
             $usr->setPremium(true);
+            $em->persist($usr);
+            $em->flush();
             return $this->redirect($this->generateUrl('profile'));
         }else{
             return $this->redirect($this->generateUrl('get_premium'));
