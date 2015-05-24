@@ -68,6 +68,8 @@ class UserSearchController extends Controller
     public function searchJobAction(Request $request)
     {
         $queryJob = new QueryJob();
+        $queryJob->setStartDate(new \DateTime('now'));
+        $queryJob->setEndDate(new \DateTime('now'));
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $form = $this->createJobForm($queryJob);
         $form->handleRequest($request);
@@ -106,7 +108,6 @@ class UserSearchController extends Controller
 
         return $form;
     }
-
 
     public function callRequest(Query $query)
     {
@@ -204,12 +205,17 @@ class UserSearchController extends Controller
         $url = "https://api.repustate.com/v3/9aa2d832af4e0fec4c5da9a40dc5356c15c010c2/bulk-score.json?lang=en";
         $data = array();
         $twts = array();
-        $i = 1;
+        $i = 0;
         $n = 0;
         $scTotal = 0;
 
         foreach ($query->getTweet() as $t) {
             $n++;
+            
+            $data[$t->getId()] = $t->getText();
+            $twts[$t->getId()] = $t;
+            $i++;
+
             if($i % 500 == 0){
                 $i = 0;
                 $str = "";
@@ -233,9 +239,6 @@ class UserSearchController extends Controller
                 $data = array();
             }
 
-            $data[$t->getId()] = $t->getText();
-            $twts[$t->getId()] = $t;
-            $i++;
         }
 
         if($i > 0){
