@@ -24,7 +24,7 @@ use AppBundle\Controller\TwitterAPIExchange;
 class UserSearchController extends Controller
 {
     /**
-     * @Route("/query/new/{{jobId}}", name="query_new", options={"expose": true})
+     * @Route("/query/new/{jobId}", defaults={"jobId" = null}, name="query_new", options={"expose": true})
      * @Route("/", name="profile", options={"expose": true})
      */
     public function searchQueryAction(Request $request, QueryJob $qj = null)
@@ -126,13 +126,13 @@ class UserSearchController extends Controller
         'geocode' ."=". $query->getLat().",".
         $query->getLng().",".
         $query->getRadius()."km"."&".
-        'count' ."=".'3'."&".
+        'count' ."=".'10'."&".
         'result_type' ."=".'recent'."&".
         'include_entities'."=".'true'
         ;
         $postfields = $firstPostfield;
 
-        for ($i=0; $i<5; $i++){    
+        for ($i=0; $i<1; $i++){    
             $twitter = new TwitterAPIExchange($settings);  
             $titer = $twitter->setGetfield($postfields)->buildOauth($url, $requestMethod)->performRequest();
 
@@ -143,17 +143,27 @@ class UserSearchController extends Controller
             foreach ($statusi as $status) {
                 $tweet = new Tweet();
                 $tweet->setText($status["text"]);
+
+                //var_dump($status);
                 $tweet->setLng($status["coordinates"]["coordinates"][0]);
-                $tweet->setLat($status["coordinates"]["coordinates"][1]);
-                $tweet->setQuery($query);
-                $query->addTweet($tweet);
                 if ($tweet->getLat() == null){
                     $tweet->setLat($query->getLat() + rand(1, 100)/10000);
                 }
+
+                $tweet->setLat($status["coordinates"]["coordinates"][1]);
                 if ($tweet->getLng() == null){
                     $tweet->setLng($query->getLng() + rand(1, 100)/10000);
                 }
-                
+
+                $tweet->setFavoriteCount($status["favorite_count"]);
+
+                $tweet->setRetweetCount($status["retweet_count"]);
+
+                $tweet->setTwitterId($status["id_str"]);
+
+                $tweet->setQuery($query);
+                $query->addTweet($tweet);              
+ 
                 $max_id = min($max_id, $status["id_str"]);
             } 
             $postfields = $firstPostfield . "&max_id=" .$max_id;

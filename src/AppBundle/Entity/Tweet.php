@@ -164,4 +164,88 @@ class Tweet
     {
         return $this->query;
     }
+    /**
+     * @var string
+     */
+    private $twitterId;
+
+    /**
+     * @var integer
+     */
+    private $favoriteCount;
+
+    /**
+     * @var integer
+     */
+    private $retweetCount;
+
+
+    /**
+     * Set twitterId
+     *
+     * @param string $twitterId
+     * @return Tweet
+     */
+    public function setTwitterId($twitterId)
+    {
+        $this->twitterId = $twitterId;
+
+        return $this;
+    }
+
+    /**
+     * Get twitterId
+     *
+     * @return string 
+     */
+    public function getTwitterId()
+    {
+        return $this->twitterId;
+    }
+
+    /**
+     * Set favoriteCount
+     *
+     * @param integer $favoriteCount
+     * @return Tweet
+     */
+    public function setFavoriteCount($favoriteCount)
+    {
+        $this->favoriteCount = $favoriteCount;
+
+        return $this;
+    }
+
+    /**
+     * Get favoriteCount
+     *
+     * @return integer 
+     */
+    public function getFavoriteCount()
+    {
+        return $this->favoriteCount;
+    }
+
+    /**
+     * Set retweetCount
+     *
+     * @param integer $retweetCount
+     * @return Tweet
+     */
+    public function setRetweetCount($retweetCount)
+    {
+        $this->retweetCount = $retweetCount;
+
+        return $this;
+    }
+
+    /**
+     * Get retweetCount
+     *
+     * @return integer 
+     */
+    public function getRetweetCount()
+    {
+        return $this->retweetCount;
+    }
 }
