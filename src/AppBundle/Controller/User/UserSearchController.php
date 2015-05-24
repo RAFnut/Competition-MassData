@@ -24,10 +24,10 @@ use AppBundle\Controller\TwitterAPIExchange;
 class UserSearchController extends Controller
 {
     /**
-     * @Route("/query/new", name="query_new", options={"expose": true})
+     * @Route("/query/new/{{jobId}}", name="query_new", options={"expose": true})
      * @Route("/", name="profile", options={"expose": true})
      */
-    public function searchQueryAction(Request $request)
+    public function searchQueryAction(Request $request, QueryJob $qj = null)
     {
         $query = new Query();
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
@@ -37,12 +37,15 @@ class UserSearchController extends Controller
         if ($form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $query->setUser($user);
+            $query->setQueryJob($qj);
             $query->setDate(new \DateTime('now'));
 
             $this->callRequest($query);
 
             $em->persist($query);
             $em->flush();
+
+            return $this->redirect($this->generateUrl('info_query', array('id' -> $query->getId())));
         }
 
         return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView(), 'premium' => $user->getPremium()));
