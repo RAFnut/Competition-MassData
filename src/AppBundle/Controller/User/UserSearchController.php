@@ -93,6 +93,7 @@ class UserSearchController extends Controller
 
             $em->persist($queryJob);
             $em->flush();
+            return $this->redirect($this->generateUrl('info_query', array('id' => $queryJob->getId())));
         }
 
         return $this->render('AppBundle:User:search-jobs.html.twig', array(
