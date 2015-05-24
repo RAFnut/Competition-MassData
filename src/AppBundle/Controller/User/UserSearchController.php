@@ -44,7 +44,7 @@ class UserSearchController extends Controller
             $em->persist($query);
             $em->flush();
 
-           // return $this->redirect($this->generateUrl('info_query', array('id' => $query->getId())));
+            return $this->redirect($this->generateUrl('info_query', array('id' => $query->getId())));
         }
 
         return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView(), 'premium' => $user->getPremium()));
@@ -125,13 +125,13 @@ class UserSearchController extends Controller
         'geocode' ."=". $query->getLat().",".
         $query->getLng().",".
         $query->getRadius()."km"."&".
-        'count' ."=".'10'."&".
+        'count' ."=".'100'."&".
         'result_type' ."=".'recent'."&".
         'include_entities'."=".'true'
         ;
         $postfields = $firstPostfield;
 
-        for ($i=0; $i<1; $i++){    
+        for ($i=0; $i<4; $i++){    
             $twitter = new TwitterAPIExchange($settings);  
             $titer = $twitter->setGetfield($postfields)->buildOauth($url, $requestMethod)->performRequest();
 
@@ -143,13 +143,12 @@ class UserSearchController extends Controller
                 $tweet = new Tweet();
                 $tweet->setText($status["text"]);
 
-                var_dump($status);
-                $tweet->setLng($status["coordinates"]["coordinates"][0]);
+                $tweet->setLat($status["coordinates"]["coordinates"][1]);
                 if ($tweet->getLat() == null){
                     $tweet->setLat($query->getLat() + rand(1, 100)/10000);
                 }
 
-                $tweet->setLat($status["coordinates"]["coordinates"][1]);
+                $tweet->setLng($status["coordinates"]["coordinates"][0]);
                 if ($tweet->getLng() == null){
                     $tweet->setLng($query->getLng() + rand(1, 100)/10000);
                 }
@@ -170,6 +169,9 @@ class UserSearchController extends Controller
  
                 $max_id = min($max_id, $status["id_str"]);
             } 
+            if(count($statusi) < 100){
+                break;
+            }
             $postfields = $firstPostfield . "&max_id=" .$max_id;
         }
         $this->semantic($query);
