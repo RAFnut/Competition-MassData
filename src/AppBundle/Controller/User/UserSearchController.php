@@ -45,7 +45,7 @@ class UserSearchController extends Controller
             $em->persist($query);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('info_query', array('id' -> $query->getId())));
+            return $this->redirect($this->generateUrl('info_query', array('id' => $query->getId())));
         }
 
         return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView(), 'premium' => $user->getPremium()));
