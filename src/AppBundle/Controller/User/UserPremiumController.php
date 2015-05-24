@@ -30,6 +30,7 @@ class UserPremiumController extends Controller
         return $this->render('AppBundle:User:jobs-list.html.twig', 
             array(
                 'queries' => $lista,
+                'premium' => $usr->getPremium(),
             ));
      }   
 
