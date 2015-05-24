@@ -30,14 +30,14 @@ class UserDefaultController extends Controller
      }   
 
      /**
-     * @Route("/info/query/{id}", name="info_query", options={"expose": true})
+     * @Route("/info/queryJob/{id}", name="info_queryJob", options={"expose": true})
      */
      public function infoQueryAction($id)
      {
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
-        $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:Query')->findOneBy(array('id'=>$id));
-        return $this->render('AppBundle:User:info-query.html.twig', array(
-            'query' => $query,
+        $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:QueryJob')->findOneBy(array('id'=>$id));
+        return $this->render('AppBundle:User:info-job.html.twig', array(
+            'queryJob' => $query,
             'premium' => $user->getPremium(),
             ));
      }
