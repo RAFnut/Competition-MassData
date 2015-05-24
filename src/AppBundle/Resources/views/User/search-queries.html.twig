@@ -55,39 +55,6 @@
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
         <script type="text/javascript" src="{{ asset('bundles/app/js/dragMarkerMapsApi.js') }}"></script>
-        <script type="text/javascript">
-        /* ajax primer   
-        var mapsApi = Routing.generate('map_get');
-        O.sendAjaxRequest(mapsApi,"ok", O.addToMap);
-
-          
-        $("#PhotoInput").change(function(){
-            readURL(this);
-        });
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                
-                reader.onload = function (e) {
-                    O.slika = e.target.result;
-                    saveImage(input, O.slika);
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        O.changePhotoSuccess = function(data){
-            $("#UserPhoto").attr('src', O.slika);
-        }
-        O.changePhotoError = function(data){
-            console.log(data);
-        }
-        function saveImage(input, imgData){
-            var homePath = Routing.generate('user_photo_change');
-            O.sendAjaxRequest(homePath, imgData, O.changePhotoSuccess, O.changePhotoError);
-        }
-        */
-        </script>
+       
     <body>
 </html>
