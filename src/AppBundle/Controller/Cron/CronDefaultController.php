@@ -165,37 +165,40 @@ class CronDefaultController extends Controller
         $em->persist($query);
         $em->flush();
         $em->refresh($query);
-        $url = "https://apiv2.indico.io/sentiment?key=359c5aa6ad9f97ae4e6458eeddd1a675";
+        
         $twts = array();
         $n = 0;
         $scTotal = 0;
 
+        $data = array();
         foreach ($query->getTweet() as $t) {
             $n++;
-            $t->getText();
-            
-
-
-$param1 = $t->getText();
- 
-$command = "C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py";
-$command .= " $param1 2>&1";
-  
-$pid = popen( $command,"r");
- 
-while( !feof( $pid ) )
-{
- $sc = fread($pid, 256);
- flush();
- ob_flush();
-}
-pclose($pid);
-
-
-
-            $scTotal += $sc;
-            $t->setImpression($sc);
+            $data[$t->getId()] = $t->getText();
+            $twts[] = $t;
+            if($n % 25 == 0){
+                $result = shell_exec("C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py " . base64_encode(json_encode($data)));
+                // var_dump($result);
+                $resultData = json_decode($result, true);
+                foreach ($twts as $t) {
+                    $sc = $resultData[$t->getId()];
+                    $scTotal += $sc;
+                    $t->setImpression($sc);
+                }
+                $data = array();
+                $twts = array();
+            }
         }
+            if($n % 25 != 0){
+                $result = shell_exec("C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py " . base64_encode(json_encode($data)));
+                $resultData = json_decode($result, true);
+                foreach ($twts as $t) {
+                    $sc = $resultData[$t->getId()];
+                    $scTotal += $sc;
+                    $t->setImpression($sc);
+                }
+                $data = array();
+                $twts = array();
+            }
 
         if($n == 0)
             $query->setImpression( 0 );

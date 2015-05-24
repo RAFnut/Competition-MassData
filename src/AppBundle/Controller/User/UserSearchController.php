@@ -94,12 +94,9 @@ class UserSearchController extends Controller
             $em->persist($queryJob);
             $em->flush();
         }
-        $time1 = new \DateTime('now');
-        $time = $time1-$query->getDate();
 
         return $this->render('AppBundle:User:search-jobs.html.twig', array(
             'form' => $form->createView(),
-            'minutes' => $time,
             ));
     }
 

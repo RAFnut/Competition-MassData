@@ -25,7 +25,7 @@
 
                 <li><a href="{{path('profile')}}"><button type="submit" class="btn btn-navigation">Home</button></a></li>
                 {% if premium == true %}
-                    <li><a href="#"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
+                    <li><a href="{{path('premium_jobs_list')}}"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
                 {% endif %}
                 
                 <li><a href="{{path('premium_queries_list')}}"><button type="submit" class="btn btn-navigation">History</button></a></li>
