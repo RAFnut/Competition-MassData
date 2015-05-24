@@ -86,13 +86,13 @@ class CronDefaultController extends Controller
         'geocode' ."=". $query->getLat().",".
         $query->getLng().",".
         $query->getRadius()."km"."&".
-        'count' ."=".'10'."&".
+        'count' ."=".'100'."&".
         'result_type' ."=".'recent'."&".
         'include_entities'."=".'true'
         ;
         $postfields = $firstPostfield;
 
-        for ($i=0; $i<1; $i++){    
+        for ($i=0; $i<4; $i++){    
             $twitter = new TwitterAPIExchange($settings);  
             $titer = $twitter->setGetfield($postfields)->buildOauth($url, $requestMethod)->performRequest();
 
@@ -126,6 +126,9 @@ class CronDefaultController extends Controller
  
                 $max_id = min($max_id, $status["id_str"]);
             } 
+            if(count($statusi) < 100){
+                break;
+            }
             $postfields = $firstPostfield . "&max_id=" .$max_id;
         }
         $this->semantic($query);
