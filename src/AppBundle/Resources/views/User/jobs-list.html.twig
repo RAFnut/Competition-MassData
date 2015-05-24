@@ -38,14 +38,16 @@
               <tr>
                     <th>Keyword</th>
                     <th>Start date</th> 
-                    <th>End date</th> 
+                    <th>End date</th>
+                    <th>Datasets</th> 
                     <th><a href="{{path('job_new')}}"><button type="submit" class="btn btn-create-new">Create new tracking keyword</button></a></th>
               </tr>
               {% for query in queries %}
                 <tr>
                       <td>{{query.query[0].text}}</td>
-                      <td>{{query.startdate | date('Y-m-d')}}</td> 
-                      <td>{{query.enddate | date('Y-m-d')}}</td> 
+                      <td>{{query.startdate | date('Y-m-d, h:i')}}</td> 
+                      <td>{{query.enddate | date('Y-m-d, h:i')}}</td> 
+                      <td>{{query.query | length}}</td>
                     <td><a href="{{ path('info_queryJob',{'id':query.id}) }}"><button type="submit" class="btn btn-view-track">Show stats</button></a></td>
                 </tr>
               {% endfor %}

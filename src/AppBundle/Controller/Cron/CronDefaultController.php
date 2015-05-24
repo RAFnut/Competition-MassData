@@ -36,7 +36,9 @@ class CronDefaultController extends Controller
 
         foreach ($qjobs as $j) {
            $qu = $j->getQuery()->last();
-           if($qu->getDate() < new \DateTime("16 minutes ago") ){
+           var_dump($qu->getDate());
+           var_dump (new \DateTime("16 minutes ago"));
+           if($qu->getDate() < new \DateTime("10 minutes ago") ){
             var_dump($qu->getText());
             $this->queryNew($j, $qu);
            }
