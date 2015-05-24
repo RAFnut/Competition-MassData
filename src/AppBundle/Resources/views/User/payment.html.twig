@@ -21,10 +21,10 @@
 
               <ul class="nav navbar-nav navbar-right">
 
-                <li><a href=""><button type="submit"  class="btn btn-navigation">Home</button></a></li>
-                <li><a href="#"><button type="submit" class="btn btn-navigation">History</button></a></li>
-                <li><a href="#"><button type="submit" id="active-payment" class="btn btn-navigation">Payment</button></a></li>
-                <li><a href="#"><button type="submit" class="btn btn-navigation">Log out</button></a></li>
+                <li><a href="{{path('profile')}}"><button type="submit"  class="btn btn-navigation">Home</button></a></li>
+                <li><a href="{{path('premium_queries_list')}}"><button type="submit" class="btn btn-navigation">History</button></a></li>
+                <li><a href="{{path('get_premium')}}"><button type="submit" id="active-payment" class="btn btn-navigation">Payment</button></a></li>
+                <li><a href="{{path('logout')}}"><button type="submit" class="btn btn-navigation">Log out</button></a></li>
               </ul>
             </div>
           </div>
