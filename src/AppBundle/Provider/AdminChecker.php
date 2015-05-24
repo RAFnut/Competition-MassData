@@ -30,8 +30,14 @@ class AdminChecker{
      * @param User $user
      * @return bool
      */
-    public function check(User $user)
+    public function check($user)
     {
+        if($user == null){
+            $this->container->get('security.context')->setToken(NULL);
+            $this->container->get('session')->remove('user');
+
+            return $this->redirectToRoute('home');
+        }
         $isIt = false;
 
         $isIt = $isIt || (isset($this->admins['facebook']) && in_array($user->getFid(), $this->admins['facebook']));

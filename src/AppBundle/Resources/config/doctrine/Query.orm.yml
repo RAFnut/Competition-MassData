@@ -21,6 +21,9 @@ AppBundle\Entity\Query:
     radius:
       type: string
       nullable: true
+    impression:
+      type: float
+      nullable: true
   oneToMany:
     tweet:
       targetEntity: Tweet
@@ -33,6 +36,7 @@ AppBundle\Entity\Query:
       joinColumns:
         query_job_id:
           referencedColumnName: id
+      cascade: ["persist"]
     user:
       targetEntity: User
       inversedBy: query

@@ -265,32 +265,4 @@ class Query
     {
         return $this->user;
     }
-    /**
-     * @var float
-     */
-    private $impression;
-
-
-    /**
-     * Set impression
-     *
-     * @param float $impression
-     * @return Query
-     */
-    public function setImpression($impression)
-    {
-        $this->impression = $impression;
-
-        return $this;
-    }
-
-    /**
-     * Get impression
-     *
-     * @return float 
-     */
-    public function getImpression()
-    {
-        return $this->impression;
-    }
 }
