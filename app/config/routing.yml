@@ -7,10 +7,10 @@ hwi_oauth_login:
 twitter_login:
     pattern: /login/check-twitter
 
-admin:
-    resource: "@AppBundle/Controller/Admin"
+cron:
+    resource: "@AppBundle/Controller/Cron"
     type:     annotation
-    prefix:   /admin
+    prefix:   /cron
 
 pub:
     resource: "@AppBundle/Controller/Publik"

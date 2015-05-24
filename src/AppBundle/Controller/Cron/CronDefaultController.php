@@ -1,112 +1,73 @@
 <?php
 
-namespace AppBundle\Controller\User;
+namespace AppBundle\Controller\Cron;
 
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\SecurityContext;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\Query;
-use AppBundle\Form\QueryType;
-use AppBundle\Form\QueryJobType;
-
 use AppBundle\Entity\QueryJob;
 use AppBundle\Entity\User;
-
 use AppBundle\Entity\Tweet;
 
 use AppBundle\Controller\TwitterAPIExchange;
 
-class UserSearchController extends Controller
+class CronDefaultController extends Controller
 {
+
     /**
-     * @Route("/", name="profile", options={"expose": true})
-     */
-    public function searchQueryAction(Request $request, QueryJob $qj = null)
+    * @Route("/", name="cron_home" )
+    */
+    public function indexAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository('AppBundle:QueryJob')->createQueryBuilder('q');
+        $qb->andWhere('q.end_date >= :now')
+            ->setParameter('now', new \DateTime());
+
+        $qjobs = $qb->getQuery()->getResult();
+
+        foreach ($qjobs as $j) {
+           $qu = $j->getQuery()->last();
+           if($qu->getDate() < new \DateTime("16 minutes ago") ){
+            var_dump($qu->getText());
+            $this->queryNew($j, $qu);
+           }
+        }
+
+        return $this->render(
+            'AppBundle:Cron:index.html.twig',
+            array(
+                )
+        );
+    }
+
+    public function queryNew(QueryJob $qj, Query $q)
     {
         $query = new Query();
-        $user = $this->get('security.context')->getToken()->getUser()->getUser();
-        $form = $this->createSearchForm($query);
-        $form->handleRequest($request);
+        $user = $qj->getUser();
+        
+        $em = $this->getDoctrine()->getManager();
+        $query->setUser($user);
+        $query->setQueryJob($qj);
+        $query->setDate(new \DateTime('now'));
 
-        if ($form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $query->setUser($user);
-            $query->setQueryJob($qj);
-            $query->setDate(new \DateTime('now'));
+        $query->setText( $q->getText() );
+        $query->setLat( $q->getLat() );
+        $query->setLng( $q->getLng() );
+        $query->setRadius( $q->getRadius() );
 
-            $this->callRequest($query);
-
-            $em->persist($query);
-            $em->flush();
-
-           // return $this->redirect($this->generateUrl('info_query', array('id' => $query->getId())));
-        }
-
-        return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView(), 'premium' => $user->getPremium()));
-    } 
-
-    private function createSearchForm(Query $query)
-    {
-        $form = $this->createForm(new QueryType(), $query, array(
-            'action' => $this->generateUrl('query_new'),
-            'method' => 'POST',
-            ));
-
-        $form->add('submit', 'submit', array('label' => 'Search'));
-
-        return $form;
+        $this->callRequest($query);
+        $em->persist($query);
+        $em->flush();
     }
-
-    /**
-     * @Route("/job/new", name="job_new", options={"expose": true})
-     */
-    public function searchJobAction(Request $request)
-    {
-        $queryJob = new QueryJob();
-        $user = $this->get('security.context')->getToken()->getUser()->getUser();
-        $form = $this->createJobForm($queryJob);
-        $form->handleRequest($request);
-
-        if ($form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $queryJob->setUser($user);
-
-            $query = new Query();
-            $query->setQueryJob($queryJob);
-            $query->setUser($user);
-            $query->setDate(new \DateTime('now'));
-
-            $query->setText( $form["text"]->getData() );
-            $query->setLat( $form["lat"]->getData() );
-            $query->setLng( $form["lng"]->getData() );
-            $query->setRadius( $form["radius"]->getData() );
-
-            $this->callRequest($query);
-
-            $em->persist($queryJob);
-            $em->flush();
-        }
-
-        return $this->render('AppBundle:User:search-jobs.html.twig', array('form' => $form->createView()));
-    }
-
-    private function createJobForm(QueryJob $query)
-    {
-        $form = $this->createForm(new QueryJobType(), $query, array(
-            'action' => $this->generateUrl('job_new'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Search'));
-
-        return $form;
-    }
-
 
     public function callRequest(Query $query)
     {
@@ -143,7 +104,7 @@ class UserSearchController extends Controller
                 $tweet = new Tweet();
                 $tweet->setText($status["text"]);
 
-                var_dump($status);
+                //var_dump($status);
                 $tweet->setLng($status["coordinates"]["coordinates"][0]);
                 if ($tweet->getLat() == null){
                     $tweet->setLat($query->getLat() + rand(1, 100)/10000);
@@ -152,11 +113,6 @@ class UserSearchController extends Controller
                 $tweet->setLat($status["coordinates"]["coordinates"][1]);
                 if ($tweet->getLng() == null){
                     $tweet->setLng($query->getLng() + rand(1, 100)/10000);
-                }
-                if ($status["user"]["name"] === null){
-                    $tweet->setAuthor("Unknown user");
-                }else{
-                    $tweet->setAuthor($status["user"]["name"]);
                 }
 
                 $tweet->setFavoriteCount($status["favorite_count"]);
