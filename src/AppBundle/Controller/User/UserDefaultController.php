@@ -24,7 +24,7 @@ class UserDefaultController extends Controller
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:Query')->findOneBy(array('id'=>$id));
         return $this->render('AppBundle:User:info-query.html.twig', array(
-            'tweets' => $query->getTweet(),
+            'query' => $query,
             'premium' => $user->getPremium(),
             ));
      }   

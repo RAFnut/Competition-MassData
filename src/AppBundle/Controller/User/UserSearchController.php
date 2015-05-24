@@ -48,7 +48,7 @@ class UserSearchController extends Controller
             $em->flush();
         }
 
-        return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView()));
+        return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView(), 'premium' => $user->getPremium()));
     }
 
     private function createSearchForm(Query $query)
