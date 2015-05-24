@@ -3,7 +3,7 @@
 <html>
     <head>
         {% include 'AppBundle:Templates:required-css.html.twig' %}
-        <link href="{{ asset('bundles/app/css/profile.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/search-jobs.css') }}" rel="stylesheet">
     </head>
 
     <body>
@@ -22,8 +22,8 @@
 
               <ul class="nav navbar-nav navbar-right">
 
-                <li><button type="submit" id="active" class="btn btn-navigation">Home</button></li>
-                <li><a href="#"><button type="submit" class="btn btn-navigation">Tracking</button></a></li>
+                  <li><a href="#"><button type="submit"  class="btn btn-navigation">Home</button></a></li>
+                <li><a href="#"><button type="submit"id="active" class="btn btn-navigation">Tracking</button></a></li>
                 <li><a href="#"><button type="submit" class="btn btn-navigation">History</button></a></li>
                 <li><a href="{{path('logout')}}"><button type="submit" class="btn btn-navigation">Log out</button></a></li>
               </ul>
@@ -31,22 +31,32 @@
           </div>
         </nav>
         
+        <div class="search-jobs-holder">
         <div id="SelectMap"></div>
         <div class="form-main">
 
 
 		    {{ form_start(form) }}
-
+                <div>
 				{{ form_widget(form.text, { 'attr': {'placeholder': 'Keyword', 'required' : '' }}) }} 
+                </div>
+                
 			    {{ form_widget(form.lng, { 'attr': {'required' : '', 'value': '-75.254394'}}) }} 
                 {{ form_widget(form.lat, { 'attr': {'required' : '', 'value': '42.930719'}}) }}
+                <div>
                 {{ form_widget(form.radius, { 'attr': {'placeholder': 'Radius in kilometers', 'required' : ''}}) }}
-
+                </div>
+                <p class="date-text">Start date and time:</p>
+                {{ form_widget(form.start_date, { 'attr': { 'required' : ''}}) }}
+                <p class="date-text">End date and time:</p>
+                {{ form_widget(form.end_date, { 'attr': {'required' : ''}}) }}
+                {{ form_widget(form.submit, { 'attr': {'required' : ''}}) }}
 		    {{ form_end(form) }}
+
 
            
         </div>
-
+        </div>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
         <script type="text/javascript" src="{{ asset('bundles/app/js/dragMarkerMapsApi.js') }}"></script>

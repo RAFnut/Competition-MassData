@@ -134,7 +134,13 @@ class UserSearchController extends Controller
                 $tweet->setLat($status["coordinates"]["coordinates"][1]);
                 $tweet->setQuery($query);
                 $query->addTweet($tweet);
-
+                if ($tweet->getLat() == null){
+                    $tweet->setLat($query->getLat() + rand(1, 100)/10000);
+                }
+                if ($tweet->getLng() == null){
+                    $tweet->setLng($query->getLng() + rand(1, 100)/10000);
+                }
+                
                 $max_id = min($max_id, $status["id_str"]);
             } 
 

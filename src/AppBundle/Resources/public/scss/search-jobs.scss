@@ -119,12 +119,30 @@ body {
     cursor: pointer;
 }
 
-#SelectMap {
+.search-jobs-holder {
+    width: 1100px;
+    height: 326px;
     margin: 0 auto;
-    margin-top: 50px;
-    margin-bottom: 30px;
-    width: 900px;
-    height: 330px;
+    margin-top: 80px;
+}
+
+.date-text {
+    color: #727272;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#appbundle_query_start_date_date{
+    display: inline-block;
+}
+
+
+
+#SelectMap {
+    float: left;
+    width: 600px;
+    height: 326px;
     background: #F1F1F1;
 }
 .navbar-default .navbar-nav>li>a {
@@ -132,12 +150,15 @@ body {
     margin: 0;
 }
 .form-main {
-    width: 900px;
+    width: 470px;
     margin: 0 auto;
+    float: right;
 }
 
 #appbundle_query_text{
-    width: 525px;
+    width: 440px;
+    margin-bottom: 25px;
+    margin-left: 5px;
     height: 35px;
     padding-left: 10px;
     border-radius: 5px;
@@ -145,7 +166,111 @@ body {
 }
 
 #appbundle_query_radius {
-    width: 225px;
+    width: 440px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_start_date {
+    display: -webkit-box;
+    display: box;
+}
+
+#appbundle_query_start_date_date_year {
+    width: 95px;
+    margin: 5px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_start_date_date_month {
+    width: 80px;
+    margin: 5px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_start_date_date_day {
+    width: 80px;
+    margin: 5px;
+    margin-right: 25px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_start_date_time_hour {
+    width: 60px;
+    margin: 5px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+     border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_start_date_time_minute {
+    width: 60px;
+    margin: 5px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_end_date {
+    display: -webkit-box;
+    display: box;
+}
+
+#appbundle_query_end_date_date_year {
+    width: 95px;
+    margin: 5px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_end_date_date_month {
+    width: 80px;
+    margin: 5px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_end_date_date_day {
+    width: 80px;
+    margin: 5px;
+    margin-right: 25px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_end_date_time_hour {
+    width: 60px;
+    margin: 5px;
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 5px;
+     border: 1px solid #c6c6c6;
+}
+
+#appbundle_query_end_date_time_minute {
+    width: 60px;
+    margin: 5px;
     height: 35px;
     padding-left: 10px;
     border-radius: 5px;
@@ -157,13 +282,17 @@ body {
 }
 
 #appbundle_query_submit {
-    width: 142px;
+    width: 440px;
     height: 35px;
     padding-left: 10px;
     border-radius: 5px;
     background: $search-button-color;
     border: 1px solid $search-button-color;
     color: white;
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+    margin-right: 27px;
     transition:  0.5s all;
 }
 
@@ -175,3 +304,4 @@ body {
 #appbundle_query_submit:focus {
     color: white;
 }
+
