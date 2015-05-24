@@ -23,6 +23,9 @@ class UserDefaultController extends Controller
      {
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:Query')->findOneBy(array('id'=>$id));
+        if($query == null){
+            return $this->redirect($this->generateUrl('premium_queries_list'));            
+        }
         return $this->render('AppBundle:User:info-query.html.twig', array(
             'query' => $query,
             'premium' => $user->getPremium(),

@@ -69,6 +69,7 @@ class CronDefaultController extends Controller
         $em->flush();
     }
 
+
     public function callRequest(Query $query)
     {
         $usr = $this->get('security.context')->getToken()->getUser()->getUser();
@@ -86,13 +87,13 @@ class CronDefaultController extends Controller
         'geocode' ."=". $query->getLat().",".
         $query->getLng().",".
         $query->getRadius()."km"."&".
-        'count' ."=".'10'."&".
+        'count' ."=".'100'."&".
         'result_type' ."=".'recent'."&".
         'include_entities'."=".'true'
         ;
         $postfields = $firstPostfield;
 
-        for ($i=0; $i<1; $i++){    
+        for ($i=0; $i<4; $i++){    
             $twitter = new TwitterAPIExchange($settings);  
             $titer = $twitter->setGetfield($postfields)->buildOauth($url, $requestMethod)->performRequest();
 
@@ -104,15 +105,19 @@ class CronDefaultController extends Controller
                 $tweet = new Tweet();
                 $tweet->setText($status["text"]);
 
-                //var_dump($status);
-                $tweet->setLng($status["coordinates"]["coordinates"][0]);
+                $tweet->setLat($status["coordinates"]["coordinates"][1]);
                 if ($tweet->getLat() == null){
                     $tweet->setLat($query->getLat() + rand(1, 100)/10000);
                 }
 
-                $tweet->setLat($status["coordinates"]["coordinates"][1]);
+                $tweet->setLng($status["coordinates"]["coordinates"][0]);
                 if ($tweet->getLng() == null){
                     $tweet->setLng($query->getLng() + rand(1, 100)/10000);
+                }
+                if ($status["user"]["name"] === null){
+                    $tweet->setAuthor("Unknown user");
+                }else{
+                    $tweet->setAuthor($status["user"]["name"]);
                 }
 
                 $tweet->setFavoriteCount($status["favorite_count"]);
@@ -126,11 +131,15 @@ class CronDefaultController extends Controller
  
                 $max_id = min($max_id, $status["id_str"]);
             } 
+            if(count($statusi) < 100){
+                break;
+            }
             $postfields = $firstPostfield . "&max_id=" .$max_id;
         }
         $this->semantic($query);
         return;
     }
+    
     function do_post($url, $data)
     {
       $params = array('http' => array(
@@ -158,12 +167,17 @@ class CronDefaultController extends Controller
         $url = "https://api.repustate.com/v3/9aa2d832af4e0fec4c5da9a40dc5356c15c010c2/bulk-score.json?lang=en";
         $data = array();
         $twts = array();
-        $i = 1;
+        $i = 0;
         $n = 0;
         $scTotal = 0;
 
         foreach ($query->getTweet() as $t) {
             $n++;
+            
+            $data[$t->getId()] = $t->getText();
+            $twts[$t->getId()] = $t;
+            $i++;
+
             if($i % 500 == 0){
                 $i = 0;
                 $str = "";
@@ -187,9 +201,6 @@ class CronDefaultController extends Controller
                 $data = array();
             }
 
-            $data[$t->getId()] = $t->getText();
-            $twts[$t->getId()] = $t;
-            $i++;
         }
 
         if($i > 0){
