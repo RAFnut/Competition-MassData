@@ -48,7 +48,7 @@ class UserSearchController extends Controller
             $em->flush();
         }
 
-        return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView(), 'premium' => $user->getPremium()));
+        return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView()));
     }
 
     private function createSearchForm(Query $query)
@@ -147,13 +147,85 @@ class UserSearchController extends Controller
 
             $postfields = $firstPostfield . "&max_id=" .$max_id;
         }
-
         $this->semantic($query);
         return;
     }
+    function do_post($url, $data)
+    {
+      $params = array('http' => array(
+                  'method' => 'POST',
+                  'content' => $data
+                ));
+
+      $ctx = stream_context_create($params);
+      $fp = @fopen($url, 'rb', false, $ctx);
+      if (!$fp) {
+        throw new Exception("Problem with $url, $php_errormsg");
+      }
+      $response = @stream_get_contents($fp);
+      if ($response === false) {
+        throw new Exception("Problem reading data from $url, $php_errormsg");
+      }
+      return $response;
+    }
 
     private function semantic(Query $query){
-        return;
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($query);
+        $em->flush();
+        $em->refresh($query);
+        $url = "https://api.repustate.com/v3/9aa2d832af4e0fec4c5da9a40dc5356c15c010c2/bulk-score.json?lang=en";
+        $data = array();
+        $twts = array();
+        $i = 1;
+
+        foreach ($query->getTweet() as $t) {
+            if($i % 500 == 0){
+                $i = 0;
+                $str = "";
+                foreach ($data as $key => $value) {
+                    if($i == 0){
+                        $str = "text" . $key . "=" . urlencode($value);
+                        $i++;
+                    }else{
+                        $str .= "&text" . $key . "=" . urlencode($value);
+                    }
+                }
+                $response = $this->do_post($url, $str);
+                $tilter = json_decode($response, true);
+                $results = $tilter["results"];
+                foreach ($results as $t ) {
+                    $tid = substr($t['id'], 4);
+                    $twts[$tid]->setImpression($t['score']);
+                }
+                $data = array();
+            }
+
+            $data[$t->getId()] = $t->getText();
+            $twts[$t->getId()] = $t;
+            $i++;
+        }
+
+        if($i > 0){
+            $i = 0;
+            $str = "";
+            foreach ($data as $key => $value) {
+                if($i == 0){
+                    $str = "text" . $key . "=" . urlencode($value);
+                    $i++;
+                }else{
+                    $str .= "&text" . $key . "=" . urlencode($value);
+                }
+            }
+            $response = $this->do_post($url, $str);
+            $tilter = json_decode($response, true);
+            $results = $tilter["results"];
+            foreach ($results as $t ) {
+                $tid = substr($t['id'], 4);
+                $twts[$tid]->setImpression($t['score']);
+            }
+            $data = array();
+        }
     }
 }
 
