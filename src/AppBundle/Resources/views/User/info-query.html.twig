@@ -33,10 +33,17 @@
           </div>
         </nav>
 
-        {% for object in queries %}
-        	{{object.lng}}	   
         
-        {% endfor %}
+
+        <script type="text/javascript">
+            
+            {% for tweet in query.tweet %}
+                {{ tweet.text }}
+            {% endfor %}      
+
+        </script>
+ 
+
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 		<script type="text/javascript" src="{{asset('bundles/app/js/orchestra.js')}}"></script>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
