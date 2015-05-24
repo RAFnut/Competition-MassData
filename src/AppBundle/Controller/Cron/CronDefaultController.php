@@ -160,6 +160,7 @@ class CronDefaultController extends Controller
     }
     
     private function semantic(Query $query){
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($query);
         $em->flush();
@@ -171,10 +172,27 @@ class CronDefaultController extends Controller
 
         foreach ($query->getTweet() as $t) {
             $n++;
-            $str = "data" . "=" . urlencode($t->getText());
-            $response = $this->do_post($url, $str);
-            $tilter = json_decode($response, true);
-            $sc = ($tilter["results"]-0.5)*2;
+            $t->getText();
+            
+
+
+$param1 = $t->getText();
+ 
+$command = "C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py";
+$command .= " $param1 2>&1";
+  
+$pid = popen( $command,"r");
+ 
+while( !feof( $pid ) )
+{
+ $sc = fread($pid, 256);
+ flush();
+ ob_flush();
+}
+pclose($pid);
+
+
+
             $scTotal += $sc;
             $t->setImpression($sc);
         }

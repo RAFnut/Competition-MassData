@@ -28,6 +28,7 @@ class UserSearchController extends Controller
      */
     public function searchQueryAction(Request $request, QueryJob $qj = null)
     {
+ 
         $query = new Query();
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $form = $this->createSearchForm($query);
@@ -198,6 +199,7 @@ class UserSearchController extends Controller
     }
 
     private function semantic(Query $query){
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($query);
         $em->flush();
@@ -207,15 +209,35 @@ class UserSearchController extends Controller
         $n = 0;
         $scTotal = 0;
 
+        $data = array();
         foreach ($query->getTweet() as $t) {
             $n++;
-            $str = "data" . "=" . urlencode($t->getText());
-            $response = $this->do_post($url, $str);
-            $tilter = json_decode($response, true);
-            $sc = ($tilter["results"]-0.5)*2;
-            $scTotal += $sc;
-            $t->setImpression($sc);
+            $data[$t->getId()] = $t->getText();
+            $twts[] = $t;
+            if($n % 25 == 0){
+                $result = shell_exec("C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py " . base64_encode(json_encode($data)));
+                // var_dump($result);
+                $resultData = json_decode($result, true);
+                foreach ($twts as $t) {
+                    $sc = $resultData[$t->getId()];
+                    $scTotal += $sc;
+                    $t->setImpression($sc);
+                }
+                $data = array();
+                $twts = array();
+            }
         }
+            if($n % 25 != 0){
+                $result = shell_exec("C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py " . base64_encode(json_encode($data)));
+                $resultData = json_decode($result, true);
+                foreach ($twts as $t) {
+                    $sc = $resultData[$t->getId()];
+                    $scTotal += $sc;
+                    $t->setImpression($sc);
+                }
+                $data = array();
+                $twts = array();
+            }
 
         if($n == 0)
             $query->setImpression( 0 );
