@@ -133,11 +133,10 @@
              
             for(i=0; i<memoryShit.length; i++){
               if (activeLines[0].label == memoryShit[i].str){
-                    window.open("http://127.0.0.1/rafaton/web/app_dev.php/app/info/query/"+memoryShit[i].gid);
+                    var pathRed = Routing.generate('info_query', { id: memoryShit[i].gid });
+                    window.open(pathRed);
                   }
             }
-
-
 
 
           });
