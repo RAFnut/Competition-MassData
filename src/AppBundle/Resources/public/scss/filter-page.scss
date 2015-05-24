@@ -3,6 +3,8 @@ $sing-up-button: #016FB9;
 $sing-up-button-active: #3f8bbe;
 $sing-up-button-hover: #3f8bbe;
 $font-family: 'Open Sans', sans-serif;
+$table-heading-color: #016FB9;
+$border-table-color:  #005791;
 
 body{
     font-family: $font-family;
@@ -55,14 +57,11 @@ body{
     background-color: $sing-up-button-active;
 }
 
+
 .filter-holder {
-    width: 20%;
-    float: left;
     height: 100%;
-    margin-top: -85px;
     background:#018BE7;
-    position: fixed;
-    z-index: -100;
+    padding: 0%  0% 0% 10%;
 }
 
 h3 {
@@ -70,12 +69,6 @@ h3 {
     color: white;
     font-size: 18px;
     font-weight: 300;
-}
-
-.test {
-    float: left;
-    width: 100px;
-    height: 1000px;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -91,4 +84,28 @@ h3 {
 .btn-navigation-pay:hover {
     font-weight: bold;
     color: #ffe200;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+th {
+    width: 25%;
+    background: $table-heading-color;
+     padding: 15px 15px 15px 15px;
+    border: 1px solid $border-table-color;
+    color: white;
+    font-weight: 400;
+}
+
+td {
+    border: 1px solid $border-table-color;
+     padding: 10px 10px 10px 15px;
+    font-size: 12px;
+}
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+    content: " \25B4\25BE" 
 }

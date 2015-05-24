@@ -34,10 +34,63 @@
             </div>
           </div>
         </nav>
+        
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <table id="SortedTable" class="sortable">
+                        <tr>
+                            <th>Tweet</th>
+                            <th>Author</th>
+                            <th>Sentiment</th>
+                            <th>Favourites</th>
+                            <th>Retweets</th>
+                        </tr>
+                    </table>
+                </div>                
+            </div>
+        {% include 'AppBundle:Templates:required-js.html.twig' %}
+        <script type="text/javascript">
+            var sentimentCheck = {{sentiment}};
+            var timeCheck = {{time}};
+            var popularityCheck = {{popularity}};
+            var dataAnalysis = [];
+            {% for q in query.tweet %}
+                    dataAnalysis.push({
+                        favouriteCount: {{q.favoriteCount }},
+                        retweetCount: {{q.retweetCount}},
+                        tweet: "{{q.text | replace({"\n":""})}}",
+                        author: "{{q.author}}",
+                        date: "{{q.twitterId}}",
+                        sentiment: {{q.impression}}
+                    });
+            {% endfor %}
+            String.prototype.parseURL = function() {
+            return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
+            return url.link(url);
+            });
+            };
+
+            String.prototype.parseUsername = function() {
+            return this.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+            var username = u.replace("@","")
+            return u.link("http://twitter.com/"+username);
+            });
+            };
+
+            String.prototype.parseHashtag = function() {
+            return this.replace(/[#]+[A-Za-z0-9-_]+/g, function(t) {
+            var tag = t.replace("#","%23")
+            return t.link("https://twitter.com/search?q="+tag);
+            });
+        };
+            for(i=0; i<dataAnalysis.length; i++){
+                $("#SortedTable").append("<tr><td>"+dataAnalysis[i].tweet.parseURL().parseUsername().parseHashtag()+"</td><td>"+("@"+dataAnalysis[i].author).parseUsername()+"</td><td>"+dataAnalysis[i].sentiment+"</td><td>"+dataAnalysis[i].favouriteCount+"</td><td>"+dataAnalysis[i].retweetCount+"</td></tr>");
+            }
+
+
+        </script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/sort.js') }}"></script>
+
     </body>
-    <div class="filter-holder">
-        <h3>Filters:</h3>
-    </div>
-    
-    <div class="test"></div>
+
 </html>

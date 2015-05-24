@@ -4,6 +4,7 @@
     <head>
         {% include 'AppBundle:Templates:required-css.html.twig' %}
         <link href="{{ asset('bundles/app/css/infoquery.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/loader.css') }}" rel="stylesheet">
     </head>
 
     <body>
@@ -56,12 +57,22 @@
             </div>            
         </div>
     </div>
-        
+    <div id="fakeLoader"></div>
+
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
         <script type="text/javascript" src="{{ asset('bundles/app/js/mapsHelper.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/app/js/Chart.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/load.js') }}"></script>
+        <script type="text/javascript">
+            $("#fakeLoader").fakeLoader({
+                timeToHide:1200, //Time in milliseconds for fakeLoader disappear
+                zIndex:"999",//Default zIndex
+                spinner:"spinner6",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
+                bgColor:"#016FB9", //Hex, RGB or RGBA colors
+                });
+        </script>
         <script type="text/javascript">
         /*Helperi*/
         String.prototype.parseURL = function() {
@@ -248,7 +259,7 @@
             $("#GreenScore").append("<p>"+PossitiveSent+"%</p>");
             $("#RedScore").append("<p>"+NegativeSent+"%</p>");
         </script>
- 
+
 
 
     </body>
