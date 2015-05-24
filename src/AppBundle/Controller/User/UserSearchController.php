@@ -113,27 +113,20 @@ class UserSearchController extends Controller
         'geocode' ."=". $query->getLat().",".
         $query->getLng().",".
         $query->getRadius()."km"."&".
-        'count' ."=".'100'."&".
+        'count' ."=".'3'."&".
         'result_type' ."=".'recent'."&".
         'include_entities'."=".'true'
         ;
         $postfields = $firstPostfield;
 
-        $twitter = new TwitterAPIExchange($settings);
-        
-        for ($i=0; $i<5; $i++){      
-            var_dump($postfields);  
+        for ($i=0; $i<5; $i++){    
+            $twitter = new TwitterAPIExchange($settings);  
             $titer = $twitter->setGetfield($postfields)->buildOauth($url, $requestMethod)->performRequest();
 
             $tilter = json_decode($titer, true);
-            $metaData = $tilter["search_metadata"];
-            //var_dump($metaData);
-            $postfields = $metaData["next_results"];
-            $postfields = substr($postfields, 1);
-            $maxId = $metaData["max_id_str"];
+            $max_id = "99999999999999999999";
+
             $statusi = $tilter["statuses"];
-           // echo count($statusi)."<br>";
-            //echo $maxId."<br>";
             foreach ($statusi as $status) {
                 $tweet = new Tweet();
                 $tweet->setText($status["text"]);
@@ -141,9 +134,20 @@ class UserSearchController extends Controller
                 $tweet->setLat($status["coordinates"]["coordinates"][1]);
                 $tweet->setQuery($query);
                 $query->addTweet($tweet);
+                if ($tweet->getLat() == null){
+                    $tweet->setLat($query->getLat() + rand(1, 100)/10000);
+                }
+                if ($tweet->getLng() == null){
+                    $tweet->setLng($query->getLng() + rand(1, 100)/10000);
+                }
+                
+                $max_id = min($max_id, $status["id_str"]);
             } 
+
+
+            $postfields = $firstPostfield . "&max_id=" .$max_id;
         }
-        echo count($query->getTweet());
+        var_dump($query->getTweet());
         $this->semantic($query);
         return;
     }
