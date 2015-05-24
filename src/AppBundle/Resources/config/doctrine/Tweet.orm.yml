@@ -27,6 +27,9 @@ AppBundle\Entity\Tweet:
     retweetCount:
       type: integer
       nullable: true
+    author:
+      type: string
+      nullable: false
   manyToOne:
     query:
       targetEntity: Query
