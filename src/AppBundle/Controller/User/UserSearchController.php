@@ -44,7 +44,7 @@ class UserSearchController extends Controller
             $em->persist($query);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('info_query', array('id' => $query->getId())));
+           // return $this->redirect($this->generateUrl('info_query', array('id' => $query->getId())));
         }
 
         return $this->render('AppBundle:User:search-queries.html.twig', array('form' => $form->createView(), 'premium' => $user->getPremium()));
@@ -143,7 +143,7 @@ class UserSearchController extends Controller
                 $tweet = new Tweet();
                 $tweet->setText($status["text"]);
 
-                //var_dump($status);
+                var_dump($status);
                 $tweet->setLng($status["coordinates"]["coordinates"][0]);
                 if ($tweet->getLat() == null){
                     $tweet->setLat($query->getLat() + rand(1, 100)/10000);
@@ -152,6 +152,11 @@ class UserSearchController extends Controller
                 $tweet->setLat($status["coordinates"]["coordinates"][1]);
                 if ($tweet->getLng() == null){
                     $tweet->setLng($query->getLng() + rand(1, 100)/10000);
+                }
+                if ($status["user"]["name"] === null){
+                    $tweet->setAuthor("Unknown user");
+                }else{
+                    $tweet->setAuthor($status["user"]["name"]);
                 }
 
                 $tweet->setFavoriteCount($status["favorite_count"]);

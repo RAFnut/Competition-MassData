@@ -1,0 +1,65 @@
+$header-color: #016FB9;
+$sing-up-button: #016FB9;
+$sing-up-button-active: #3f8bbe;
+$sing-up-button-hover: #3f8bbe;
+$font-family: 'Open Sans', sans-serif;
+
+body{
+    font-family: $font-family;
+}
+
+.container-fluid {
+    width: 100%;
+    padding: 0;
+    padding-left: 3%;
+    margin: 0 auto;
+}
+
+.navbar-default {
+    height: 85px;
+    padding-top:5px;
+    width: 100%;
+    background: $header-color;
+    //box-shadow:1px 4px 6px #2f2f2f;
+    border: none;
+    border-radius: 0px;
+    margin-bottom: 0px;
+}
+
+.navbar-right {
+    font-size: 12px;
+}
+
+.btn-navigation {
+    border: 0px;
+    background-color: $sing-up-button;
+    color: white;
+    width: 100px;
+    height: 85px;
+    margin-top: -5px;
+    font-size: 14px;
+    border-radius: 0px;
+}
+
+.btn-navigation:hover {
+    color: white;
+    background: $sing-up-button-hover;
+}
+
+.btn-navigation:focus {
+    color:white;
+}
+
+#active {
+    background-color: $sing-up-button-active;
+}
+
+.log-in-header > a,.log-in-header > a:visited, .log-in-header > a:hover {
+    color: white;
+    margin-top: 12px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    padding: 0;
+    margin: 0;
+}

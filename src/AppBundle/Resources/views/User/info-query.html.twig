@@ -3,7 +3,7 @@
 <html>
     <head>
         {% include 'AppBundle:Templates:required-css.html.twig' %}
-        <link href="{{ asset('bundles/app/css/job-list.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/infoquery.css') }}" rel="stylesheet">
     </head>
 
     <body>
@@ -33,18 +33,26 @@
           </div>
         </nav>
 
-        <div style="height: 500px;" id="GoodMap"></div>        
-
-
+        <div class="row">
+            <div class="col-md-6">
+                <div style="height: 500px;" id="GoodMap"></div> 
+            </div>
+            <div class="col-md-6">
+                <div style="height: 500px;" id="BadMap"></div> 
+            </div>            
+        </div>
+        
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
+        <script type="text/javascript" src="{{ asset('bundles/app/js/mapsHelper.js') }}"></script>
+
         <script type="text/javascript">
-
+        var styleArray = [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}];
             var dataGood = [];
+            var dataBad = [];
             {% for tweet in query.tweet %}
-
-
+                {% if tweet.impression >= 0 %}
                 dataGood.push({
                     text: "{{tweet.text|replace({"\n":' ', "\r":' '})}}",
                     lat: "{{tweet.lat}}",
@@ -52,43 +60,104 @@
                     score: "{{tweet.impression}}"
                     }
                     );
+                {% else %}
+                dataBad.push({
+                    text: "{{tweet.text|replace({"\n":' ', "\r":' '})}}",
+                    lat: "{{tweet.lat}}",
+                    lng: "{{tweet.lng}}",
+                    score: "{{tweet.impression}}"
+                    }
+                    );                
+                {% endif %}
             {% endfor %}    
             function generateGood(){
+                var styledMap = new google.maps.StyledMapType(styleArray,{name: "Styled Map"});
+                var allGoodMarkers = [];
                 var mapGood;
                 var boundsGood = new google.maps.LatLngBounds();
                 var mapOptionsGood = {
-                    mapTypeId: 'roadmap'
+                    zoom: 8,
+                    mapTypeControlOptions: {
+                      mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                    }
                 };
 
                 mapGood = new google.maps.Map(document.getElementById("GoodMap"), mapOptionsGood);
                 mapGood.setTilt(45);
-
-                var infoWindow = new google.maps.InfoWindow(), marker, i;
+                
+                mapGood.mapTypes.set('map_style', styledMap);
+                mapGood.setMapTypeId('map_style');
 
                 for( i = 0; i < dataGood.length; i++ ) {
                 var position = new google.maps.LatLng(dataGood[i].lat,dataGood[i].lng);
                 boundsGood.extend(position);
+
                 markerGood = new google.maps.Marker({
-                    position: position,
-                    map: mapGood,
-                    title: "Marker"
+                    position: position
                 });
+
+                allGoodMarkers.push(markerGood);
+                var infoWindow = new google.maps.InfoWindow(), markerGood, i;
 
                 google.maps.event.addListener(markerGood, 'click', (function(marker, i) {
                     return function() {
                         var content;
-                        var slika;
-                        content = "Content "+i;
+
+                        content = "<p>"+dataGood[i].text+"</p> <p> Sentiment score: "+dataGood[i].score+"</p>";
                         infoWindow.setContent(content);
-                        infoWindow.open(mapGood, markerGood);
+                        infoWindow.open(mapGood, marker);
                     }
                 })(markerGood, i));
                 mapGood.fitBounds(boundsGood);                    
                 }
-                console.log(m)
+                var markerCluster = new MarkerClusterer(mapGood, allGoodMarkers);
+
             }
-            
             generateGood();
+            function generateBad(){
+                var styledMap = new google.maps.StyledMapType(styleArray,{name: "Styled Map"});
+                var allGoodMarkers = [];
+                var mapGood;
+                var boundsGood = new google.maps.LatLngBounds();
+                var mapOptionsGood = {
+                    zoom: 8,
+                    mapTypeControlOptions: {
+                      mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                    }
+                };
+
+                mapGood = new google.maps.Map(document.getElementById("BadMap"), mapOptionsGood);
+                mapGood.setTilt(45);
+                
+                mapGood.mapTypes.set('map_style', styledMap);
+                mapGood.setMapTypeId('map_style');
+
+                for( i = 0; i < dataBad.length; i++ ) {
+                var position = new google.maps.LatLng(dataBad[i].lat,dataBad[i].lng);
+                boundsGood.extend(position);
+
+                markerGood = new google.maps.Marker({
+                    position: position
+                });
+
+                allGoodMarkers.push(markerGood);
+                var infoWindow = new google.maps.InfoWindow(), markerGood, i;
+
+                google.maps.event.addListener(markerGood, 'click', (function(marker, i) {
+                    return function() {
+                        var content;
+
+                        content = "<p>"+dataBad[i].text+"</p> <p> Sentiment score: "+dataBad[i].score+"</p>";
+                        infoWindow.setContent(content);
+                        infoWindow.open(mapGood, marker);
+                    }
+                })(markerGood, i));
+                mapGood.fitBounds(boundsGood);                    
+                }
+                var markerCluster = new MarkerClusterer(mapGood, allGoodMarkers);
+
+            }           
+            generateBad();
 
         </script>
  

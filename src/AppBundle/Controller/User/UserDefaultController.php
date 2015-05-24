@@ -41,4 +41,17 @@ class UserDefaultController extends Controller
             'premium' => $user->getPremium(),
             ));
      }
+
+     /**
+     * @Route("/filter/{id}", name="filter", options={"expose": true})
+     */
+     public function infoFilterAction($id)
+     {
+        $user = $this->get('security.context')->getToken()->getUser()->getUser();
+        $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:Query')->findOneBy(array('id'=>$id));
+        return $this->render('AppBundle:User:nidzolin-feature.html.twig', array(
+            'query' => $query,
+            'premium' => $user->getPremium(),
+            ));
+     }   
 }

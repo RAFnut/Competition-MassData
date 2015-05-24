@@ -248,4 +248,32 @@ class Tweet
     {
         return $this->retweetCount;
     }
+    /**
+     * @var string
+     */
+    private $author;
+
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     * @return Tweet
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 }
