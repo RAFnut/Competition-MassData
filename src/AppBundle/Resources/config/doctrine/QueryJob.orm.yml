@@ -16,6 +16,7 @@ AppBundle\Entity\QueryJob:
     query:
       targetEntity: Query
       mappedBy: queryJob
+      cascade: ["persist"]
   manyToOne:
     user:
       targetEntity: User

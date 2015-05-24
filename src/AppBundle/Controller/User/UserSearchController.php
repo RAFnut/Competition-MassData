@@ -24,12 +24,9 @@ use AppBundle\Controller\TwitterAPIExchange;
 class UserSearchController extends Controller
 {
     /**
-     * @Route("/query/search/{qj}", name="search_query", options={"expose": true})
-     * @Route("/query/search/", name="search_query", options={"expose": true})
-     * @Route("/profile", name="search_query", options={"expose": true})
-     * @Route("/", name="profile", options={"expose": true})
+     * @Route("/query/new", name="query_new", options={"expose": true})
      */
-    public function searchQueryAction(Request $request, QueryJob $queryJob=null)
+    public function searchQueryAction(Request $request)
     {
         $query = new Query();
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
@@ -38,7 +35,6 @@ class UserSearchController extends Controller
 
         if ($form->isValid()){
             $em = $this->getDoctrine()->getManager();
-            $query->setQueryJob($queryJob);
             $query->setUser($user);
             $query->setDate(new \DateTime('now'));
 
@@ -54,7 +50,7 @@ class UserSearchController extends Controller
     private function createSearchForm(Query $query)
     {
         $form = $this->createForm(new QueryType(), $query, array(
-            'action' => $this->generateUrl('search_query'),
+            'action' => $this->generateUrl('query_new'),
             'method' => 'POST',
             ));
 
@@ -68,15 +64,28 @@ class UserSearchController extends Controller
      */
     public function searchJobAction(Request $request)
     {
-        $query = new QueryJob();
+        $queryJob = new QueryJob();
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
-        $form = $this->createJobForm($query);
+        $form = $this->createJobForm($queryJob);
         $form->handleRequest($request);
 
         if ($form->isValid()){
             $em = $this->getDoctrine()->getManager();
+            $queryJob->setUser($user);
 
-            $em->persist($query);
+            $query = new Query();
+            $query->setQueryJob($queryJob);
+            $query->setUser($user);
+            $query->setDate(new \DateTime('now'));
+
+            $query->setText( $form["text"]->getData() );
+            $query->setLat( $form["lat"]->getData() );
+            $query->setLng( $form["lng"]->getData() );
+            $query->setRadius( $form["radius"]->getData() );
+
+            $this->callRequest($query);
+
+            $em->persist($queryJob);
             $em->flush();
         }
 
@@ -86,7 +95,7 @@ class UserSearchController extends Controller
     private function createJobForm(QueryJob $query)
     {
         $form = $this->createForm(new QueryJobType(), $query, array(
-            'action' => $this->generateUrl('search_query'),
+            'action' => $this->generateUrl('job_new'),
             'method' => 'POST',
         ));
 
@@ -143,8 +152,6 @@ class UserSearchController extends Controller
                 
                 $max_id = min($max_id, $status["id_str"]);
             } 
-
-
             $postfields = $firstPostfield . "&max_id=" .$max_id;
         }
         $this->semantic($query);
@@ -178,8 +185,11 @@ class UserSearchController extends Controller
         $data = array();
         $twts = array();
         $i = 1;
+        $n = 0;
+        $scTotal = 0;
 
         foreach ($query->getTweet() as $t) {
+            $n++;
             if($i % 500 == 0){
                 $i = 0;
                 $str = "";
@@ -196,7 +206,9 @@ class UserSearchController extends Controller
                 $results = $tilter["results"];
                 foreach ($results as $t ) {
                     $tid = substr($t['id'], 4);
-                    $twts[$tid]->setImpression($t['score']);
+                    $sc = $t['score'];
+                    $scTotal += $sc;
+                    $twts[$tid]->setImpression($sc);
                 }
                 $data = array();
             }
@@ -222,10 +234,18 @@ class UserSearchController extends Controller
             $results = $tilter["results"];
             foreach ($results as $t ) {
                 $tid = substr($t['id'], 4);
-                $twts[$tid]->setImpression($t['score']);
+                $sc = $t['score'];
+                $scTotal += $sc;
+                $twts[$tid]->setImpression($sc);
             }
             $data = array();
         }
+
+        if($n == 0)
+            $query->setImpression( 0 );
+        else
+            $query->setImpression( $scTotal/$n );
+
     }
 }
 
