@@ -41,10 +41,11 @@ class UserPremiumController extends Controller
      {
         $usr = $this->get('security.context')->getToken()->getUser()->getUser();
         $lista = $usr->getQuery();
-
+        $niz = array();
         foreach($lista as $query){
             if ($query->getQueryJob() == NULL){
-                $niz[] = $query;            }
+                $niz[] = $query;            
+            }
         }
 
         return $this->render('AppBundle:User:queries-list.html.twig', 

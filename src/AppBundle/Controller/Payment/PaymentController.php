@@ -25,11 +25,11 @@ class PaymentController extends Controller
     public function prepareAction(Request $request)
     {
         $paymentName = 'paypal2';
-        $money = 500 * 100;
+        $money = 129 * 100;
 
         $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
 
-        $usr = $this->get('security.context')->getToken()->getUser()->getUser();
+        $user = $this->get('security.context')->getToken()->getUser()->getUser();
 
         $order = $storage->create();
         $order->setNumber(uniqid());
@@ -71,12 +71,15 @@ class PaymentController extends Controller
 
         // you have order and payment status 
         // so you can do whatever you want for example you can just print status and payment details.
-        if ($status->getValue() === "pending"){
-            return $this->redirect($this->generateUrl('profile'));
+        if ($status->getValue() === "pending" || $status->getValue() === "success" || $status->getValue() === "captured"){
+            $em = $this->getDoctrine()->getManager();
             $usr = $this->get('security.context')->getToken()->getUser()->getUser();
             $usr->setPremium(true);
+            $em->persist($usr);
+            $em->flush();
             return $this->redirect($this->generateUrl('profile'));
         }else{
+            //var_dump($status->getValue());
             return $this->redirect($this->generateUrl('get_premium'));
         }
     }
