@@ -28,6 +28,7 @@ class UserSearchController extends Controller
      */
     public function searchQueryAction(Request $request, QueryJob $qj = null)
     {
+ 
         $query = new Query();
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $form = $this->createSearchForm($query);
@@ -93,8 +94,13 @@ class UserSearchController extends Controller
             $em->persist($queryJob);
             $em->flush();
         }
+        $time1 = new \DateTime('now');
+        $time = $time1-$query->getDate();
 
-        return $this->render('AppBundle:User:search-jobs.html.twig', array('form' => $form->createView()));
+        return $this->render('AppBundle:User:search-jobs.html.twig', array(
+            'form' => $form->createView(),
+            'minutes' => $time,
+            ));
     }
 
     private function createJobForm(QueryJob $query)
@@ -127,16 +133,20 @@ class UserSearchController extends Controller
         $query->getLng().",".
         $query->getRadius()."km"."&".
         'count' ."=".'100'."&".
-        'result_type' ."=".'recent'."&".
+        'result_type' ."=".'mixed'."&".
         'include_entities'."=".'true'
         ;
         $postfields = $firstPostfield;
 
-        for ($i=0; $i<4; $i++){    
+        $num = $query->getRadius() * 2 / 100;
+        if ($num == 0) $num=1;
+
+        for ($i=0; $i<$num; $i++){    
             $twitter = new TwitterAPIExchange($settings);  
             $titer = $twitter->setGetfield($postfields)->buildOauth($url, $requestMethod)->performRequest();
 
             $tilter = json_decode($titer, true);
+
             $max_id = "99999999999999999999";
 
             $statusi = $tilter["statuses"];
@@ -198,6 +208,7 @@ class UserSearchController extends Controller
     }
 
     private function semantic(Query $query){
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($query);
         $em->flush();
@@ -207,15 +218,35 @@ class UserSearchController extends Controller
         $n = 0;
         $scTotal = 0;
 
+        $data = array();
         foreach ($query->getTweet() as $t) {
             $n++;
-            $str = "data" . "=" . urlencode($t->getText());
-            $response = $this->do_post($url, $str);
-            $tilter = json_decode($response, true);
-            $sc = ($tilter["results"]-0.5)*2;
-            $scTotal += $sc;
-            $t->setImpression($sc);
+            $data[$t->getId()] = $t->getText();
+            $twts[] = $t;
+            if($n % 25 == 0){
+                $result = shell_exec("C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py " . base64_encode(json_encode($data)));
+                // var_dump($result);
+                $resultData = json_decode($result, true);
+                foreach ($twts as $t) {
+                    $sc = $resultData[$t->getId()];
+                    $scTotal += $sc;
+                    $t->setImpression($sc);
+                }
+                $data = array();
+                $twts = array();
+            }
         }
+            if($n % 25 != 0){
+                $result = shell_exec("C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py " . base64_encode(json_encode($data)));
+                $resultData = json_decode($result, true);
+                foreach ($twts as $t) {
+                    $sc = $resultData[$t->getId()];
+                    $scTotal += $sc;
+                    $t->setImpression($sc);
+                }
+                $data = array();
+                $twts = array();
+            }
 
         if($n == 0)
             $query->setImpression( 0 );
