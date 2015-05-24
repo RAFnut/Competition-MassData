@@ -246,8 +246,8 @@
 
             sortBadSentiments();
 
-            var NegativeSent = Math.round(100*dataBad.length/(dataBad.length+dataGood.length));
-            var PossitiveSent = Math.round(100*dataGood.length/(dataBad.length+dataGood.length));
+            var NegativeSent = Math.floor(100*dataBad.length/(dataBad.length+dataGood.length));
+            var PossitiveSent = Math.ceil(100*dataGood.length/(dataBad.length+dataGood.length));
             $("#GreenScore").css("width",PossitiveSent+"%");
             $("#RedScore").css("width",NegativeSent+"%");
 
