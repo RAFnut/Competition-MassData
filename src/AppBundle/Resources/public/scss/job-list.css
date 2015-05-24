@@ -110,4 +110,10 @@ a {
   font-weight: bold;
   color: #ffe200; }
 
+.canvas-holder {
+  width: 800px;
+  height: 400px;
+  margin: 0 auto;
+  margin-top: 50px; }
+
 /*# sourceMappingURL=job-list.css.map */
