@@ -142,4 +142,12 @@ body {
 #appbundle_query_submit:focus {
   color: white; }
 
+.btn-navigation-pay {
+  font-weight: bold;
+  color: #ffe200; }
+
+.btn-navigation-pay:hover {
+  font-weight: bold;
+  color: #ffe200; }
+
 /*# sourceMappingURL=profile.css.map */
