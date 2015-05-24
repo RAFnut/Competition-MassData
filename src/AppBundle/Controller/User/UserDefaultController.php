@@ -45,7 +45,7 @@ class UserDefaultController extends Controller
      /**
      * @Route("/filter/{id}", name="filter", options={"expose": true})
      */
-     public function infoQueryAction($id)
+     public function infoFilterAction($id)
      {
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:Query')->findOneBy(array('id'=>$id));
