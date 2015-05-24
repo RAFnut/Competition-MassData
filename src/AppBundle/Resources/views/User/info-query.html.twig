@@ -51,6 +51,27 @@
         <script type="text/javascript" src="{{ asset('bundles/app/js/mapsHelper.js') }}"></script>
 
         <script type="text/javascript">
+        /*Helperi*/
+        String.prototype.parseURL = function() {
+            return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
+                return url.link(url);
+            });
+        };
+
+        String.prototype.parseUsername = function() {
+            return this.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+                var username = u.replace("@","")
+                return u.link("http://twitter.com/"+username);
+            });
+        };
+
+        String.prototype.parseHashtag = function() {
+            return this.replace(/[#]+[A-Za-z0-9-_]+/g, function(t) {
+                var tag = t.replace("#","%23")
+                return t.link("https://twitter.com/search?q="+tag);
+            });
+        };
+
         var styleArray = [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}];
             var dataGood = [];
             var dataBad = [];
@@ -176,7 +197,7 @@
                 } 
                 var content = "";
                 for(i=0; i<4; i++){
-                    content = content + "<p> Comment: " + goodStuff[i].text + " with sentiment <strong>" + goodStuff[i].score + "</strong></p>"; 
+                    content = content + "<p> Comment: " + goodStuff[i].text.parseURL().parseUsername().parseHashtag() + " with sentiment <strong>" + goodStuff[i].score + "</strong></p>"; 
                 }
                 content = content + "<a href='{{path('filter',{'id':query.id, 'sent':'1', 'vreme': '3', 'popular' : '3' })}}'>See more tweets </a>";
                 $("#GoodTweets").append(content);
@@ -198,7 +219,8 @@
                 } 
                 var content = "";
                 for(i=0; i<4; i++){
-                    content = content + "<p> Comment: " + badStuff[i].text + " with sentiment <strong>" + badStuff[i].score + "</strong></p>"; 
+
+                    content = content + "<p> Comment: " + badStuff[i].text.parseURL().parseUsername().parseHashtag() + " with sentiment <strong>" + badStuff[i].score + "</strong></p>"; 
                 }
                 content = content + "<a href='{{path('filter',{'id':query.id, 'sent':'2', 'vreme': '3', 'popular' : '3' })}}'>See more tweets</a>";
                 $("#BadTweets").append(content);
