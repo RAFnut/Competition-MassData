@@ -164,7 +164,7 @@ class CronDefaultController extends Controller
         $em->persist($query);
         $em->flush();
         $em->refresh($query);
-        $url = "https://api.repustate.com/v3/9aa2d832af4e0fec4c5da9a40dc5356c15c010c2/bulk-score.json?lang=en";
+        $url = "https://api.repustate.com/v3/54e249b7df42a567705ea1e9ee732b9cac5f486b/bulk-score.json?lang=en";
         $data = array();
         $twts = array();
         $i = 0;
