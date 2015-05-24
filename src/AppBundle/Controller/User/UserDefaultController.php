@@ -43,14 +43,17 @@ class UserDefaultController extends Controller
      }
 
      /**
-     * @Route("/filter/{id}", name="filter", options={"expose": true})
+     * @Route("/filter/{id}/{sent}/{vreme}/{popular}", name="filter", options={"expose": true})
      */
-     public function infoFilterAction($id)
+     public function infoFilterAction($id, $sent, $vreme, $popular)
      {
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $query = $this->getDoctrine()->getManager()->getRepository('AppBundle:Query')->findOneBy(array('id'=>$id));
         return $this->render('AppBundle:User:nidzolin-feature.html.twig', array(
             'query' => $query,
+            'sentiment' => $sent,
+            'time' => $vreme,
+            'popularity' => $popular,
             'premium' => $user->getPremium(),
             ));
      }   
