@@ -68,6 +68,8 @@ class UserSearchController extends Controller
     public function searchJobAction(Request $request)
     {
         $queryJob = new QueryJob();
+        $queryJob->setStartDate(new \DateTime('now'));
+        $queryJob->setEndDate(new \DateTime('now'));
         $user = $this->get('security.context')->getToken()->getUser()->getUser();
         $form = $this->createJobForm($queryJob);
         $form->handleRequest($request);
@@ -106,7 +108,6 @@ class UserSearchController extends Controller
 
         return $form;
     }
-
 
     public function callRequest(Query $query)
     {
@@ -187,11 +188,11 @@ class UserSearchController extends Controller
       $ctx = stream_context_create($params);
       $fp = @fopen($url, 'rb', false, $ctx);
       if (!$fp) {
-        throw new Exception("Problem with $url, $php_errormsg");
+        throw new \Exception("Problem with $url, $ctx");
       }
       $response = @stream_get_contents($fp);
       if ($response === false) {
-        throw new Exception("Problem reading data from $url, $php_errormsg");
+        throw new \Exception("Problem reading data from $url, $ctx");
       }
       return $response;
     }
@@ -201,15 +202,20 @@ class UserSearchController extends Controller
         $em->persist($query);
         $em->flush();
         $em->refresh($query);
-        $url = "https://api.repustate.com/v3/9aa2d832af4e0fec4c5da9a40dc5356c15c010c2/bulk-score.json?lang=en";
+        $url = "https://api.repustate.com/v3/54e249b7df42a567705ea1e9ee732b9cac5f486b/bulk-score.json?lang=en";
         $data = array();
         $twts = array();
-        $i = 1;
+        $i = 0;
         $n = 0;
         $scTotal = 0;
 
         foreach ($query->getTweet() as $t) {
             $n++;
+            
+            $data[$t->getId()] = $t->getText();
+            $twts[$t->getId()] = $t;
+            $i++;
+
             if($i % 500 == 0){
                 $i = 0;
                 $str = "";
@@ -233,9 +239,6 @@ class UserSearchController extends Controller
                 $data = array();
             }
 
-            $data[$t->getId()] = $t->getText();
-            $twts[$t->getId()] = $t;
-            $i++;
         }
 
         if($i > 0){
@@ -249,6 +252,7 @@ class UserSearchController extends Controller
                     $str .= "&text" . $key . "=" . urlencode($value);
                 }
             }
+        var_dump($str);
             $response = $this->do_post($url, $str);
             $tilter = json_decode($response, true);
             $results = $tilter["results"];
