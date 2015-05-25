@@ -23,13 +23,15 @@
               <ul class="nav navbar-nav navbar-right">
 
                 <li><a href="{{path('profile')}}"><button type="submit" class="btn btn-navigation">Home</button></a></li>
-                <li><a href="#"><button type="submit" id="active" class="btn btn-navigation">Tracking</button></a></li>
-                <li><a href="{{ path('premium_jobs_list') }}"><button type="submit" class="btn btn-navigation">History</button></a></li>
+                <li><a href="{{ path('premium_jobs_list') }}"><button type="submit" id="active" class="btn btn-navigation">Tracking</button></a></li>
+                <li><a href="{{ path('premium_queries_list') }}"><button type="submit" class="btn btn-navigation">History</button></a></li>
                 <li><a href="{{path('logout')}}"><button type="submit" class="btn btn-navigation">Log out</button></a></li>
               </ul>
             </div>
           </div>
         </nav>
+
+        <h1 style="text-align: center">Graph for keyword: {{ queryJob.query[0].text }}</h1>
 
         <div class="canvas-holder"><canvas id="myChart" width="800" height="400"></canvas></div>
         <div id="chartjs-tooltip"></div>
@@ -85,7 +87,7 @@
 
           var memoryShit = [
               {% for job in queryJob.query %}{
-                str: "{{job.date | date('Y-m-d, h:m:s') }}",
+                str: "{{job.date | date('Y-m-d, h:i:s') }}",
                 gid: {{job.id}}
               },
               {% endfor %}
@@ -96,7 +98,7 @@
               labels: [
 
               {% for job in queryJob.query %}
-                "{{job.date | date('Y-m-d, h:m:s') }}",
+                "{{job.date | date('Y-m-d, h:i:s') }}",
               {% endfor %}
 
               ],

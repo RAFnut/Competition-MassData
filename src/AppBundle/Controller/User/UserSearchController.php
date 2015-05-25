@@ -93,13 +93,11 @@ class UserSearchController extends Controller
 
             $em->persist($queryJob);
             $em->flush();
+            return $this->redirect($this->generateUrl('info_query', array('id' => $query ->getId())));
         }
-        $time1 = new \DateTime('now');
-        $time = $time1-$query->getDate();
 
         return $this->render('AppBundle:User:search-jobs.html.twig', array(
             'form' => $form->createView(),
-            'minutes' => $time,
             ));
     }
 
@@ -140,6 +138,7 @@ class UserSearchController extends Controller
 
         $num = $query->getRadius() * 2 / 100;
         if ($num == 0) $num=1;
+        if ($num > 50) $num = 40;
 
         for ($i=0; $i<$num; $i++){    
             $twitter = new TwitterAPIExchange($settings);  

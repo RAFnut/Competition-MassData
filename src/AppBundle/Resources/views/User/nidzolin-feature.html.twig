@@ -37,6 +37,7 @@
         
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
+                    <h1>All tweets for keyword: {{query.text}}</h1>
                     <table id="SortedTable" class="sortable">
                         <tr>
                             <th>Tweet</th>
@@ -58,7 +59,7 @@
                     dataAnalysis.push({
                         favouriteCount: {{q.favoriteCount }},
                         retweetCount: {{q.retweetCount}},
-                        tweet: "{{q.text | replace({"\n":""})}}",
+                        tweet: "{{q.text | replace({"\n":"", "\r":""})}}",
                         author: "{{q.author}}",
                         date: "{{q.twitterId}}",
                         sentiment: {{q.impression}}
