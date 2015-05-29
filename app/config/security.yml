@@ -14,7 +14,7 @@ security:
             oauth:
                 resource_owners:
                     twitter:       twitter_login
-                login_path:        /app
+                login_path:        /home
                 failure_path:      home
                 use_forward:         true
                 default_target_path: /home

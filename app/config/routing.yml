@@ -6,6 +6,8 @@ hwi_oauth_login:
     prefix:   /login
 twitter_login:
     pattern: /login/check-twitter
+twitter_connect:
+    pattern: /connect/twitter
 
 cron:
     resource: "@AppBundle/Controller/Cron"
