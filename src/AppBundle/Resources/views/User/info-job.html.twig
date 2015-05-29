@@ -1,4 +1,3 @@
-
 <!doctype>
 <html>
     <head>
@@ -37,6 +36,7 @@
         <div id="chartjs-tooltip"></div>
         {% include 'AppBundle:Templates:required-js.html.twig' %}
         <script type="text/javascript" src="{{ asset('bundles/app/js/Chart.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
         <script type="text/javascript">
           Chart.defaults.global = {
               animation: true,
@@ -134,8 +134,11 @@
              var activeLines = myLineChart.getPointsAtEvent(e); 
              
             for(i=0; i<memoryShit.length; i++){
+            	
               if (activeLines[0].label == memoryShit[i].str){
+              
                     var pathRed = Routing.generate('info_query', { id: memoryShit[i].gid });
+                    
                     window.open(pathRed);
                   }
             }

@@ -216,14 +216,14 @@ class UserSearchController extends Controller
         $twts = array();
         $n = 0;
         $scTotal = 0;
-
+	$variable = __DIR__."/app.py ";
         $data = array();
         foreach ($query->getTweet() as $t) {
             $n++;
             $data[$t->getId()] = $t->getText();
             $twts[] = $t;
             if($n % 25 == 0){
-                $result = shell_exec("C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py " . base64_encode(json_encode($data)));
+                $result = shell_exec("python ". $variable . base64_encode(json_encode($data)));
                 // var_dump($result);
                 $resultData = json_decode($result, true);
                 foreach ($twts as $t) {
@@ -236,7 +236,7 @@ class UserSearchController extends Controller
             }
         }
             if($n % 25 != 0){
-                $result = shell_exec("C:\Python27\python C:\wamp\www\\rafaton\src\AppBundle\Controller\User\app.py " . base64_encode(json_encode($data)));
+                $result = shell_exec("python ". $variable . base64_encode(json_encode($data)));
                 $resultData = json_decode($result, true);
                 foreach ($twts as $t) {
                     $sc = $resultData[$t->getId()];

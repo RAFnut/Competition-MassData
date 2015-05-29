@@ -51,6 +51,7 @@ class User
     {
         $this->query = new \Doctrine\Common\Collections\ArrayCollection();
         $this->queryJob = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setPremium(true);
     }
 
     /**
