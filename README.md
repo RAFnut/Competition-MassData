@@ -6,3 +6,5 @@ This is the winning project from the second RAF Hackathon that we developed by T
 Our technology stack included Symfony2, Python, JavaScript, Twig, jQuery and ChartJS. We also used a couple of interesting APIs, most notably the Twitter and Google Maps API.
 
 The sentiment analysis was created by improving an existing open-source project that was made with Python. We expanded the dictionary and updated the grammar.
+
+Live demo: http://mentionwiz.rafnut.com/
